@@ -14,4 +14,13 @@ public class Professor {
         // 강의 등록 로직
         CourseManager.createCourseApplication(courseApplication);
     }
+
+    public void viewCourseApplication() {
+        // 개설 강의 조회
+        CourseManager.viewCourseApplication();
+    }
+
+    public void applyDeleteCourse(int index) {
+        CourseManager.deleteCourseApplication(index);
+    }
 }
