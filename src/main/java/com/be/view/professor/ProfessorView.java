@@ -62,7 +62,7 @@ public class ProfessorView {
         System.out.println("강의계획서 : ");
         String content = scanner.nextLine();
 
-        // applycreate course를 실제로 수행하는 메서드
+        // apply Create course를 실제로 수행하는 메서드
         CourseApplication courseApplication = new CourseApplication(courseName, professorName, semester, credit, capacity, classroom, content);
         professor.applyCreateCourse(courseApplication);
 
