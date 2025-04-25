@@ -1,2 +1,4 @@
-package com.be.view;public class StudentView {
+package com.be.view.student;
+
+public class StudentView {
 }

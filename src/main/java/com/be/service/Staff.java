@@ -1,2 +1,4 @@
-package com.be.service;public class Staff {
+package com.be.service;
+
+public class Staff {
 }

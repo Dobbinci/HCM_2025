@@ -1,2 +1,5 @@
-package com.be.view;public class StaffView {
+package com.be.view.staff;
+
+
+public class StaffView {
 }

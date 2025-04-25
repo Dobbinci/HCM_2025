@@ -1,2 +1,20 @@
-package com.be.control;public class MemberManager {
+package com.be.control;
+
+import com.be.service.Professor;
+import com.be.service.Staff;
+import com.be.service.Student;
+import com.be.view.student.StudentView;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+public class MemberManager {
+
+    private static ArrayList<Student> studentList = new ArrayList<>();
+    private static ArrayList<Professor> professorList = new ArrayList<>();
+    private static ArrayList<Staff> staffList = new ArrayList<>();
+
+
+
+
 }
