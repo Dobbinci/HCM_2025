@@ -15,6 +15,10 @@ public class Professor {
         CourseManager.createCourseApplication(courseApplication);
     }
 
+    public void applyUpdateCourse(int index) {
+        CourseManager.updateCourseApplication(index);
+    }
+
     public void applyDeleteCourse(int index) {
         CourseManager.deleteCourseApplication(index);
     }

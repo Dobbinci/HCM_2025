@@ -34,7 +34,7 @@ public class ProfessorView {
                     viewCourseApplicationView();
                     break;
                 case 3:
-                    System.out.println("강의 수정");
+                    applyUpdateCourseView();
                     break;
                 case 4:
                     applyDeleteCourseView();
@@ -139,6 +139,27 @@ public class ProfessorView {
         }
     }
 
+    public void applyUpdateCourseView() {
+        System.out.println("강의 수정");
+        // 강의 수정 로직
+        Scanner scanner = new Scanner(System.in);
+        int index;
+
+        if (!CourseManager.getCourseApplications().isEmpty()) {
+            //강의 목록 조회
+            viewCourseApplicationView();
+
+            System.out.print("수정할 신청서의 번호 입력 : ");
+            index = scanner.nextInt();
+
+            //수정 요청
+            professor.applyUpdateCourse(--index);
+        } else {
+            System.out.println("신청 목록이 비어있습니다.");
+        }
+
+    }
+
     public void applyDeleteCourseView() {
         Scanner scanner = new Scanner(System.in);
         int index;
@@ -151,9 +172,9 @@ public class ProfessorView {
             index = scanner.nextInt();
 
             //삭제 요청
-            professor.applyDeleteCourse(index);
+            professor.applyDeleteCourse(--index);
         } else {
-            System.out.println("삭제할 신청서가 없습니다");
+            System.out.println("신청 목록이 비어있습니다.");
         }
     }
 }
