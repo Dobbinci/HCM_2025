@@ -3,9 +3,26 @@ package com.be.service;
 import com.be.control.CourseManager;
 import com.be.form.CourseApplication;
 
-public class Professor {
+public class Professor extends Member{
     private String name;
     private String professorId;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // professorId 필드용 getter/setter
+    public String getProfessorId() {
+        return professorId;
+    }
+
+    public void setProfessorId(String professorId) {
+        this.professorId = professorId;
+    }
 
     public void applyCreateCourse(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
         // 강의 신청 객체 생성

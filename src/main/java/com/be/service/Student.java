@@ -1,4 +1,4 @@
 package com.be.service;
 
-public class Student {
+public class Student extends Member{
 }

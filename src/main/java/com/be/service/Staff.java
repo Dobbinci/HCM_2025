@@ -1,4 +1,4 @@
 package com.be.service;
 
-public class Staff {
+public class Staff extends Member{
 }
