@@ -19,9 +19,9 @@ public class ProfessorView {
         while (true) { //로그아웃 시 home 로직이 종료될 수 있도록 수정
             System.out.println("메뉴");
             System.out.println("1. 강의 등록");
-            System.out.println("2. 강의 삭제");
-            System.out.println("3. 강의 조회");
-            System.out.println("4. 강의 수정");
+            System.out.println("2  강의 조회");
+            System.out.println("3. 강의 수정");
+            System.out.println("4. 강의 삭제");
             System.out.println("5. 로그아웃");
 
             Scanner scanner = new Scanner(System.in);
@@ -31,13 +31,13 @@ public class ProfessorView {
                     applyCreateCourseView();
                     break;
                 case 2:
-                    applyDeleteCourseView();
-                    break;
-                case 3:
                     viewCourseApplicationView();
                     break;
-                case 4:
+                case 3:
                     System.out.println("강의 수정");
+                    break;
+                case 4:
+                    applyDeleteCourseView();
                     break;
                 case 5:
                     System.out.println("로그아웃");
