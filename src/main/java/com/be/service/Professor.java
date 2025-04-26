@@ -14,4 +14,8 @@ public class Professor {
         // 강의 등록 로직
         CourseManager.createCourseApplication(courseApplication);
     }
+
+    public void applyDeleteCourse(int index) {
+        CourseManager.deleteCourseApplication(index);
+    }
 }
