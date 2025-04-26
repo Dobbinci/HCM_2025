@@ -7,12 +7,17 @@ public class Professor {
     private String name;
     private String professorId;
 
-    public void applyCreateCourse(CourseApplication courseApplication) {
-        // 강의 등록을 위한 정보
+    public void applyCreateCourse(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
+        // 강의 신청 객체 생성
+        CourseApplication courseApplication = new CourseApplication(courseName, professorName, semester, credit, capacity, classroom, content);
         // 강의 등록 유효성 검사
         CourseManager.validateCourseApplication(courseApplication);
         // 강의 등록 로직
         CourseManager.createCourseApplication(courseApplication);
+    }
+
+    public void applyUpdateCourse(int index) {
+        CourseManager.updateCourseApplication(index);
     }
 
     public void applyDeleteCourse(int index) {

@@ -3,9 +3,7 @@ package com.be.control;
 import com.be.service.Professor;
 import com.be.service.Staff;
 import com.be.service.Student;
-import com.be.view.student.StudentView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MemberManager {

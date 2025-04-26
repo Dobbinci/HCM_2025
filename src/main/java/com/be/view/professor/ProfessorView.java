@@ -19,9 +19,9 @@ public class ProfessorView {
         while (true) { //로그아웃 시 home 로직이 종료될 수 있도록 수정
             System.out.println("메뉴");
             System.out.println("1. 강의 등록");
-            System.out.println("2. 강의 삭제");
-            System.out.println("3. 강의 조회");
-            System.out.println("4. 강의 수정");
+            System.out.println("2  강의 조회");
+            System.out.println("3. 강의 수정");
+            System.out.println("4. 강의 삭제");
             System.out.println("5. 로그아웃");
 
             Scanner scanner = new Scanner(System.in);
@@ -31,19 +31,19 @@ public class ProfessorView {
                     applyCreateCourseView();
                     break;
                 case 2:
-                    applyDeleteCourseView();
-                    break;
-                case 3:
                     viewCourseApplicationView();
                     break;
+                case 3:
+                    applyUpdateCourseView();
+                    break;
                 case 4:
-                    System.out.println("강의 수정");
+                    applyDeleteCourseView();
                     break;
                 case 5:
                     System.out.println("로그아웃");
                     break;
                 default:
-                    System.out.println("잘못된 선택입니다.");
+                    System.out.println("잘못된 메뉴입니다.");
             }
             if (choice == 5) break;
         }
@@ -51,7 +51,7 @@ public class ProfessorView {
 
     public void applyCreateCourseView() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("강의 등록");
+        System.out.println(" -- 강의 등록 -- \n");
         System.out.print("강의명 : ");
         String courseName = scanner.nextLine();
         System.out.print("교수명 : ");
@@ -68,8 +68,7 @@ public class ProfessorView {
         String content = scanner.nextLine();
 
         // apply Create course를 실제로 수행하는 메서드
-        CourseApplication courseApplication = new CourseApplication(courseName, professorName, semester, credit, capacity, classroom, content);
-        professor.applyCreateCourse(courseApplication);
+        professor.applyCreateCourse(courseName, professorName, semester, credit, capacity, classroom, content);
     }
 
     public void viewCourseApplicationView() {
@@ -139,6 +138,26 @@ public class ProfessorView {
         }
     }
 
+    public void applyUpdateCourseView() {
+        // 강의 수정 로직
+        Scanner scanner = new Scanner(System.in);
+        int index;
+
+        if (!CourseManager.getCourseApplications().isEmpty()) {
+            //강의 목록 조회
+            viewCourseApplicationView();
+
+            System.out.print("수정할 신청서의 번호 입력 : ");
+            index = scanner.nextInt();
+
+            //수정 요청
+            professor.applyUpdateCourse(--index);
+        } else {
+            System.out.println("신청 목록이 비어있습니다.");
+        }
+
+    }
+
     public void applyDeleteCourseView() {
         Scanner scanner = new Scanner(System.in);
         int index;
@@ -151,9 +170,9 @@ public class ProfessorView {
             index = scanner.nextInt();
 
             //삭제 요청
-            professor.applyDeleteCourse(index);
+            professor.applyDeleteCourse(--index);
         } else {
-            System.out.println("삭제할 신청서가 없습니다");
+            System.out.println("신청 목록이 비어있습니다.");
         }
     }
 }
