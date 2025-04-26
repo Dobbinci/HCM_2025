@@ -15,23 +15,14 @@ public class MemberManager {
     private static ArrayList<Professor> professorList = new ArrayList<>();
     private static ArrayList<Staff> staffList = new ArrayList<>();
 
-
-    public Professor manageLogin(String id, String pw){
-       
-        boolean loginSuccess = false;
-        Professor loggedInProfessor = null;
-
-        while(!loginSuccess){
-            for (Professor professor : professorList) {
-                if (professor.getId().equals(id) && professor.getPassword().equals(pw)) {
-                    System.out.println("로그인 성공! 환영합니다, " + professor.getName() + " 교수님.");
-                    loginSuccess = true;
-                    loggedInProfessor = professor;
-                    break;
-                }
+    //로그인 검증하는 로직
+    public Professor manageLogin(String id, String pw){//입력받은 아이디와 비밀번호 받는다.
+        for (Professor professor : professorList) {
+            if (professor.getId().equals(id) && professor.getPassword().equals(pw)) {
+                return professor; // 로그인 성공한 교수 객체 리턴
             }
         }
-        return loggedInProfessor;
+        return null; // 로그인 실패
     }
 
 
