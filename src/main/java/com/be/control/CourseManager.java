@@ -21,7 +21,7 @@ public class CourseManager {
     public static void createCourseApplication(CourseApplication courseApplication) {
         // 강의 등록 로직
         courseApplications.add(courseApplication);
-        System.out.println("강의 등록 완료");
+        System.out.println("강의 등록 완료!\n");
     }
 
     public static void updateCourseApplication(int index) {

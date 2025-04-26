@@ -43,7 +43,7 @@ public class ProfessorView {
                     System.out.println("로그아웃");
                     break;
                 default:
-                    System.out.println("잘못된 선택입니다.");
+                    System.out.println("잘못된 메뉴입니다.");
             }
             if (choice == 5) break;
         }
@@ -51,7 +51,7 @@ public class ProfessorView {
 
     public void applyCreateCourseView() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("강의 등록");
+        System.out.println(" -- 강의 등록 -- \n");
         System.out.print("강의명 : ");
         String courseName = scanner.nextLine();
         System.out.print("교수명 : ");
@@ -68,8 +68,7 @@ public class ProfessorView {
         String content = scanner.nextLine();
 
         // apply Create course를 실제로 수행하는 메서드
-        CourseApplication courseApplication = new CourseApplication(courseName, professorName, semester, credit, capacity, classroom, content);
-        professor.applyCreateCourse(courseApplication);
+        professor.applyCreateCourse(courseName, professorName, semester, credit, capacity, classroom, content);
     }
 
     public void viewCourseApplicationView() {
@@ -140,7 +139,6 @@ public class ProfessorView {
     }
 
     public void applyUpdateCourseView() {
-        System.out.println("강의 수정");
         // 강의 수정 로직
         Scanner scanner = new Scanner(System.in);
         int index;
