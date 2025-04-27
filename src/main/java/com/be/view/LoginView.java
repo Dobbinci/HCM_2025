@@ -9,13 +9,6 @@ import com.be.service.Member;
 
 public class LoginView {
 
-    private MemberManager memberManager; // 필드로 선언
-
-    // 생성자로 memberManager 받아오기
-    public LoginView(MemberManager memberManager) {
-        this.memberManager = memberManager;
-    }
-
     public Member login() {
         Scanner scanner = new Scanner(System.in);
         Member loggedInMember = null;
@@ -32,7 +25,7 @@ public class LoginView {
                     System.out.print("PW: ");
                     String pw = scanner.nextLine();
 
-                    loggedInMember = memberManager.manageLogin(id, pw);
+                    loggedInMember = MemberManager.manageLogin(id, pw);
 
                     if (loggedInMember == null) {
                         System.out.println("로그인 실패! 아이디 또는 비밀번호가 올바르지 않습니다.\n다시 입력하세요.");
@@ -82,7 +75,7 @@ public class LoginView {
         position = scanner.nextLine();
         position=position.toLowerCase();
         if(position.equals("student")||position.equals("professor")||position.equals("staff")) {
-            if (memberManager.checkMemberRegistration(userid, position)) {
+            if (MemberManager.checkMemberRegistration(userid, position)) {
                 System.out.println("이미 가입이 되어있습니다");
             } else {
                 boolean sameidCheck = true;
@@ -93,9 +86,9 @@ public class LoginView {
                     id = scanner.nextLine();
                     System.out.println("비밀번호를 입력하세요: ");
                     password = scanner.nextLine();
-                    sameidCheck = memberManager.sameidCheck(id);
+                    sameidCheck = MemberManager.sameIdCheck(id);
                 }
-                memberManager.saveMember(id, password, name, userid, position);
+                MemberManager.saveMember(id, password, name, userid, position);
                 System.out.println(name + "님의 가입을 환영합니다.");
             }
         }
