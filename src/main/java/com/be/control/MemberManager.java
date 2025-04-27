@@ -39,7 +39,7 @@ public class MemberManager {
         return null; // 로그인 실패
     }
 
-    public boolean checkUserRegistration(String userid, String position) {
+    public boolean checkMemberRegistration(String userid, String position) {
         switch (position) {
             case "student" -> {
                 for (Student student : studentList) {
@@ -69,7 +69,7 @@ public class MemberManager {
         return false;
     }
 
-    public boolean sameidcheck(String id) {
+    public boolean sameidCheck(String id) {
         for (Professor professor : professorList) {
             if (professor.getId().equals(id)) {
                 return true;
@@ -90,7 +90,7 @@ public class MemberManager {
         return false;
     }
 
-    public void saveUser(String id, String pw, String name,String userid, String position ) {
+    public void saveMember(String id, String pw, String name,String userid, String position ) {
         switch (position) {
             case "student" -> {
                 Student s1 = new Student();

@@ -1,6 +1,6 @@
 package com.be.service;
 
-public class Member {
+public abstract class Member {
 
     private String id;
     private String password;

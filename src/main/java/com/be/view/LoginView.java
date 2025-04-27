@@ -19,14 +19,12 @@ public class LoginView {
     public Member login() {
         Scanner scanner = new Scanner(System.in);
         Member loggedInMember = null;
-        String checkwork="start";
-        SignupView signupView = new SignupView();
-
-        while(!(checkwork.equals("login") || checkwork.equals("signup"))) {
+        String checkWork="start";
+        while(!(checkWork.equals("login") || checkWork.equals("signup"))) {
             System.out.print("login or sign up?(login, signup, exit): ");
-            checkwork=scanner.nextLine();
-            checkwork = checkwork.toLowerCase();
-            if(checkwork.equals("login")) {
+            checkWork=scanner.nextLine();
+            checkWork = checkWork.toLowerCase();
+            if(checkWork.equals("login")) {
                 while (loggedInMember == null) { // 로그인 성공할 때까지 반복
                     System.out.println("아이디와 비밀번호를 입력하시오!");
                     System.out.print("ID: ");
@@ -54,11 +52,11 @@ public class LoginView {
 
                 return loggedInMember;
             }
-            else if(checkwork.equals("signup")) {
-                signupView.signup();
-                checkwork="restart";
+            else if(checkWork.equals("signup")) {
+                signup();
+                checkWork="restart";
             }
-            else if(checkwork.equals("exit")) {
+            else if(checkWork.equals("exit")) {
                 System.out.println("Bye!");
                 System.exit(0);
             }
@@ -66,6 +64,43 @@ public class LoginView {
                 System.out.println("Wrong work");
             }
         }
-        return loggedInMember;
+        return null;
+    }
+
+    public void signup() {
+
+        Scanner scanner = new Scanner(System.in);
+        String id="";
+        String password="";
+        String name="";
+        String userid="";
+        String position="";
+
+        System.out.println("학번/직번을 입력하세요");
+        userid = scanner.nextLine();
+        System.out.println("신분을 입력하세요");
+        position = scanner.nextLine();
+        position=position.toLowerCase();
+        if(position.equals("student")||position.equals("professor")||position.equals("staff")) {
+            if (memberManager.checkMemberRegistration(userid, position)) {
+                System.out.println("이미 가입이 되어있습니다");
+            } else {
+                boolean sameidCheck = true;
+                while (sameidCheck) {
+                    System.out.println("이름을 입력하세요");
+                    name = scanner.nextLine();
+                    System.out.println("ID를 입력하세요: ");
+                    id = scanner.nextLine();
+                    System.out.println("비밀번호를 입력하세요: ");
+                    password = scanner.nextLine();
+                    sameidCheck = memberManager.sameidCheck(id);
+                }
+                memberManager.saveMember(id, password, name, userid, position);
+                System.out.println(name + "님의 가입을 환영합니다.");
+            }
+        }
+        else{
+            System.out.println("잘못된 신분입니다.");
+        }
     }
 }
