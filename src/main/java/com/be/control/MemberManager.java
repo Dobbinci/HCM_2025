@@ -39,68 +39,81 @@ public class MemberManager {
         return null; // 로그인 실패
     }
 
+    public boolean checkUserRegistration(String userid, String position) {
+        switch (position) {
+            case "student" -> {
+                for (Student student : studentList) {
+                    if (student.getId().equals(userid)) {
+                        return true;
+                    }
+                }
+            }
+            case "professor" -> {
+                for (Professor professor : professorList) {
+                    if (professor.getId().equals(userid)) {
+                        return true;
+                    }
+                }
+            }
+            case "staff" -> {
+                for (Staff staff : staffList) {
+                    if (staff.getId().equals(userid)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-    //로그인 기능해보려고 만든 더미 데이터터
-    public void initDummyData() {
-        Professor p1 = new Professor();
-        p1.setId("prof1");
-        p1.setPassword("1234");
-        p1.setName("홍길동");
-        p1.setProfessorId("P001");
-        professorList.add(p1);
+    public boolean sameidcheck(String id) {
+        for (Professor professor : professorList) {
+            if (professor.getId().equals(id)) {
+                return true;
+            }
+        }
+        // 학생 리스트에서 검색
+        for (Student student : studentList) {
+            if (student.getId().equals(id)) {
+                return true;
+            }
+        }
+        // 직원 리스트에서 검색
+        for (Staff staff : staffList) {
+            if (staff.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        Professor p2 = new Professor();
-        p2.setId("prof2");
-        p2.setPassword("5678");
-        p2.setName("김철수");
-        p2.setProfessorId("P002");
-        professorList.add(p2);
+    public void saveUser(String id, String pw, String name,String userid, String position ) {
+        switch (position) {
+            case "student" -> {
+                Student s1 = new Student();
+                s1.setId(id);
+                s1.setPassword(pw);
+                s1.setName(name);
+                s1.setStudentId(userid);
+                studentList.add(s1);
+            }
+            case "professor" -> {
+                Professor p1 = new Professor();
+                p1.setId(id);
+                p1.setPassword(pw);
+                p1.setName(name);
+                p1.setProfessorId(userid);
+                professorList.add(p1);
+            }
+            case "staff" -> {
+                Staff s1 = new Staff();
+                s1.setId(id);
+                s1.setPassword(pw);
+                s1.setName(name);
+                s1.setStaffId(userid);
+                staffList.add(s1);
+            }
+        }
 
-        Professor p3 = new Professor();
-        p3.setId("prof3");
-        p3.setPassword("abcd");
-        p3.setName("이영희");
-        p3.setProfessorId("P003");
-        professorList.add(p3);
-
-        Student s1 = new Student();
-        s1.setId("student1");
-        s1.setPassword("1111");
-        s1.setName("박민수");
-        s1.setStudentId("S001");
-        studentList.add(s1);
-
-        Student s2 = new Student();
-        s2.setId("student2");
-        s2.setPassword("2222");
-        s2.setName("최지우");
-        s2.setStudentId("S002");
-        studentList.add(s2);
-
-        Student s3 = new Student();
-        s3.setId("student3");
-        s3.setPassword("3333");
-        s3.setName("장동건");
-        s3.setStudentId("S003");
-        studentList.add(s3);
-
-        // ===== 직원 더미 =====
-        Staff st1 = new Staff();
-        st1.setId("staff1");
-        st1.setPassword("aaaa");
-        st1.setName("이승기");
-        staffList.add(st1);
-
-        Staff st2 = new Staff();
-        st2.setId("staff2");
-        st2.setPassword("bbbb");
-        st2.setName("김하늘");
-        staffList.add(st2);
-
-        Staff st3 = new Staff();
-        st3.setId("staff3");
-        st3.setPassword("cccc");
-        st3.setName("정우성");
-        staffList.add(st3);
     }
 }

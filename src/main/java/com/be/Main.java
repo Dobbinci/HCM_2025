@@ -14,10 +14,6 @@ public class Main {
         CourseManager courseManager = new CourseManager();
         MemberManager memberManager = new MemberManager();
 
-        // 더미 데이터 먼저 생성
-        memberManager.initDummyData();
-
-        
         LoginView loginView = new LoginView(memberManager);
         Member loggedInMember = loginView.login(); //로그인 시도
         
