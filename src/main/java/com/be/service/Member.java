@@ -1,17 +1,15 @@
 package com.be.service;
 
-public class Member {
+public abstract class Member {
     
     private String id;
     private String password;
 
     public String getId(){
-        
         return id;
     }
 
     public String getPassword(){
-
         return password;
     }
 
