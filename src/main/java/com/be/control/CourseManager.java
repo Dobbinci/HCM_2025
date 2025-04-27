@@ -2,7 +2,6 @@ package com.be.control;
 
 import com.be.form.CourseApplication;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 

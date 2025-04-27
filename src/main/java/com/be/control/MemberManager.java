@@ -4,10 +4,6 @@ import com.be.service.Professor;
 import com.be.service.Staff;
 import com.be.service.Student;
 import com.be.service.Member;
-import com.be.view.LoginView;
-import com.be.view.student.StudentView;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MemberManager {
@@ -17,7 +13,7 @@ public class MemberManager {
     private static ArrayList<Staff> staffList = new ArrayList<>();
 
     //로그인 검증하는 로직
-    public Member manageLogin(String id, String pw) {
+    public static Member manageLogin(String id, String pw) {
         // 교수 리스트에서 검색
         for (Professor professor : professorList) {
             if (professor.getId().equals(id) && professor.getPassword().equals(pw)) {
@@ -39,7 +35,7 @@ public class MemberManager {
         return null; // 로그인 실패
     }
 
-    public boolean checkMemberRegistration(String userid, String position) {
+    public static boolean checkMemberRegistration(String userid, String position) {
         switch (position) {
             case "student" -> {
                 for (Student student : studentList) {
@@ -69,7 +65,7 @@ public class MemberManager {
         return false;
     }
 
-    public boolean sameidCheck(String id) {
+    public static boolean sameIdCheck(String id) {
         for (Professor professor : professorList) {
             if (professor.getId().equals(id)) {
                 return true;
@@ -90,7 +86,7 @@ public class MemberManager {
         return false;
     }
 
-    public void saveMember(String id, String pw, String name,String userid, String position ) {
+    public static void saveMember(String id, String pw, String name,String userid, String position ) {
         switch (position) {
             case "student" -> {
                 Student s1 = new Student();

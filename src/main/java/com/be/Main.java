@@ -11,10 +11,8 @@ import com.be.service.Member;
 
 public class Main {
     public static void main(String[] args) {
-        CourseManager courseManager = new CourseManager();
-        MemberManager memberManager = new MemberManager();
 
-        LoginView loginView = new LoginView(memberManager);
+        LoginView loginView = new LoginView();
         Member loggedInMember = loginView.login(); //로그인 시도
         
          if (loggedInMember instanceof Professor) {
