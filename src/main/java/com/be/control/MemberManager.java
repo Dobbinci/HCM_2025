@@ -44,6 +44,7 @@ public class MemberManager {
             case "student" -> {
                 for (Student student : studentList) {
                     if (student.getId().equals(userid)) {
+                        System.out.println("중복된 아이디입니다");
                         return true;
                     }
                 }
@@ -51,6 +52,7 @@ public class MemberManager {
             case "professor" -> {
                 for (Professor professor : professorList) {
                     if (professor.getId().equals(userid)) {
+                        System.out.println("중복된 아이디입니다");
                         return true;
                     }
                 }
@@ -58,6 +60,7 @@ public class MemberManager {
             case "staff" -> {
                 for (Staff staff : staffList) {
                     if (staff.getId().equals(userid)) {
+                        System.out.println("중복된 아이디입니다");
                         return true;
                     }
                 }
