@@ -1,12 +1,10 @@
 package com.be;
 
-import com.be.control.CourseManager;
-import com.be.control.MemberManager;
 import com.be.service.Professor;
 import com.be.service.Staff;
 import com.be.service.Student;
 import com.be.view.LoginView;
-import com.be.view.professor.ProfessorView;
+import com.be.view.professor.ProfessorHomeView;
 import com.be.service.Member;
 
 public class Main {
@@ -17,8 +15,8 @@ public class Main {
         
          if (loggedInMember instanceof Professor) {
             Professor professor = (Professor) loggedInMember;
-            ProfessorView professorView = new ProfessorView(professor);
-            professorView.home();
+            ProfessorHomeView professorHomeView = new ProfessorHomeView(professor);
+            professorHomeView.show();
         } else if (loggedInMember instanceof Student) {
             Student student = (Student) loggedInMember;
             // TODO: StudentView studentView = new StudentView(student);
