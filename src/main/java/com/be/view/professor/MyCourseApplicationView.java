@@ -3,20 +3,12 @@ package com.be.view.professor;
 import com.be.control.CourseManager;
 import com.be.form.CourseApplication;
 import com.be.service.Professor;
-import com.be.view.View;
 
 import java.util.ArrayList;
 
-public class MyCourseApplicationView implements View {
+public class MyCourseApplicationView {
 
-    private Professor professor;
-
-    public MyCourseApplicationView(Professor professor) {
-        this.professor = professor;
-    }
-
-    @Override
-    public void show() {
+    public static void show(Professor professor) {
         ArrayList<CourseApplication> arrayList = CourseManager.getCourseApplications();
 
         System.out.println(" -- 강의 신청서 목록 -- ");

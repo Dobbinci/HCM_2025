@@ -1,20 +1,12 @@
 package com.be.view.professor;
 
 import com.be.service.Professor;
-import com.be.view.View;
 
 import java.util.Scanner;
 
-public class CourseCreateApplicationView implements View {
+public class CourseCreateApplicationView {
 
-    private Professor professor;
-
-    public CourseCreateApplicationView(Professor professor) {
-        this.professor = professor;
-    }
-
-    @Override
-    public void show() {
+    public static void show(Professor professor) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(" -- 강의 등록 -- \n");
         System.out.print("강의명 : ");

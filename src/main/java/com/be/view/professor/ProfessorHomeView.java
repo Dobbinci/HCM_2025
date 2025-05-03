@@ -1,20 +1,12 @@
 package com.be.view.professor;
 
 import com.be.service.Professor;
-import com.be.view.View;
 
 import java.util.Scanner;
 
-public class ProfessorHomeView implements View {
+public class ProfessorHomeView {
 
-    private Professor professor;
-
-    public ProfessorHomeView(Professor professor) {
-        this.professor = professor;
-    }
-
-    @Override
-    public void show() {
+    public static void show(Professor professor) {
         while (true) { //로그아웃 시 home 로직이 종료될 수 있도록 수정
             System.out.println("메뉴");
             System.out.println("1. 강의 등록");
@@ -27,27 +19,16 @@ public class ProfessorHomeView implements View {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    CourseCreateApplicationView courseCreateApplicationView = new CourseCreateApplicationView(professor);
-                    courseCreateApplicationView.show();
+                    CourseCreateApplicationView.show(professor);
                     break;
                 case 2:
-                    MyCourseApplicationView myCourseApplicationView = new MyCourseApplicationView(professor);
-                    myCourseApplicationView.show();
+                    MyCourseApplicationView.show(professor);
                     break;
                 case 3:
-                    CourseUpdateApplicationView courseUpdateApplicationView = new CourseUpdateApplicationView(
-                            professor,
-                            new MyCourseApplicationView(professor)
-
-                    );
-                    courseUpdateApplicationView.show();
+                    CourseUpdateApplicationView.show(professor);
                     break;
                 case 4:
-                    CourseDeleteApplicationView courseDeleteApplicationView = new CourseDeleteApplicationView(
-                            professor,
-                            new MyCourseApplicationView(professor)
-                    );
-                    courseDeleteApplicationView.show();
+                    CourseDeleteApplicationView.show(professor);
                     break;
                 case 5:
                     System.out.println("로그아웃");

@@ -13,10 +13,8 @@ public class Main {
         LoginView loginView = new LoginView();
         Member loggedInMember = loginView.login(); //로그인 시도
         
-         if (loggedInMember instanceof Professor) {
-            Professor professor = (Professor) loggedInMember;
-            ProfessorHomeView professorHomeView = new ProfessorHomeView(professor);
-            professorHomeView.show();
+         if (loggedInMember instanceof Professor professor) {
+             ProfessorHomeView.show(professor);
         } else if (loggedInMember instanceof Student) {
             Student student = (Student) loggedInMember;
             // TODO: StudentView studentView = new StudentView(student);

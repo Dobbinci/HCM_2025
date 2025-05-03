@@ -2,28 +2,18 @@ package com.be.view.professor;
 
 import com.be.control.CourseManager;
 import com.be.service.Professor;
-import com.be.view.View;
 
 import java.util.Scanner;
 
-public class CourseDeleteApplicationView implements View {
+public class CourseDeleteApplicationView {
 
-    private Professor professor;
-    private MyCourseApplicationView myCourseApplicationView;
-
-    public CourseDeleteApplicationView(Professor professor, MyCourseApplicationView myCourseApplicationView) {
-        this.professor = professor;
-        this.myCourseApplicationView = myCourseApplicationView;
-    }
-
-    @Override
-    public void show() {
+    public static void show(Professor professor) {
         Scanner scanner = new Scanner(System.in);
         int index;
 
         if (!CourseManager.getCourseApplications().isEmpty()) {
             //강의 목록 조회
-            myCourseApplicationView.show();
+            MyCourseApplicationView.show(professor);
 
             System.out.print("삭제할 신청서의 번호 입력 : ");
             index = scanner.nextInt();
