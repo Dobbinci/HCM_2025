@@ -2,13 +2,14 @@ package com.be.view.professor;
 
 import com.be.control.CourseManager;
 import com.be.form.CourseApplication;
+import com.be.service.Member;
 import com.be.service.Professor;
 
 import java.util.ArrayList;
 
 public class MyCourseApplicationView {
 
-    public static void show(Professor professor) {
+    public static void show(Member member) {
         ArrayList<CourseApplication> arrayList = CourseManager.getCourseApplications();
 
         System.out.println(" -- 강의 신청서 목록 -- ");
