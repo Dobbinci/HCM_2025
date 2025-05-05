@@ -7,47 +7,51 @@ import java.util.Scanner;
 import com.be.control.StaffController;
 import com.be.service.Member;
 import com.be.service.Staff;
+import com.be.view.professor.ProfessorMenuContext;
+import com.be.view.professor.applicationViewStrategy.ApplicationViewStrategy;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class StaffHomeView {
-    
     public static void show(Staff staff) {
-        MemberInfoView memberInfoView = new MemberInfoView();
-        MemberInfoUpdateView memberInfoUpdateView = new MemberInfoUpdateView();
+        String[] menuItems = {
+                "1. 강의 생성",
+                "2. 강의 개설 신청서 목록 확인",
+                "3. 강의 수정",
+                "4. 강의 삭제",
+                "5. 유저 정보 관리",
+                "6. 로그아웃"
+        };
+
+        Scanner scanner = new Scanner(System.in);
 
         while (true) { //로그아웃 시 home 로직이 종료될 수 있도록 수정
             System.out.println("메뉴");
-            System.out.println("1. 사용자 전체 조회");
-            System.out.println("2. 교수 조회");
-            System.out.println("3. 학생 조회");
-            System.out.println("4. 직원 조회");
-            System.out.println("5. 사용자 정보 수정");
-            System.out.println("6. 로그아웃");
-
-            Scanner scanner = new Scanner(System.in);
+            for (String items : menuItems) {
+                System.out.println(items);
+            }
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    memberInfoView.showAllMembers();
+                    CourseCreateView.show(staff);
                     break;
                 case 2:
-                    memberInfoView.showProfessor();
                     break;
                 case 3:
-                    memberInfoView.showStudent();
+                    CourseUpdateView.show(staff);
                     break;
                 case 4:
-                    memberInfoView.showStaff();
                     break;
                 case 5:
-                    memberInfoUpdateView.show();
+                    MemberManagerView.show(staff);
                     break;
-                case 6:
-                    System.out.println("로그아웃");
-                    break;
-                default:
-                    System.out.println("잘못된 메뉴입니다.");
             }
-            if (choice == 6) break;
+            if (choice == 6) {
+                break;
+            }
         }
     }
 }
+

@@ -3,7 +3,6 @@ package com.be;
 import com.be.service.Professor;
 import com.be.service.Staff;
 import com.be.service.Student;
-import com.be.view.CourseApplicationViewStrategy;
 import com.be.view.LoginView;
 import com.be.view.professor.ProfCourseApplicationViewStrategy;
 import com.be.view.professor.ProfessorHomeView;

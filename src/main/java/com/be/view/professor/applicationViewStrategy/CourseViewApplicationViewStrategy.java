@@ -1,4 +1,4 @@
-package com.be.view.professor;
+package com.be.view.professor.applicationViewStrategy;
 
 import com.be.control.CourseManager;
 import com.be.form.CourseApplication;
@@ -7,9 +7,9 @@ import com.be.service.Professor;
 
 import java.util.ArrayList;
 
-public class MyCourseApplicationView {
+public class CourseViewApplicationViewStrategy implements ApplicationViewStrategy {
 
-    public void show(Member member) {
+    public void show(Professor professor) {
         CourseManager manager = CourseManager.getInstance();
         ArrayList<CourseApplication> arrayList = manager.getCourseApplications();
 

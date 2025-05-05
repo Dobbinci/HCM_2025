@@ -1,4 +1,4 @@
-package com.be.view.professor;
+package com.be.view.professor.applicationViewStrategy;
 
 import com.be.service.Member;
 import com.be.service.Professor;
@@ -6,7 +6,7 @@ import com.be.view.View;
 
 import java.util.Scanner;
 
-public class CourseCreateApplicationView {
+public class CourseCreateApplicationViewStrategy implements ApplicationViewStrategy {
 
     public void show(Professor professor) {
         Scanner scanner = new Scanner(System.in);
