@@ -1,12 +1,14 @@
 package com.be.view.professor;
 
+import com.be.service.Member;
 import com.be.service.Professor;
+import com.be.view.View;
 
 import java.util.Scanner;
 
 public class CourseCreateApplicationView {
 
-    public static void show(Professor professor) {
+    public void show(Professor professor) {
         Scanner scanner = new Scanner(System.in);
         System.out.println(" -- 강의 등록 -- \n");
         System.out.print("강의명 : ");

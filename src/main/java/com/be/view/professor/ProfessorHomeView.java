@@ -1,12 +1,19 @@
 package com.be.view.professor;
 
 import com.be.service.Professor;
+import com.be.view.CourseApplicationViewStrategy;
 
 import java.util.Scanner;
 
 public class ProfessorHomeView {
 
-    public static void show(Professor professor) {
+    private CourseApplicationViewStrategy profCourseApplicationViewStrategy;
+
+    public ProfessorHomeView(CourseApplicationViewStrategy profCourseApplicationViewStrategy) {
+        this.profCourseApplicationViewStrategy = profCourseApplicationViewStrategy;
+    }
+
+    public void show(Professor professor) {
         while (true) { //로그아웃 시 home 로직이 종료될 수 있도록 수정
             System.out.println("메뉴");
             System.out.println("1. 강의 등록");
@@ -19,16 +26,19 @@ public class ProfessorHomeView {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    CourseCreateApplicationView.show(professor);
+                    CourseCreateApplicationView courseCreateApplicationView = new CourseCreateApplicationView();
+                    courseCreateApplicationView.show(professor);
                     break;
                 case 2:
-                    MyCourseApplicationView.show(professor);
+                    MyCourseApplicationView myCourseApplicationView = new MyCourseApplicationView();
+                    myCourseApplicationView.show(professor);
                     break;
                 case 3:
-                    CourseUpdateApplicationView.show(professor);
+                    profCourseApplicationViewStrategy.show(professor);
                     break;
                 case 4:
-                    CourseDeleteApplicationView.show(professor);
+                    CourseDeleteApplicationView courseDeleteApplicationView = new CourseDeleteApplicationView();
+                    courseDeleteApplicationView.show(professor);
                     break;
                 case 5:
                     System.out.println("로그아웃");
