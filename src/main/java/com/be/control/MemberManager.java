@@ -5,15 +5,26 @@ import com.be.service.Staff;
 import com.be.service.Student;
 import com.be.service.Member;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MemberManager {
 
-    private static ArrayList<Student> studentList = new ArrayList<>();
-    private static ArrayList<Professor> professorList = new ArrayList<>();
-    private static ArrayList<Staff> staffList = new ArrayList<>();
+    private static final MemberManager instance = new MemberManager();
+
+    private ArrayList<Student> studentList = new ArrayList<>();
+    private ArrayList<Professor> professorList = new ArrayList<>();
+    private ArrayList<Staff> staffList = new ArrayList<>();
+
+    private MemberManager(){
+
+    }
+
+    public static MemberManager getInstance(){
+        return instance;
+    }
 
     //로그인 검증하는 로직
-    public static Member manageLogin(String id, String pw) {
+    public Member manageLogin(String id, String pw) {
         // 교수 리스트에서 검색
         for (Professor professor : professorList) {
             if (professor.getId().equals(id) && professor.getPassword().equals(pw)) {
@@ -35,7 +46,7 @@ public class MemberManager {
         return null; // 로그인 실패
     }
 
-    public static boolean checkMemberRegistration(String userid, String position) {
+    public boolean checkMemberRegistration(String userid, String position) {
         switch (position) {
             case "student" -> {
                 for (Student student : studentList) {
@@ -65,7 +76,7 @@ public class MemberManager {
         return false;
     }
 
-    public static boolean sameIdCheck(String id) {
+    public boolean sameIdCheck(String id) {
         for (Professor professor : professorList) {
             if (professor.getId().equals(id)) {
                 return true;
@@ -86,7 +97,7 @@ public class MemberManager {
         return false;
     }
 
-    public static void saveMember(String id, String pw, String name,String userid, String position ) {
+    public void saveMember(String id, String pw, String name,String userid, String position ) {
         switch (position) {
             case "student" -> {
                 Student s1 = new Student();
@@ -94,6 +105,7 @@ public class MemberManager {
                 s1.setPassword(pw);
                 s1.setName(name);
                 s1.setStudentId(userid);
+                s1.setPosition(position);
                 studentList.add(s1);
             }
             case "professor" -> {
@@ -102,6 +114,7 @@ public class MemberManager {
                 p1.setPassword(pw);
                 p1.setName(name);
                 p1.setProfessorId(userid);
+                p1.setPosition(position);
                 professorList.add(p1);
             }
             case "staff" -> {
@@ -110,9 +123,39 @@ public class MemberManager {
                 s1.setPassword(pw);
                 s1.setName(name);
                 s1.setStaffId(userid);
+                s1.setPosition(position);
                 staffList.add(s1);
             }
         }
 
     }
+    public List<Member> getAllMembers() {
+        List<Member> allMembers = new ArrayList<>();
+        allMembers.addAll(studentList);
+        allMembers.addAll(professorList);
+        allMembers.addAll(staffList);
+        return allMembers;
+    }
+    
+    public List<Member> getProfessors() {
+        List<Member> allMembers = new ArrayList<>();
+        allMembers.addAll(professorList);
+       
+        return allMembers;
+    }
+
+    public List<Member> getStudents() {
+        List<Member> allMembers = new ArrayList<>();
+        allMembers.addAll(studentList);
+       
+        return allMembers;
+    }
+
+    public List<Member> getStaffs() {
+        List<Member> allMembers = new ArrayList<>();
+        allMembers.addAll(staffList);
+       
+        return allMembers;
+    }
 }
+//싱글턴으로 바꿈

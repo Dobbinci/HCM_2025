@@ -11,7 +11,8 @@ public class ProfCourseApplicationViewStrategy implements CourseApplicationViewS
 
     @Override
     public void show(Member member) {
-        ArrayList<CourseApplication> arrayList = CourseManager.getCourseApplications();
+        CourseManager manager = CourseManager.getInstance();
+        ArrayList<CourseApplication> arrayList = manager.getCourseApplications();
         System.out.println(" -- 강의 신청서 목록 -- ");
         //강의 목록 반환 로직
         if (!arrayList.isEmpty()) {

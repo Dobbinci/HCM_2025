@@ -7,23 +7,32 @@ import java.util.Scanner;
 
 public class CourseManager {
 
-    private static ArrayList<CourseApplication> courseApplications = new ArrayList<>();
+    private static final CourseManager instance = new CourseManager();
+    private final ArrayList<CourseApplication> courseApplications;
 
-    public static ArrayList<CourseApplication> getCourseApplications() {
+    private CourseManager(){
+        courseApplications = new ArrayList<>();
+    }
+
+    public static CourseManager getInstance(){
+        return instance;
+    }
+
+    public ArrayList<CourseApplication> getCourseApplications() {
         return courseApplications;
     }
 
-    public static void validateCourseApplication(CourseApplication courseApplication) {
+    public void validateCourseApplication(CourseApplication courseApplication) {
         // 점검 로직
     }
 
-    public static void createCourseApplication(CourseApplication courseApplication) {
+    public void createCourseApplication(CourseApplication courseApplication) {
         // 강의 등록 로직
         courseApplications.add(courseApplication);
         System.out.println("강의 등록 완료!\n");
     }
 
-    public static void updateCourseApplication(int index) {
+    public void updateCourseApplication(int index) {
         // 수정 로직
         if (!courseApplications.isEmpty()) {
             if (index >= 0 && index < courseApplications.size()) {
@@ -56,7 +65,7 @@ public class CourseManager {
         }
     }
 
-    public static void deleteCourseApplication(int index) {
+    public void deleteCourseApplication(int index) {
         // 삭제 로직
         if (!courseApplications.isEmpty()) {
             if (index >= 0 && index < courseApplications.size()) {
