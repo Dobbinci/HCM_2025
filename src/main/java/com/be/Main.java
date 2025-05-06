@@ -3,7 +3,9 @@ package com.be;
 import com.be.service.Professor;
 import com.be.service.Staff;
 import com.be.service.Student;
+import com.be.view.CourseApplicationViewStrategy;
 import com.be.view.LoginView;
+import com.be.view.professor.ProfCourseApplicationViewStrategy;
 import com.be.view.professor.ProfessorHomeView;
 import com.be.view.staff.StaffHomeView;
 import com.be.service.Member;
@@ -16,7 +18,8 @@ public class Main {
         Member loggedInMember = loginView.loginOrSignupFlow(); //로그인 시도
         
          if (loggedInMember instanceof Professor professor) {
-             ProfessorHomeView.show(professor);
+             ProfessorHomeView professorHomeView = new ProfessorHomeView(new ProfCourseApplicationViewStrategy());
+             professorHomeView.show(professor);
         } else if (loggedInMember instanceof Student) {
             Student student = (Student) loggedInMember;
             // TODO: StudentView studentView = new StudentView(student);

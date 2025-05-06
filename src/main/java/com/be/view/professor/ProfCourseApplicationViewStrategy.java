@@ -3,16 +3,16 @@ package com.be.view.professor;
 import com.be.control.CourseManager;
 import com.be.form.CourseApplication;
 import com.be.service.Member;
-import com.be.service.Professor;
+import com.be.view.CourseApplicationViewStrategy;
 
 import java.util.ArrayList;
 
-public class MyCourseApplicationView {
+public class ProfCourseApplicationViewStrategy implements CourseApplicationViewStrategy {
 
+    @Override
     public void show(Member member) {
         CourseManager manager = CourseManager.getInstance();
         ArrayList<CourseApplication> arrayList = manager.getCourseApplications();
-
         System.out.println(" -- 강의 신청서 목록 -- ");
         //강의 목록 반환 로직
         if (!arrayList.isEmpty()) {
