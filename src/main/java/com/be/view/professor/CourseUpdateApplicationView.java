@@ -11,8 +11,8 @@ public class CourseUpdateApplicationView {
         // 강의 수정 로직
         Scanner scanner = new Scanner(System.in);
         int index;
-
-        if (!CourseManager.getCourseApplications().isEmpty()) {
+        CourseManager manager = CourseManager.getInstance();
+        if (!manager.getCourseApplications().isEmpty()) {
             //강의 목록 조회
             MyCourseApplicationView.show(professor);
 

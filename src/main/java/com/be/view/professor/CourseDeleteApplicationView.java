@@ -10,8 +10,8 @@ public class CourseDeleteApplicationView {
     public static void show(Professor professor) {
         Scanner scanner = new Scanner(System.in);
         int index;
-
-        if (!CourseManager.getCourseApplications().isEmpty()) {
+        CourseManager manager = CourseManager.getInstance();
+        if (!manager.getCourseApplications().isEmpty()) {
             //강의 목록 조회
             MyCourseApplicationView.show(professor);
 
