@@ -50,24 +50,21 @@ public class MemberManager {
         switch (position) {
             case "student" -> {
                 for (Student student : studentList) {
-                    if (student.getId().equals(userid)) {
-                        System.out.println("중복된 아이디입니다");
+                    if (student.getStudentId().equals(userid)) {
                         return true;
                     }
                 }
             }
             case "professor" -> {
                 for (Professor professor : professorList) {
-                    if (professor.getId().equals(userid)) {
-                        System.out.println("중복된 아이디입니다");
+                    if (professor.getProfessorId().equals(userid)) {
                         return true;
                     }
                 }
             }
             case "staff" -> {
                 for (Staff staff : staffList) {
-                    if (staff.getId().equals(userid)) {
-                        System.out.println("중복된 아이디입니다");
+                    if (staff.getStaffId().equals(userid)) {
                         return true;
                     }
                 }
@@ -79,18 +76,21 @@ public class MemberManager {
     public boolean sameIdCheck(String id) {
         for (Professor professor : professorList) {
             if (professor.getId().equals(id)) {
+                System.out.println("사용중인 ID입니다.");
                 return true;
             }
         }
         // 학생 리스트에서 검색
         for (Student student : studentList) {
             if (student.getId().equals(id)) {
+                System.out.println("사용중인 ID입니다.");
                 return true;
             }
         }
         // 직원 리스트에서 검색
         for (Staff staff : staffList) {
             if (staff.getId().equals(id)) {
+                System.out.println("사용중인 ID입니다.");
                 return true;
             }
         }

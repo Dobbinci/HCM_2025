@@ -1,5 +1,6 @@
 package com.be.view;
 
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import com.be.service.Member;
 
@@ -10,18 +11,19 @@ public abstract class TemplateLoginView {
     public final Member loginOrSignupFlow() {
         String checkWork = "";
 
-        while (!(checkWork.equals("login") || checkWork.equals("signup") || checkWork.equals("exit"))) {
-            System.out.print("login or sign up?(login, signup, exit): ");
-            checkWork = scanner.nextLine().toLowerCase();
+        while (!(checkWork.equals("1") || checkWork.equals("2") || checkWork.equals("3"))) {
+            System.out.print("Welcome to Handong Course Management System!\n" +
+                    "What would you do?\n1. Login\n2. Sign up\n3. Exit\n");
+            checkWork = scanner.nextLine();
 
             switch (checkWork) {
-                case "login":
+                case "1": //login
                     return login();
-                case "signup":
+                case "2": //signup
                     signup();
                     checkWork = "restart"; // 루프 계속
                     break;
-                case "exit":
+                case "3": //exit
                     System.out.println("Bye!");
                     System.exit(0);
                 default:
