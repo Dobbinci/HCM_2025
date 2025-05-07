@@ -44,8 +44,18 @@ public class LoginView extends TemplateLoginView {
 
         System.out.println("학번/직번을 입력하세요");
         userid = scanner.nextLine();
-        System.out.println("신분을 입력하세요");
-        position = scanner.nextLine().toLowerCase();
+        System.out.println("신분을 입력하세요\n1.professor\n2.student\n3.staff");
+        position = scanner.nextLine();
+        if (position.equals("1")) {
+            position = "professor";
+        } else if (position.equals("2")) {
+            position = "student";
+        } else if (position.equals("3")) {
+            position = "staff";
+        }
+        else{
+            System.out.println("잘못된 신분입니다.");
+        }
 
         if (position.equals("student") || position.equals("professor") || position.equals("staff")) {
             if (manager.checkMemberRegistration(userid, position)) {
@@ -64,8 +74,6 @@ public class LoginView extends TemplateLoginView {
                 manager.saveMember(id, password, name, userid, position);
                 System.out.println(name + "님의 가입을 환영합니다.");
             }
-        } else {
-            System.out.println("잘못된 신분입니다.");
         }
     }
 }
