@@ -1,13 +1,11 @@
-package com.be.view.staff;
+package com.be.view.staff.memberManage;
 
-import com.be.control.MemberManager;
 import com.be.control.StaffController;
 import com.be.service.Member;
 import com.be.service.Professor;
 import com.be.service.Staff;
 import com.be.service.Student;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class MemberInfoUpdateView {

@@ -1,4 +1,4 @@
-package com.be.view.staff;
+package com.be.view.staff.memberManage;
 
 import java.util.List;
 import com.be.service.Member;

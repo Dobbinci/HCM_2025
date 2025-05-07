@@ -1,5 +1,6 @@
 package com.be.control;
 
+import com.be.form.Course;
 import com.be.form.CourseApplication;
 
 import java.util.ArrayList;
@@ -9,11 +10,9 @@ public class CourseManager {
 
     private static final CourseManager instance = new CourseManager();
     private final ArrayList<CourseApplication> courseApplications;
-
     private CourseManager(){
         courseApplications = new ArrayList<>();
     }
-
     public static CourseManager getInstance(){
         return instance;
     }
@@ -22,7 +21,10 @@ public class CourseManager {
         return courseApplications;
     }
 
-    public void validateCourseApplication(CourseApplication courseApplication) {
+    private static ArrayList<Course> courseList = new ArrayList<>();//개설된 강의 보관
+    public ArrayList<Course> getCourseList() {return courseList;}
+
+    public static void validateCourseApplication(CourseApplication courseApplication) {
         // 점검 로직
     }
 
