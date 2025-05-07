@@ -1,19 +1,13 @@
 package com.be.view.professor;
 
 import com.be.service.Professor;
-import com.be.view.CourseApplicationViewStrategy;
+import com.be.view.LoginView;
 import com.be.view.professor.applicationViewStrategy.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ProfessorHomeView {
-
-//    private CourseApplicationViewStrategy profCourseApplicationViewStrategy;
-//
-//    public ProfessorHomeView(CourseApplicationViewStrategy profCourseApplicationViewStrategy) {
-//        this.profCourseApplicationViewStrategy = profCourseApplicationViewStrategy;
-//    }
 
     public static void show(Professor professor) {
         String[] menuItems = {
@@ -25,7 +19,7 @@ public class ProfessorHomeView {
         };
         Map<Integer, ApplicationViewStrategy> strategyMap = new HashMap<>();
         strategyMap.put(1, new CourseCreateApplicationViewStrategy());
-        strategyMap.put(2, new CourseViewApplicationViewStrategy());
+        strategyMap.put(2,  new ProfCourseApplicationViewStrategy());
         strategyMap.put(3, new CourseUpdateApplicationViewStrategy());
         strategyMap.put(4, new CourseDeleteApplicationViewStrategy());
 

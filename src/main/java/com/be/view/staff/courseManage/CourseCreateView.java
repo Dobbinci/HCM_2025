@@ -1,20 +1,16 @@
-package com.be.view.staff;
+package com.be.view.staff.courseManage;
 
-import com.be.control.CourseManager;
-import com.be.form.Course;
-import com.be.form.CourseApplication;
-import com.be.service.Professor;
 import com.be.service.Staff;
-import com.be.view.professor.applicationViewStrategy.ApplicationViewStrategy;
+import com.be.view.staff.StaffCourseApplicationViewStrategy;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CourseCreateView {
     public static void show(Staff staff) {
-        // 조회 로직
-        //...
-
+        //조회 로직
+        StaffCourseApplicationViewStrategy staffCourseApplicationViewStrategy = new StaffCourseApplicationViewStrategy();
+        staffCourseApplicationViewStrategy.show(staff);
+    
         System.out.println("생성할 강의 선택 : ");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();

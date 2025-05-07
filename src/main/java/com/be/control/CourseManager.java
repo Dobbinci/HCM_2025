@@ -22,7 +22,7 @@ public class CourseManager {
     }
 
     private static ArrayList<Course> courseList = new ArrayList<>();//개설된 강의 보관
-    public static ArrayList<Course> getCourseList() {return courseList;}
+    public ArrayList<Course> getCourseList() {return courseList;}
 
     public static void validateCourseApplication(CourseApplication courseApplication) {
         // 점검 로직
