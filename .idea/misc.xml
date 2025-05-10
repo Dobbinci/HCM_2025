@@ -4,12 +4,11 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
-<<<<<<< HEAD
-=======
+
   <component name="PWA">
     <option name="wasEnabledAtLeastOnce" value="true" />
   </component>
->>>>>>> df44d92 (SiYoung: design 패턴 추가 및 staff create, update 추가)
+
   <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
