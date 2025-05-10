@@ -1,5 +1,6 @@
 package com.be.control;
 
+import com.be.form.Course;
 import com.be.form.CourseApplication;
 
 import java.util.ArrayList;
@@ -7,23 +8,33 @@ import java.util.Scanner;
 
 public class CourseManager {
 
-    private static ArrayList<CourseApplication> courseApplications = new ArrayList<>();
+    private static final CourseManager instance = new CourseManager();
+    private final ArrayList<CourseApplication> courseApplications;
+    private CourseManager(){
+        courseApplications = new ArrayList<>();
+    }
+    public static CourseManager getInstance(){
+        return instance;
+    }
 
-    public static ArrayList<CourseApplication> getCourseApplications() {
+    public ArrayList<CourseApplication> getCourseApplications() {
         return courseApplications;
     }
+
+    private static ArrayList<Course> courseList = new ArrayList<>();//개설된 강의 보관
+    public ArrayList<Course> getCourseList() {return courseList;}
 
     public static void validateCourseApplication(CourseApplication courseApplication) {
         // 점검 로직
     }
 
-    public static void createCourseApplication(CourseApplication courseApplication) {
+    public void createCourseApplication(CourseApplication courseApplication) {
         // 강의 등록 로직
         courseApplications.add(courseApplication);
         System.out.println("강의 등록 완료!\n");
     }
 
-    public static void updateCourseApplication(int index) {
+    public void updateCourseApplication(int index) {
         // 수정 로직
         if (!courseApplications.isEmpty()) {
             if (index >= 0 && index < courseApplications.size()) {
@@ -56,7 +67,7 @@ public class CourseManager {
         }
     }
 
-    public static void deleteCourseApplication(int index) {
+    public void deleteCourseApplication(int index) {
         // 삭제 로직
         if (!courseApplications.isEmpty()) {
             if (index >= 0 && index < courseApplications.size()) {

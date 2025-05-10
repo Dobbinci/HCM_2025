@@ -4,16 +4,7 @@ import com.be.control.CourseManager;
 import com.be.form.CourseApplication;
 
 public class Professor extends Member{
-    private String name;
     private String professorId;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     // professorId 필드용 getter/setter
     public String getProfessorId() {
@@ -28,16 +19,16 @@ public class Professor extends Member{
         // 강의 신청 객체 생성
         CourseApplication courseApplication = new CourseApplication(courseName, professorName, semester, credit, capacity, classroom, content);
         // 강의 등록 유효성 검사
-        CourseManager.validateCourseApplication(courseApplication);
+        CourseManager.getInstance().validateCourseApplication(courseApplication);
         // 강의 등록 로직
-        CourseManager.createCourseApplication(courseApplication);
+        CourseManager.getInstance().createCourseApplication(courseApplication);
     }
 
     public void applyUpdateCourse(int index) {
-        CourseManager.updateCourseApplication(index);
+        CourseManager.getInstance().updateCourseApplication(index);
     }
 
     public void applyDeleteCourse(int index) {
-        CourseManager.deleteCourseApplication(index);
+        CourseManager.getInstance().deleteCourseApplication(index);
     }
 }

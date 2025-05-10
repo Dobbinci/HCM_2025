@@ -1,4 +1,4 @@
-package com.be.view.professor;
+package com.be.view.professor.applicationViewStrategy;
 
 import com.be.service.Member;
 import com.be.service.Professor;
@@ -6,10 +6,12 @@ import com.be.view.View;
 
 import java.util.Scanner;
 
-public class CourseCreateApplicationView {
+public class CourseCreateApplicationViewStrategy implements ApplicationViewStrategy {
 
-    public void show(Professor professor) {
+    public void show(Member member) {
         Scanner scanner = new Scanner(System.in);
+        Professor professor = (Professor) member;
+
         System.out.println(" -- 강의 등록 -- \n");
         System.out.print("강의명 : ");
         String courseName = scanner.nextLine();
