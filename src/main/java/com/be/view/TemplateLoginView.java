@@ -1,8 +1,7 @@
 package com.be.view;
 
-import java.lang.reflect.Array;
 import java.util.Scanner;
-import com.be.service.Member;
+import com.be.model.Member;
 
 public abstract class TemplateLoginView {
 

@@ -1,9 +1,11 @@
 package com.be.service;
 
 import com.be.control.CourseManager;
-import com.be.form.CourseApplication;
+import com.be.model.CourseApplication;
+import com.be.model.Member;
+import jakarta.persistence.Entity;
 
-public class Professor extends Member{
+public class ProfessorService {
     private String professorId;
 
     // professorId 필드용 getter/setter

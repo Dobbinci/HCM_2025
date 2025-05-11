@@ -3,14 +3,21 @@ package com.be.view.staff;
 
 import java.util.Scanner;
 
-import com.be.service.Staff;
+import com.be.model.Staff;
 import com.be.view.staff.courseManage.CourseCreateView;
 import com.be.view.staff.courseManage.CourseUpdateView;
 import com.be.view.staff.courseManage.CreatedCourseView;
 import com.be.view.staff.memberManage.MemberManagerView;
+import jakarta.persistence.EntityManager;
 
 public class StaffHomeView {
-    public static void show(Staff staff) {
+    private final EntityManager em;
+
+    public StaffHomeView(EntityManager em) {
+        this.em = em;
+    }
+
+    public void show(Staff staff) {
         String[] menuItems = {
                 "1. 강의 생성",
                 "2. 강의 수정",
@@ -21,7 +28,7 @@ public class StaffHomeView {
         };
 
         Scanner scanner = new Scanner(System.in);
-        CreatedCourseView createdCourseView = new CreatedCourseView();
+        CreatedCourseView createdCourseView = new CreatedCourseView(em);
         StaffCourseApplicationViewStrategy staffCourseApplicationViewStrategy = new StaffCourseApplicationViewStrategy();
 
         while (true) { //로그아웃 시 home 로직이 종료될 수 있도록 수정
@@ -32,7 +39,8 @@ public class StaffHomeView {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    CourseCreateView.show(staff);
+                    CourseCreateView courseCreateView = new CourseCreateView(em);
+                    courseCreateView.show(staff);
                     break;
                 case 2:
                     CourseUpdateView.show(staff);

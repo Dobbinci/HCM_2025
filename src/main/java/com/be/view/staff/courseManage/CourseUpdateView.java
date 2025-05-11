@@ -1,6 +1,6 @@
 package com.be.view.staff.courseManage;
 
-import com.be.service.Staff;
+import com.be.model.Staff;
 
 import java.util.Scanner;
 

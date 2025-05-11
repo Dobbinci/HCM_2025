@@ -1,9 +1,9 @@
 package com.be.view.staff.memberManage;
 
-import com.be.control.StaffController;
-import com.be.service.Member;
+import com.be.controller.StaffController;
+import com.be.model.Member;
 import com.be.service.Professor;
-import com.be.service.Staff;
+import com.be.model.Staff;
 import com.be.service.Student;
 
 import java.util.Scanner;

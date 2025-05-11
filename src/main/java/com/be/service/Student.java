@@ -1,6 +1,8 @@
 package com.be.service;
 
-public class Student extends Member{
+import com.be.model.Member;
+
+public class Student extends Member {
     private String studentId;
 
     // professorId 필드용 getter/setter

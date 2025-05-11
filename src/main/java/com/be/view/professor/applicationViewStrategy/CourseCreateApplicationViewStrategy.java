@@ -1,8 +1,7 @@
 package com.be.view.professor.applicationViewStrategy;
 
-import com.be.service.Member;
+import com.be.model.Member;
 import com.be.service.Professor;
-import com.be.view.View;
 
 import java.util.Scanner;
 
