@@ -1,7 +1,7 @@
 package com.be.control;
 
-import com.be.form.Course;
-import com.be.form.CourseApplication;
+import com.be.model.Course;
+import com.be.model.CourseApplication;
 
 import java.util.ArrayList;
 import java.util.Scanner;

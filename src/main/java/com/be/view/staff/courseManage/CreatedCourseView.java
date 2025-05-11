@@ -1,13 +1,19 @@
 package com.be.view.staff.courseManage;
 
 import com.be.control.CourseManager;
-import com.be.form.Course;
-import com.be.form.CourseApplication;
-import com.be.service.Member;
+import com.be.model.Course;
+import com.be.model.Member;
+import jakarta.persistence.EntityManager;
 
 import java.util.ArrayList;
 
 public class CreatedCourseView {
+    private final EntityManager em;
+
+    public CreatedCourseView(EntityManager em) {
+        this.em = em;
+    }
+
     public void show(Member member) {
         CourseManager manager = CourseManager.getInstance();
         ArrayList<Course> arrayList = manager.getCourseList();

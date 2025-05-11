@@ -1,9 +1,8 @@
 package com.be.view.professor;
 
 import com.be.control.CourseManager;
-import com.be.form.CourseApplication;
-import com.be.service.Member;
-import com.be.view.CourseApplicationViewStrategy;
+import com.be.model.CourseApplication;
+import com.be.model.Member;
 import com.be.view.professor.applicationViewStrategy.ApplicationViewStrategy;
 
 import java.util.ArrayList;

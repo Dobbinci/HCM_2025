@@ -1,4 +1,4 @@
-package com.be.service;
+package com.be.model;
 
 public abstract class Member {
 

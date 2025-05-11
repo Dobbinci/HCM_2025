@@ -1,11 +1,11 @@
 package com.be.view.staff.memberManage;
 
 import java.util.List;
-import com.be.service.Member;
+import com.be.model.Member;
 import com.be.service.Professor;
-import com.be.service.Staff;
+import com.be.model.Staff;
 import com.be.service.Student;
-import com.be.control.StaffController;
+import com.be.controller.StaffController;
 
 public class MemberInfoView {
     private final StaffController controller = new StaffController();

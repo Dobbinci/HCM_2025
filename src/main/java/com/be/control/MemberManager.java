@@ -1,9 +1,9 @@
 package com.be.control;
 
 import com.be.service.Professor;
-import com.be.service.Staff;
+import com.be.model.Staff;
 import com.be.service.Student;
-import com.be.service.Member;
+import com.be.model.Member;
 import java.util.ArrayList;
 import java.util.List;
 

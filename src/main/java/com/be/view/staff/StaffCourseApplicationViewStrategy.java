@@ -1,18 +1,28 @@
 package com.be.view.staff;
 
 import com.be.control.CourseManager;
-import com.be.form.CourseApplication;
-import com.be.service.Member;
-import com.be.view.CourseApplicationViewStrategy;
+import com.be.controller.StaffController;
+import com.be.model.CourseApplication;
+import com.be.model.Member;
 import com.be.view.professor.applicationViewStrategy.ApplicationViewStrategy;
+import jakarta.persistence.EntityManager;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
+import java.util.List;
 
 public class StaffCourseApplicationViewStrategy implements ApplicationViewStrategy {
+    private final EntityManager em;
+
+    public StaffCourseApplicationViewStrategy(EntityManager em) {
+        this.em = em;
+    }
+
     @Override
     public void show(Member member) {
+        StaffController staffController = new StaffController(em);
         CourseManager manager = CourseManager.getInstance();
-        ArrayList<CourseApplication> arrayList = manager.getCourseApplications();
+        List<CourseApplication> arrayList = staffController.getCourseApplications();
         System.out.println(" -- 강의 신청서 목록 -- ");
         //강의 목록 반환 로직
         if (!arrayList.isEmpty()) {
