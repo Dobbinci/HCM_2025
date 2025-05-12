@@ -1,5 +1,4 @@
 package com.be.model;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,15 +10,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "member_type")
-public abstract class Member {
-
+@DiscriminatorValue("Student")
+public class Student extends Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    private String password;
-    private String name;
-    private String position;
+    String name;
+    int studentId;
 }

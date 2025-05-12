@@ -1,7 +1,7 @@
 package com.be.view.professor.applicationViewStrategy;
 
-import com.be.model.Member;
+import com.be.model.Professor;
 
 public interface ApplicationViewStrategy {
-    void show(Member member);
+    void show(Professor professor);
 }

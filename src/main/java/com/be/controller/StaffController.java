@@ -1,34 +1,23 @@
 package com.be.controller;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.be.control.CourseManager;
-import com.be.control.MemberManager;
-import com.be.model.Course;
-import com.be.model.CourseApplication;
-import com.be.model.Member;
-import com.be.model.Professor;
+import com.be.model.*;
 import com.be.repository.CourseApplicationRepository;
 import com.be.repository.CourseRepository;
-import com.be.repository.ProfessorRepository;
-import com.be.repository.impl.CourseApplicationRepoImpl;
-import com.be.repository.impl.CourseRepoImpl;
-import com.be.repository.impl.ProfessorRepoImpl;
+import com.be.repository.GenericRepository;
+import com.be.repository.impl.*;
+import com.be.service.Student;
 import jakarta.persistence.EntityManager;
 
 public class StaffController {
-    private final MemberManager memberManager = MemberManager.getInstance();
-    private final EntityManager em;
-    CourseManager manager = CourseManager.getInstance();
-    ArrayList<CourseApplication> arrayList = manager.getCourseApplications();
 
+    private final EntityManager em;
     public StaffController(EntityManager em) {
         this.em = em;
     }
 
-    //스태프가 강의 생성.
+    //강의 생성 수행 로직
     public void createCourse(Long id) {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
         CourseApplication courseApplication = courseApplicationRepo.findById(id);
@@ -52,42 +41,86 @@ public class StaffController {
         System.out.println("강의 등록 완료!\n");
     }
 
-    public void updateCourse(int choice) {
-        ArrayList<Course> arrayList = manager.getCourseList();
-
+    // 강의 수정 수행 로직
+    public void updateCourse(Long id) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(arrayList.get(choice).getName());
-        System.out.println(arrayList.get(choice).getProfessorName());
+        CourseRepoImpl courseRepo = new CourseRepoImpl(em);
+        Course editCourse = courseRepo.findById(id);
+
+        String newCourseName;
+        String newProfessorName;
+        String newSemester;
+        String newCredit;
+        String newCapacity;
+        String newClassroom;
+        String newContent;
 
         //수정 로직
         System.out.println("과목명 수정 : ");
-        arrayList.get(choice).setName(scanner.next());
+        newCourseName = scanner.nextLine();
+        editCourse.setCourseName(newCourseName);
+
         System.out.println("교수명 수정 : ");
-        arrayList.get(choice).setProfessorName(scanner.next());
+        newProfessorName = scanner.nextLine();
+        editCourse.setCourseName(newProfessorName);
+
+        System.out.println("학기 수정 : ");
+        newSemester = scanner.nextLine();
+        editCourse.setCourseName(newSemester);
+
+        System.out.println("학점 수정 : ");
+        newCredit = scanner.nextLine();
+        editCourse.setCourseName(newCredit);
+
+        System.out.println("정원 수정 : ");
+        newCapacity = scanner.nextLine();
+        editCourse.setCourseName(newCapacity);
+
+        System.out.println("강의실 수정 : ");
+        newClassroom = scanner.nextLine();
+        editCourse.setCourseName(newClassroom);
+
+        System.out.println("내용 수정 : ");
+        newContent = scanner.nextLine();
+        editCourse.setCourseName(newContent);
+
+        //강의 업데이트
+        courseRepo.update(editCourse);
+        System.out.println("강의 수정 완료");
     }
 
+    // 교수가 작성한 강의 목록 반환 로직
     public List<CourseApplication> getCourseApplications() {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
         return courseApplicationRepo.findAll();
     }
 
+    // 개설된 강의 목록 반환 로직
+    public List<Course> getCreatedCourse() {
+        CourseRepoImpl courseRepo = new CourseRepoImpl(em);
+        return courseRepo.findAll();
+    }
+
+    //-----------------------------!여기부터 맴버 관리 컨트롤러!-----------------------------//
+
+    //제네릭 사용
     public List<Member> getAllMembers() {
-        return memberManager.getAllMembers();
+        GenericRepository<Member, Long> memberRepo = new GenericRepoImpl<>(em, Member.class);
+        return memberRepo.findAll();
     }
 
     public List<Professor> getProfessors() {
-        ProfessorRepository professorRepo = new ProfessorRepoImpl(em);
-
+        GenericRepository<Professor, Long> professorRepo = new GenericRepoImpl<>(em, Professor.class);
         return professorRepo.findAll();
     }
 
-    public List<Member> getStudnets() {
-        return memberManager.getStudents();
+    public List<Staff> getStaffs() {
+        GenericRepository<Staff, Long> staffRepo = new GenericRepoImpl<>(em, Staff.class);
+        return staffRepo.findAll();
     }
 
-    public List<Member> getStaffs() {
-        return memberManager.getStaffs();
+    public List<Student> getStudnets() {
+        GenericRepository<Student, Long> studentRepo = new GenericRepoImpl<>(em, Student.class);
+        return studentRepo.findAll();
     }
-
-
 }

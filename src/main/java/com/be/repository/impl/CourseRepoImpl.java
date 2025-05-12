@@ -8,7 +8,6 @@ import java.util.List;
 
 public class CourseRepoImpl implements CourseRepository {
 
-    // Assuming you have an EntityManager instance
     private final EntityManager em;
 
     public CourseRepoImpl(EntityManager em) {

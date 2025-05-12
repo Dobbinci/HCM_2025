@@ -1,18 +1,12 @@
 package com.be.view.staff;
-
-
 import java.util.Scanner;
-
 import com.be.model.Staff;
-import com.be.view.staff.courseManage.CourseCreateView;
-import com.be.view.staff.courseManage.CourseUpdateView;
-import com.be.view.staff.courseManage.CreatedCourseView;
-import com.be.view.staff.memberManage.MemberManagerView;
 import jakarta.persistence.EntityManager;
 
 public class StaffHomeView {
-    private final EntityManager em;
 
+    Scanner scanner = new Scanner(System.in);
+    private final EntityManager em;
     public StaffHomeView(EntityManager em) {
         this.em = em;
     }
@@ -27,11 +21,10 @@ public class StaffHomeView {
                 "6. 로그아웃"
         };
 
-        Scanner scanner = new Scanner(System.in);
-        CreatedCourseView createdCourseView = new CreatedCourseView(em);
-        StaffCourseApplicationViewStrategy staffCourseApplicationViewStrategy = new StaffCourseApplicationViewStrategy();
+        CourseManageView courseManageView = new CourseManageView(em);
+        MemberManageView memberManageView = new MemberManageView(em);
 
-        while (true) { //로그아웃 시 home 로직이 종료될 수 있도록 수정
+        while (true) {
             System.out.println("메뉴");
             for (String items : menuItems) {
                 System.out.println(items);
@@ -39,20 +32,22 @@ public class StaffHomeView {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    CourseCreateView courseCreateView = new CourseCreateView(em);
+                    CourseManageView.CourseCreateView courseCreateView = courseManageView.new CourseCreateView();
                     courseCreateView.show(staff);
                     break;
                 case 2:
-                    CourseUpdateView.show(staff);
+                    CourseManageView.CourseUpdateView courseUpdateView = courseManageView.new CourseUpdateView();
+                    courseUpdateView.show(staff);
                     break;
                 case 3:
                     // 삭제 로직
                     break;
                 case 4:
+                    CourseManageView.CreatedCourseView createdCourseView = courseManageView.new CreatedCourseView();
                     createdCourseView.show(staff);
                     break;
                 case 5:
-                    MemberManagerView.show(staff);
+                    memberManageView.show(staff);
                     break;
             }
             if (choice == 6) {

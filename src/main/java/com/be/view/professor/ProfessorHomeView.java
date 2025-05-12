@@ -1,7 +1,6 @@
 package com.be.view.professor;
 
-import com.be.service.Professor;
-import com.be.view.LoginView;
+import com.be.model.Professor;
 import com.be.view.professor.applicationViewStrategy.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,17 +10,17 @@ public class ProfessorHomeView {
 
     public static void show(Professor professor) {
         String[] menuItems = {
-                "1. 강의 등록",
-                "2. 강의 조회",
-                "3. 강의 수정",
-                "4. 강의 삭제",
+                "1. 강의 신청서 등록",
+                "2. 강의 신청서 조회",
+                "3. 강의 신청서 수정",
+                "4. 강의 신청서 삭제",
                 "5. 로그아웃"
         };
         Map<Integer, ApplicationViewStrategy> strategyMap = new HashMap<>();
-        strategyMap.put(1, new CourseCreateApplicationViewStrategy());
-        strategyMap.put(2,  new ProfCourseApplicationViewStrategy());
-        strategyMap.put(3, new CourseUpdateApplicationViewStrategy());
-        strategyMap.put(4, new CourseDeleteApplicationViewStrategy());
+        strategyMap.put(1, new CourseApplicationView.CreateView());
+        strategyMap.put(2,  new CourseApplicationView.ListView());
+        strategyMap.put(3, new CourseApplicationView.UpdateView());
+        strategyMap.put(4, new CourseApplicationView.DeleteView());
 
         ProfessorMenuContext context = new ProfessorMenuContext();
         Scanner scanner = new Scanner(System.in);
