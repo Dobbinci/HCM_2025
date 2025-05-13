@@ -1,6 +1,6 @@
 package com.be.view.professor;
 
-import com.be.service.Professor;
+import com.be.model.Professor;
 import com.be.view.professor.applicationViewStrategy.ApplicationViewStrategy;
 
 public class ProfessorMenuContext {

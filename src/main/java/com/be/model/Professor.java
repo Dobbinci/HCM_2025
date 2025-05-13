@@ -1,9 +1,6 @@
 package com.be.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@DiscriminatorValue("Professor")
 public class Professor extends Member {
 
     @Id

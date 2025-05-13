@@ -1,14 +1,18 @@
 package com.be.model;
 
-import com.be.service.Professor;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Builder
+@Getter
+@Setter
+
 public class Course {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
