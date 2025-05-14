@@ -9,13 +9,12 @@ import com.be.repository.GenericRepository;
 import com.be.repository.impl.*;
 import com.be.service.Student;
 import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class StaffController {
 
     private final EntityManager em;
-    public StaffController(EntityManager em) {
-        this.em = em;
-    }
 
     //강의 생성 수행 로직
     public void createCourse(Long id) {

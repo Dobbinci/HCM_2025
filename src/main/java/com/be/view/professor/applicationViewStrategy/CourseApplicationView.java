@@ -1,17 +1,21 @@
 package com.be.view.professor.applicationViewStrategy;
 
 import com.be.control.CourseManager;
+import com.be.controller.ProfessorController;
 import com.be.model.CourseApplication;
 import com.be.model.Member;
 import com.be.model.Professor;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+@AllArgsConstructor
 public class CourseApplicationView {
+    ProfessorController professorController;
 
     // 강의 신청서 작성 화면
-    public static class CreateView implements ApplicationViewStrategy {
+    public class CreateView implements ApplicationViewStrategy {
 
         public void show(Professor professor) {
             Scanner scanner = new Scanner(System.in);
@@ -33,7 +37,7 @@ public class CourseApplicationView {
             String content = scanner.nextLine();
 
             //Apply create course
-            professor.applyCreateCourse(courseName, professorName, semester, credit, capacity, classroom, content);
+            professorController.applyCreateCourse(courseName, professorName, semester, credit, capacity, classroom, content);
         }
     }
 
