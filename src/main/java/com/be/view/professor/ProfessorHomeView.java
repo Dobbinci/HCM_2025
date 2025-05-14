@@ -1,14 +1,21 @@
 package com.be.view.professor;
 
+import com.be.controller.ProfessorController;
 import com.be.model.Professor;
 import com.be.view.professor.applicationViewStrategy.*;
+import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+@AllArgsConstructor
 public class ProfessorHomeView {
 
-    public static void show(Professor professor) {
+    EntityManager em;
+
+    public void show(Professor professor) {
         String[] menuItems = {
                 "1. 강의 신청서 등록",
                 "2. 강의 신청서 조회",
@@ -17,7 +24,7 @@ public class ProfessorHomeView {
                 "5. 로그아웃"
         };
         Map<Integer, ApplicationViewStrategy> strategyMap = new HashMap<>();
-        strategyMap.put(1, new CourseApplicationView.CreateView());
+        strategyMap.put(1, new CourseAppliationCreateView(new ProfessorController(em)));
         strategyMap.put(2,  new CourseApplicationView.ListView());
         strategyMap.put(3, new CourseApplicationView.UpdateView());
         strategyMap.put(4, new CourseApplicationView.DeleteView());
