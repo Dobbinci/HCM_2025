@@ -2,7 +2,6 @@ package com.be;
 
 import com.be.model.Professor;
 import com.be.model.Staff;
-import com.be.service.Student;
 import com.be.view.LoginView;
 import com.be.view.professor.ProfessorHomeView;
 import com.be.view.staff.StaffHomeView;
@@ -22,17 +21,17 @@ public class Main {
         EntityManager em = emf.createEntityManager();
 
         while(true) {
-        TemplateLoginView loginView = new LoginView();
-        Member loggedInMember = loginView.loginOrSignupFlow();
+            TemplateLoginView loginView = new LoginView();
+            Member loggedInMember = loginView.loginOrSignupFlow();
 
-            if (loggedInMember instanceof Professor professor) {
-                ProfessorHomeView professorHomeView = new ProfessorHomeView();
-                professorHomeView.show(professor);
+            if (loggedInMember instanceof Professor) {
+                ProfessorHomeView professorHomeView = new ProfessorHomeView(em);
+                professorHomeView.show();
 
-            } else if (loggedInMember instanceof Student) {
-                Student student = (Student) loggedInMember;
-                // TODO: StudentView studentView = new StudentView(student);
-                // TODO: studentView.home();
+//            } else if (loggedInMember instanceof Student) {
+////                Student student = (Student) loggedInMember;
+////                // TODO: StudentView studentView = new StudentView(student);
+////                // TODO: studentView.home();
 
             } else if (loggedInMember instanceof Staff staff) {
                 StaffHomeView staffHomeView = new StaffHomeView(em);

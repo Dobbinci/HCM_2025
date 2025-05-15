@@ -40,6 +40,7 @@ public class StaffController {
         System.out.println("강의 등록 완료!\n");
     }
 
+
     // 강의 수정 수행 로직
     public void updateCourse(Long id) {
         Scanner scanner = new Scanner(System.in);

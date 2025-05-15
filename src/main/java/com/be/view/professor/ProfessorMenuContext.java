@@ -10,7 +10,7 @@ public class ProfessorMenuContext {
         this.strategy = strategy;
     }
 
-    public void show(Professor professor) {
-        strategy.show(professor);
+    public void show() {
+        strategy.show();
     }
 }

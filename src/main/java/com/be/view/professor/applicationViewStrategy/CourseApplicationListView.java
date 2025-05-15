@@ -1,20 +1,28 @@
 package com.be.view.professor.applicationViewStrategy;
 
 import com.be.control.CourseManager;
+import com.be.controller.ProfessorController;
+import com.be.dto.CourseApplicationDTO;
 import com.be.model.CourseApplication;
 import com.be.model.Professor;
+import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@AllArgsConstructor
 public class CourseApplicationListView implements ApplicationViewStrategy {
+
+    private final ProfessorController professorController;
+
     @Override
-    public void show(Professor professor) {
-        CourseManager manager = CourseManager.getInstance();
-        ArrayList<CourseApplication> arrayList = manager.getCourseApplications();
+    public void show() {
+
+        List<CourseApplicationDTO> courseApplicationDTOs = professorController.loadCourseApplicationList();
         System.out.println(" -- 강의 신청서 목록 -- ");
 
         //강의 목록 반환 로직
-        if (!arrayList.isEmpty()) {
+        if (!courseApplicationDTOs.isEmpty()) {
             int widthNo = 4;
             int widthName = 15;
             int widthProfessor = 10;
@@ -50,7 +58,7 @@ public class CourseApplicationListView implements ApplicationViewStrategy {
 
             // 데이터 출력
             int index = 0;
-            for (CourseApplication courseApplication : arrayList) {
+            for (CourseApplicationDTO courseApplicationDTO : courseApplicationDTOs) {
                 System.out.printf("| %" + widthNo + "s | "
                                 + "%-" + widthName + "s | "
                                 + "%-" + widthProfessor + "s | "
@@ -60,13 +68,13 @@ public class CourseApplicationListView implements ApplicationViewStrategy {
                                 + "%-" + widthClassroom + "s | "
                                 + "%-" + widthContent + "s |\n",
                         ++index,
-                        courseApplication.getCourseName(),
-                        courseApplication.getProfessorName(),
-                        courseApplication.getSemester(),
-                        courseApplication.getCredit(),
-                        courseApplication.getCapacity(),
-                        courseApplication.getClassroom(),
-                        courseApplication.getContent()
+                        courseApplicationDTO.getCourseName(),
+                        courseApplicationDTO.getProfessorName(),
+                        courseApplicationDTO.getSemester(),
+                        courseApplicationDTO.getCredit(),
+                        courseApplicationDTO.getCapacity(),
+                        courseApplicationDTO.getClassroom(),
+                        courseApplicationDTO.getContent()
                 );
             }
             System.out.println(line);

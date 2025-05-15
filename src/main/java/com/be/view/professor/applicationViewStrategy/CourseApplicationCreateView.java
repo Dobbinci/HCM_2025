@@ -6,12 +6,12 @@ import lombok.AllArgsConstructor;
 import java.util.Scanner;
 
 @AllArgsConstructor
-public class CourseAppliationCreateView implements ApplicationViewStrategy {
+public class CourseApplicationCreateView implements ApplicationViewStrategy {
 
-    ProfessorController professorController;
+    private final ProfessorController professorController;
 
     @Override
-    public void show(Professor professor) {
+    public void show() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(" -- 강의 등록 -- \n");
@@ -30,8 +30,6 @@ public class CourseAppliationCreateView implements ApplicationViewStrategy {
         System.out.print("강의계획서 : ");
         String content = scanner.nextLine();
 
-        //Apply create course
         professorController.applyCreateCourse(courseName, professorName, semester, credit, capacity, classroom, content);
-    }
     }
 }
