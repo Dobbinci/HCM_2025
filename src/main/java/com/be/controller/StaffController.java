@@ -4,10 +4,11 @@ import java.util.Scanner;
 
 import com.be.model.*;
 import com.be.repository.CourseApplicationRepository;
+import com.be.repository.CourseDeleteRequestRepository;
+import com.be.repository.CourseUpdateRequestRepository;
 import com.be.repository.CourseRepository;
 import com.be.repository.GenericRepository;
 import com.be.repository.impl.*;
-import com.be.service.Student;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -101,6 +102,73 @@ public class StaffController {
         return courseRepo.findAll();
     }
 
+    public void processDeleteRequests() {
+        CourseDeleteRequestRepository requestRepo = new CourseDeleteRequestRepoImpl(em);
+        CourseRepository courseRepo = new CourseRepoImpl(em);
+
+        List<CourseDeleteRequest> requests = requestRepo.findAll();
+
+        if (requests.isEmpty()) {
+            System.out.println("삭제 요청이 없습니다.");
+            return;
+        }
+
+        for (CourseDeleteRequest request : requests) {
+            System.out.printf("요청 ID: %d | 강의명: %s | 교수명: %s | 사유: %s\n",
+                    request.getId(), request.getCourseName(), request.getProfessorName(), request.getReason());
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("삭제할 요청 ID를 입력하세요: ");
+        Long id = scanner.nextLong();
+
+        CourseDeleteRequest selected = requests.stream()
+                .filter(r -> r.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+
+        if (selected != null) {
+            courseRepo.delete(selected.getId());
+            requestRepo.deleteById(id);
+            System.out.println("강의가 삭제되었습니다.");
+        } else {
+            System.out.println("해당 요청 ID를 찾을 수 없습니다.");
+        }
+    }
+
+    public void handleUpdateRequests() {
+        CourseUpdateRequestRepository updateRepo = new CourseUpdateRequestRepoImpl(em);
+        CourseRepository courseRepo = new CourseRepoImpl(em);
+        Scanner scanner = new Scanner(System.in);
+        List<CourseUpdateRequest> requests = updateRepo.findAll();
+
+        for (CourseUpdateRequest request : requests) {
+            Course course = request.getCourse();
+            System.out.println("요청 ID: " + request.getId() +
+                    ", 기존 강의명: " + course.getCourseName() +
+                    ", 요청된 강의명: " + request.getCourseName() +
+                    ", 사유: " + request.getReason());
+            System.out.print("변경 하시겠습니까?");
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("y")) {
+                // 실제 업데이트
+                course.setCourseName(request.getCourseName());
+                course.setSemester(request.getSemester());
+                course.setCredit(request.getCredit());
+                course.setCapacity(request.getCapacity());
+                course.setClassroom(request.getClassroom());
+                course.setContent(request.getContent());
+
+                courseRepo.update(course);
+                updateRepo.delete(request);
+
+                System.out.println("강의 정보가 업데이트되었습니다.\n");
+            }else {
+                System.out.println("변경 사항이 저장되지 않았습니다.");
+            }
+        }
+    }
+
     //-----------------------------!여기부터 맴버 관리 컨트롤러!-----------------------------//
 
     //제네릭 사용
@@ -119,7 +187,7 @@ public class StaffController {
         return staffRepo.findAll();
     }
 
-    public List<Student> getStudnets() {
+    public List<Student> getStudents() {
         GenericRepository<Student, Long> studentRepo = new GenericRepoImpl<>(em, Student.class);
         return studentRepo.findAll();
     }
