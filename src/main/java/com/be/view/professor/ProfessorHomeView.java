@@ -1,14 +1,21 @@
 package com.be.view.professor;
 
+import com.be.controller.ProfessorController;
 import com.be.model.Professor;
 import com.be.view.professor.applicationViewStrategy.*;
+import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+@AllArgsConstructor
 public class ProfessorHomeView {
 
-    public static void show(Professor professor) {
+    EntityManager em;
+
+    public void show() {
         String[] menuItems = {
                 "1. 강의 신청서 등록",
                 "2. 강의 신청서 조회",
@@ -17,10 +24,10 @@ public class ProfessorHomeView {
                 "5. 로그아웃"
         };
         Map<Integer, ApplicationViewStrategy> strategyMap = new HashMap<>();
-        strategyMap.put(1, new CourseApplicationView.CreateView());
-        strategyMap.put(2,  new CourseApplicationView.ListView());
-        strategyMap.put(3, new CourseApplicationView.UpdateView());
-        strategyMap.put(4, new CourseApplicationView.DeleteView());
+        strategyMap.put(1, new CourseApplicationCreateView(new ProfessorController(em)));
+        strategyMap.put(2,  new CourseApplicationListView(new ProfessorController(em)));
+        strategyMap.put(3, new CourseApplicationUpdateView(new ProfessorController(em)));
+        strategyMap.put(4, new CourseApplicationDeleteView(new ProfessorController(em)));
 
         ProfessorMenuContext context = new ProfessorMenuContext();
         Scanner scanner = new Scanner(System.in);
@@ -41,7 +48,7 @@ public class ProfessorHomeView {
             ApplicationViewStrategy strategy = strategyMap.get(choice);
             if (strategy != null) {
                 context.setStrategy(strategy);           // 전략을 설정하고
-                context.show(professor);      // 전략을 실행
+                context.show();      // 전략을 실행
             } else {
                 System.out.println("잘못된 메뉴입니다.");
             }

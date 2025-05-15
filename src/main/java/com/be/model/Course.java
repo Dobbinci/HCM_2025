@@ -12,7 +12,6 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-
 public class Course {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)

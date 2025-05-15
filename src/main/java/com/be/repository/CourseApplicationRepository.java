@@ -1,6 +1,7 @@
 package com.be.repository;
 
 import com.be.model.CourseApplication;
+import com.be.model.Professor;
 
 import java.util.List;
 
@@ -9,6 +10,8 @@ public interface CourseApplicationRepository {
     void save(CourseApplication courseApplication);
 
     CourseApplication findById(Long id);
+
+    List<CourseApplication> findByProfessorId(Long professorId);
 
     List<CourseApplication> findAll();
 
