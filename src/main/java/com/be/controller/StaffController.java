@@ -113,11 +113,11 @@ public class StaffController {
         if (request != null && request.getCourse() != null) {
             Long courseId = request.getCourse().getId();
 
-            // 강의 삭제
-            courseRepo.delete(courseId);
-
             // 요청 삭제
             requestRepo.deleteById(request.getId());
+
+            // 강의 삭제
+            courseRepo.delete(courseId);
 
             System.out.println("강의가 삭제되었습니다.");
         } else {
