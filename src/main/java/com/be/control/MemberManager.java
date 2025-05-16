@@ -136,25 +136,25 @@ public class MemberManager {
         allMembers.addAll(staffList);
         return allMembers;
     }
-    
+
     public List<Member> getProfessors() {
         List<Member> allMembers = new ArrayList<>();
         allMembers.addAll(professorList);
-       
+
         return allMembers;
     }
 
     public List<Member> getStudents() {
         List<Member> allMembers = new ArrayList<>();
         allMembers.addAll(studentList);
-       
+
         return allMembers;
     }
 
     public List<Member> getStaffs() {
         List<Member> allMembers = new ArrayList<>();
         allMembers.addAll(staffList);
-       
+
         return allMembers;
     }
 }

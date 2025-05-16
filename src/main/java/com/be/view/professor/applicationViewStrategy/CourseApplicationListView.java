@@ -1,6 +1,5 @@
 package com.be.view.professor.applicationViewStrategy;
 
-import com.be.control.CourseManager;
 import com.be.controller.ProfessorController;
 import com.be.dto.CourseApplicationDTO;
 import com.be.model.CourseApplication;
