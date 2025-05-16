@@ -101,57 +101,46 @@ public class StaffController {
         CourseRepoImpl courseRepo = new CourseRepoImpl(em);
         return courseRepo.findAll();
     }
+    public List<CourseDeleteRequest> getAllDeleteRequests() {
+        CourseDeleteRequestRepoImpl courseDeleteRequestRepo = new CourseDeleteRequestRepoImpl(em);
+        return courseDeleteRequestRepo.findAll();
+    }
 
-    public void processDeleteRequests() {
+    public void processDeleteRequests(CourseDeleteRequest request) {
         CourseDeleteRequestRepository requestRepo = new CourseDeleteRequestRepoImpl(em);
         CourseRepository courseRepo = new CourseRepoImpl(em);
 
-        List<CourseDeleteRequest> requests = requestRepo.findAll();
+        if (request != null && request.getCourse() != null) {
+            Long courseId = request.getCourse().getId();
 
-        if (requests.isEmpty()) {
-            System.out.println("삭제 요청이 없습니다.");
-            return;
-        }
+            // 강의 삭제
+            courseRepo.delete(courseId);
 
-        for (CourseDeleteRequest request : requests) {
-            System.out.printf("요청 ID: %d | 강의명: %s | 교수명: %s | 사유: %s\n",
-                    request.getId(), request.getCourseName(), request.getProfessorName(), request.getReason());
-        }
+            // 요청 삭제
+            requestRepo.deleteById(request.getId());
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("삭제할 요청 ID를 입력하세요: ");
-        Long id = scanner.nextLong();
-
-        CourseDeleteRequest selected = requests.stream()
-                .filter(r -> r.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-
-        if (selected != null) {
-            courseRepo.delete(selected.getId());
-            requestRepo.deleteById(id);
             System.out.println("강의가 삭제되었습니다.");
         } else {
-            System.out.println("해당 요청 ID를 찾을 수 없습니다.");
+            System.out.println("삭제 요청이 유효하지 않거나 강의 정보가 없습니다.");
         }
     }
 
-    public void handleUpdateRequests() {
-        CourseUpdateRequestRepository updateRepo = new CourseUpdateRequestRepoImpl(em);
-        CourseRepository courseRepo = new CourseRepoImpl(em);
-        Scanner scanner = new Scanner(System.in);
-        List<CourseUpdateRequest> requests = updateRepo.findAll();
+    public List<CourseUpdateRequest> getAllUpdateRequests() {
+        CourseUpdateRequestRepoImpl courseUpdateRequestRepo = new CourseUpdateRequestRepoImpl(em);
+        return courseUpdateRequestRepo.findAll();
+    }
 
-        for (CourseUpdateRequest request : requests) {
+    public void handleUpdateRequests(CourseUpdateRequest request) {
+        CourseUpdateRequestRepository requestRepo = new CourseUpdateRequestRepoImpl(em);
+        CourseRepository courseRepo = new CourseRepoImpl(em);
+
+        if (request != null) {
+            // 수정할 실제 강의 조회
             Course course = request.getCourse();
-            System.out.println("요청 ID: " + request.getId() +
-                    ", 기존 강의명: " + course.getCourseName() +
-                    ", 요청된 강의명: " + request.getCourseName() +
-                    ", 사유: " + request.getReason());
-            System.out.print("변경 하시겠습니까?");
-            String answer = scanner.nextLine();
-            if (answer.equalsIgnoreCase("y")) {
-                // 실제 업데이트
+
+            if (course != null) {
+                em.getTransaction().begin();
+                // 강의 정보 갱신
                 course.setCourseName(request.getCourseName());
                 course.setSemester(request.getSemester());
                 course.setCredit(request.getCredit());
@@ -159,13 +148,17 @@ public class StaffController {
                 course.setClassroom(request.getClassroom());
                 course.setContent(request.getContent());
 
-                courseRepo.update(course);
-                updateRepo.delete(request);
+                em.getTransaction().commit();
 
-                System.out.println("강의 정보가 업데이트되었습니다.\n");
-            }else {
-                System.out.println("변경 사항이 저장되지 않았습니다.");
+                // 요청 삭제
+                requestRepo.delete(request);
+
+                System.out.println("강의 수정이 반영되었습니다.");
+            } else {
+                System.out.println("수정할 강의가 존재하지 않습니다.");
             }
+        } else {
+            System.out.println("수정 요청이 존재하지 않습니다.");
         }
     }
 

@@ -2,7 +2,9 @@ package com.be.view.staff;
 import java.util.Scanner;
 import com.be.model.Staff;
 import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class StaffHomeView {
 
     Scanner scanner = new Scanner(System.in);
@@ -18,7 +20,9 @@ public class StaffHomeView {
                 "3. 강의 삭제",
                 "4. 전체 강의 조회",
                 "5. 유저 정보 관리",
-                "6. 로그아웃"
+                "6. 교수의 강의 수정 신청 목록",
+                "7. 교수의 강의 삭제 신청 목록",
+                "8. 로그아웃"
         };
 
         CourseManageView courseManageView = new CourseManageView(em);
@@ -49,8 +53,15 @@ public class StaffHomeView {
                 case 5:
                     memberManageView.show(staff);
                     break;
+                case 6:
+                    CourseManageView.CourseUpdateRequestView courseUpdateRequestView = courseManageView.new CourseUpdateRequestView();
+                    courseUpdateRequestView.show(staff);
+                    break;
+                case 7:
+                    CourseManageView.CourseDeleteRequestView courseDeleteRequestView = courseManageView.new CourseDeleteRequestView();
+                    courseDeleteRequestView.show(staff);
             }
-            if (choice == 6) {
+            if (choice == 8) {
                 break;
             }
         }
