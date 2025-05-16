@@ -13,7 +13,7 @@ public class StaffHomeView {
         this.em = em;
     }
 
-    public void show(Staff staff) {
+    public void show() {
         String[] menuItems = {
                 "1. 강의 생성",
                 "2. 강의 수정",
@@ -37,29 +37,29 @@ public class StaffHomeView {
             switch (choice) {
                 case 1:
                     CourseManageView.CourseCreateView courseCreateView = courseManageView.new CourseCreateView();
-                    courseCreateView.show(staff);
+                    courseCreateView.show();
                     break;
                 case 2:
                     CourseManageView.CourseUpdateView courseUpdateView = courseManageView.new CourseUpdateView();
-                    courseUpdateView.show(staff);
+                    courseUpdateView.show();
                     break;
                 case 3:
                     // 삭제 로직
                     break;
                 case 4:
                     CourseManageView.CreatedCourseView createdCourseView = courseManageView.new CreatedCourseView();
-                    createdCourseView.show(staff);
+                    createdCourseView.show();
                     break;
                 case 5:
-                    memberManageView.show(staff);
+                    memberManageView.show();
                     break;
                 case 6:
                     CourseManageView.CourseUpdateRequestView courseUpdateRequestView = courseManageView.new CourseUpdateRequestView();
-                    courseUpdateRequestView.show(staff);
+                    courseUpdateRequestView.show();
                     break;
                 case 7:
                     CourseManageView.CourseDeleteRequestView courseDeleteRequestView = courseManageView.new CourseDeleteRequestView();
-                    courseDeleteRequestView.show(staff);
+                    courseDeleteRequestView.show();
             }
             if (choice == 8) {
                 break;

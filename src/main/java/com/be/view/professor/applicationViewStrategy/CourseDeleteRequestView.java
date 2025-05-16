@@ -39,6 +39,7 @@ public class CourseDeleteRequestView implements ApplicationViewStrategy{
 
             // 삭제 요청 등록
             professorController.applyDeleteCreatedCourse(
+                    selectedCourse.getId(),
                     selectedCourse.getCourseName(),
                     selectedCourse.getProfessorName(),
                     reason

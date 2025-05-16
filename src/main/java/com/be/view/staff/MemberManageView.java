@@ -19,9 +19,8 @@ public class MemberManageView {
         this.staffController = new StaffController(em);
     }
 
-    public void show(Staff staff) {
+    public void show() {
         MemberInfoView memberInfoView = new MemberInfoView();
-//        MemberInfoUpdateView memberInfoUpdateView = new MemberInfoUpdateView();
 
         while (true) {
             System.out.println("메뉴");
