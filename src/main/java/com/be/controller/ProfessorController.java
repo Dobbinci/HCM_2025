@@ -1,6 +1,5 @@
 package com.be.controller;
 
-import com.be.control.CourseManager;
 import com.be.dto.CourseApplicationDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.Course;
@@ -107,7 +106,15 @@ public class ProfessorController {
     }
 
     public void applyDeleteCourse(int index) {
-        CourseManager.getInstance().deleteCourseApplication(index);
+        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+        CourseApplication courseApplication = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        if (courseApplication != null) {
+            // 강의신청 삭제 로직
+            courseApplicationRepo.delete(courseApplication.getId());
+            System.out.println("강의 삭제 완료!\n");
+        } else {
+            System.out.println("해당 강의 신청서가 존재하지 않습니다.");
+        }
     }
 
     public void requestCourseUpdate(int index, String newCourseName, String semester, String credit,

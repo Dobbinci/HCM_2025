@@ -3,7 +3,7 @@ import com.be.controller.StaffController;
 import com.be.model.Member;
 import com.be.model.Professor;
 import com.be.model.Staff;
-import com.be.service.Student;
+import com.be.model.Student;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -229,7 +229,7 @@ public class MemberManageView {
         }
 
         public void showStudent() {
-            List<Student> members = staffController.getStudnets();
+            List<Student> members = staffController.getStudents();
 
             if (members.isEmpty()) {
                 System.out.println("등록된 멤버가 없습니다.");
