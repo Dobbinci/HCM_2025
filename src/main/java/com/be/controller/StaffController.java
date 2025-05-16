@@ -1,4 +1,5 @@
 package com.be.controller;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,7 +8,6 @@ import com.be.repository.CourseApplicationRepository;
 import com.be.repository.CourseRepository;
 import com.be.repository.GenericRepository;
 import com.be.repository.impl.*;
-import com.be.service.Student;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -42,47 +42,17 @@ public class StaffController {
 
 
     // 강의 수정 수행 로직
-    public void updateCourse(Long id) {
-        Scanner scanner = new Scanner(System.in);
-        CourseRepoImpl courseRepo = new CourseRepoImpl(em);
+    public void updateCourse(Long id, String newCourseName, String newProfessorName, String newSemester, String newCredit, String newCapacity, String newClassroom, String newContent) {
+        CourseRepository courseRepo = new CourseRepoImpl(em);
         Course editCourse = courseRepo.findById(id);
 
-        String newCourseName;
-        String newProfessorName;
-        String newSemester;
-        String newCredit;
-        String newCapacity;
-        String newClassroom;
-        String newContent;
-
-        //수정 로직
-        System.out.println("과목명 수정 : ");
-        newCourseName = scanner.nextLine();
         editCourse.setCourseName(newCourseName);
-
-        System.out.println("교수명 수정 : ");
-        newProfessorName = scanner.nextLine();
-        editCourse.setCourseName(newProfessorName);
-
-        System.out.println("학기 수정 : ");
-        newSemester = scanner.nextLine();
-        editCourse.setCourseName(newSemester);
-
-        System.out.println("학점 수정 : ");
-        newCredit = scanner.nextLine();
-        editCourse.setCourseName(newCredit);
-
-        System.out.println("정원 수정 : ");
-        newCapacity = scanner.nextLine();
-        editCourse.setCourseName(newCapacity);
-
-        System.out.println("강의실 수정 : ");
-        newClassroom = scanner.nextLine();
-        editCourse.setCourseName(newClassroom);
-
-        System.out.println("내용 수정 : ");
-        newContent = scanner.nextLine();
-        editCourse.setCourseName(newContent);
+        editCourse.setProfessorName(newProfessorName);
+        editCourse.setSemester(newSemester);
+        editCourse.setCredit(newCredit);
+        editCourse.setCapacity(newCapacity);
+        editCourse.setClassroom(newClassroom);
+        editCourse.setContent(newContent);
 
         //강의 업데이트
         courseRepo.update(editCourse);
@@ -97,8 +67,13 @@ public class StaffController {
 
     // 개설된 강의 목록 반환 로직
     public List<Course> getCreatedCourse() {
-        CourseRepoImpl courseRepo = new CourseRepoImpl(em);
+        CourseRepository courseRepo = new CourseRepoImpl(em);
         return courseRepo.findAll();
+    }
+
+    public Course getCourse(Long id) {
+        CourseRepository courseRepo = new CourseRepoImpl(em);
+        return courseRepo.findById(id);
     }
 
     //-----------------------------!여기부터 맴버 관리 컨트롤러!-----------------------------//

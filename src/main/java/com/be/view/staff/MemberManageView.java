@@ -3,7 +3,7 @@ import com.be.controller.StaffController;
 import com.be.model.Member;
 import com.be.model.Professor;
 import com.be.model.Staff;
-import com.be.service.Student;
+import com.be.model.Student;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package com.be.controller;
 
-import com.be.control.CourseManager;
+//import com.be.control.CourseManager;
+
 import com.be.dto.CourseApplicationDTO;
 import com.be.model.CourseApplication;
 import com.be.repository.CourseApplicationRepository;
@@ -79,7 +80,7 @@ public class ProfessorController {
         }
     }
 
-    public void applyDeleteCourse(int index) {
-        CourseManager.getInstance().deleteCourseApplication(index);
-    }
+//    public void applyDeleteCourse(int index) {
+//        CourseManager.getInstance().deleteCourseApplication(index);
+//    }
 }
