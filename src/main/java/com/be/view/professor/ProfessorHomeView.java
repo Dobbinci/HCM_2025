@@ -21,13 +21,19 @@ public class ProfessorHomeView {
                 "2. 강의 신청서 조회",
                 "3. 강의 신청서 수정",
                 "4. 강의 신청서 삭제",
-                "5. 로그아웃"
+                "5. 나의 강의 조회",
+                "6. 강의 수정 신청",
+                "7. 강의 삭제 신청",
+                "8. 로그아웃"
         };
         Map<Integer, ApplicationViewStrategy> strategyMap = new HashMap<>();
         strategyMap.put(1, new CourseApplicationCreateView(new ProfessorController(em)));
         strategyMap.put(2,  new CourseApplicationListView(new ProfessorController(em)));
         strategyMap.put(3, new CourseApplicationUpdateView(new ProfessorController(em)));
         strategyMap.put(4, new CourseApplicationDeleteView(new ProfessorController(em)));
+        strategyMap.put(5, new CourseListView(new ProfessorController(em)));
+        strategyMap.put(6, new CourseUpdateRequestView(new ProfessorController(em)));
+        strategyMap.put(7, new CourseDeleteRequestView(new ProfessorController(em)));
 
         ProfessorMenuContext context = new ProfessorMenuContext();
         Scanner scanner = new Scanner(System.in);
@@ -40,7 +46,7 @@ public class ProfessorHomeView {
             }
             int choice = scanner.nextInt();
 
-            if (choice == 5) {
+            if (choice == 8) {
                 System.out.println("로그아웃");
                 break;
             }
