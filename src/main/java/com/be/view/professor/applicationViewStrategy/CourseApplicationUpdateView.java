@@ -21,6 +21,7 @@ public class CourseApplicationUpdateView implements ApplicationViewStrategy{
 
             System.out.print("수정할 신청서의 번호 입력 : ");
             index = scanner.nextInt();
+            scanner.nextLine(); // consume the newline character
 
             System.out.print("강의명 : ");
             String courseName = scanner.nextLine();

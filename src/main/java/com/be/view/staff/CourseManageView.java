@@ -19,13 +19,13 @@ public class CourseManageView {
         this.staffController = new StaffController(em);
     }
 
-    public void show(Staff staff) {
+    public void show() {
         String[] menuItems = {
-                "1. 강의 생성",
-                "2. 강의 수정",
-                "3. 강의 삭제",
-                "4. 전체 강의 조회",
-                "5. 로그아웃"
+                "1. 강의 생성 요청 관리",
+                "2. 강의 수정 요청 관리",
+                "3. 강의 삭제 요청 관리",
+                "4. 개설된 강의 조회",
+                "5. 뒤로가기"
         };
 
         while (true) {
@@ -36,19 +36,20 @@ public class CourseManageView {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    CourseCreateView courseCreateView = new CourseCreateView();
-                    courseCreateView.show(staff);
+                    CourseCreateRequestView courseCreateRequestView = new CourseCreateRequestView();
+                    courseCreateRequestView.show();
                     break;
                 case 2:
-                    CourseUpdateView courseUpdateView = new CourseUpdateView();
-                    courseUpdateView.show(staff);
+                    CourseUpdateRequestView courseUpdateRequestView = new CourseUpdateRequestView();
+                    courseUpdateRequestView.show();
                     break;
                 case 3:
-                    // 삭제 로직
+                    CourseDeleteRequestView courseDeleteRequestView = new CourseDeleteRequestView();
+                    courseDeleteRequestView.show();
                     break;
                 case 4:
                     CreatedCourseView createdCourseView = new CreatedCourseView();
-                    createdCourseView.show(staff);
+                    createdCourseView.show();
                     break;
             }
             if (choice == 5) {
@@ -57,98 +58,62 @@ public class CourseManageView {
         }
     }
 
-    //강의 생성 화면
-    public class CourseCreateView {
-        public void show(Staff staff) {
-            long id;
+    //강의 생성 요청 관리
+    public class CourseCreateRequestView {
+        public void show() {
 
             //교수가 작성한 신청서 조회
             List<CourseApplication> courseApplications = staffController.getCourseApplications();
-            for (CourseApplication courseApplication : courseApplications) {
-                System.out.println(courseApplication.getId());
-                System.out.println(courseApplication.getCourseName());
-                System.out.println(courseApplication.getProfessor());
-                System.out.println(courseApplication.getClassroom());
+            if (courseApplications.isEmpty()) {
+                System.out.println("강의 개설 신청이 없습니다.");
+                return;
             }
 
-            System.out.println("생성할 강의 번호 선택 : ");
-            id = scanner.nextLong();
-            staffController.createCourse(id);
+            for (int i = 0; i < courseApplications.size(); i++) {
+                CourseApplication ca = courseApplications.get(i);
+                System.out.printf("[%d]. " +
+                        "강의명 : %s |" +
+                        "교수명 : %s |" +
+                        "강의실 : %s ", i + 1, ca.getCourseName(), ca.getProfessorName(), ca.getClassroom());
+                System.out.println();
+            }
+
+            System.out.print("생성 요청을 반영할 번호 선택 (-1: 취소): ");
+            int index = scanner.nextInt();
+            scanner.nextLine(); // 개행 제거
+
+            if (index == -1 || index - 1 >= courseApplications.size()) {
+                System.out.println("생성 요청 반영을 취소합니다.");
+                return;
+            }
+            CourseApplication selected = courseApplications.get(index - 1);
+            staffController.createCourse(selected);
+            System.out.println("강의 생성 요청을 반영하였습니다.");
         }
     }
 
-    //강의 수정 화면
-    public class CourseUpdateView {
-        public void show(Staff staff) {
-            long id;
-            String newCourseName;
-            String newProfessorName;
-            String newSemester;
-            String newCredit;
-            String newCapacity;
-            String newClassroom;
-            String newContent;
-
-            //개설된 강의 조회
-            CourseManageView courseManageView = new CourseManageView(em);
-            CourseManageView.CourseCreateView view = courseManageView.new CourseCreateView();
-
-            System.out.println("수정할 강의 번호 선택 : ");
-            id = scanner.nextLong();
-            Course course = staffController.getCourse(id);
-            System.out.println("과목명 : " + course.getCourseName());
-            System.out.println("교수명 : " + course.getProfessorName());
-            System.out.println("학기 : " + course.getSemester());
-            System.out.println("학점 : " + course.getCredit());
-            System.out.println("정원 : " + course.getCapacity());
-            System.out.println("강의실 : " + course.getClassroom());
-            System.out.println("내용 : " + course.getContent());
-
-
-            //수정값 입력
-            System.out.println("과목명 수정 : ");
-            newCourseName = scanner.nextLine();
-
-            System.out.println("교수명 수정 : ");
-            newProfessorName = scanner.nextLine();
-
-            System.out.println("학기 수정 : ");
-            newSemester = scanner.nextLine();
-
-            System.out.println("학점 수정 : ");
-            newCredit = scanner.nextLine();
-
-            System.out.println("정원 수정 : ");
-            newCapacity = scanner.nextLine();
-
-            System.out.println("강의실 수정 : ");
-            newClassroom = scanner.nextLine();
-
-            System.out.println("내용 수정 : ");
-            newContent = scanner.nextLine();
-
-            staffController.updateCourse(id, newCourseName, newProfessorName, newSemester, newCredit, newCapacity, newClassroom, newContent);
-        }
-    }
-
-    //개설된 강의 목록 화면
+    //개설된 강의 목록 확인
     public class CreatedCourseView {
-        public void show(Member member) {
+        public void show() {
 
             System.out.println(" -- 개설된 강의 목록 -- ");
             List<Course> courseList = staffController.getCreatedCourse();
-            for (Course course : courseList) {
-                System.out.println(course.getId());
-                System.out.println(course.getCourseName());
-                System.out.println(course.getProfessor());
-                System.out.println(course.getClassroom());
+
+            for (int i = 0; i < courseList.size(); i++) {
+                Course ca = courseList.get(i);
+
+                System.out.printf("[%d]. " +
+                        "강의명 : %s |" +
+                        "교수명 : %s |" +
+                        "강의실 : %s ", i + 1, ca.getCourseName(), ca.getProfessorName(), ca.getClassroom());
+                System.out.println();
             }
         }
     }
 
     public class CourseUpdateRequestView {
 
-        public void show(Staff staff) {
+        public void show() {
             List<CourseUpdateRequest> requests = staffController.getAllUpdateRequests();
 
             if (requests.isEmpty()) {
@@ -185,7 +150,7 @@ public class CourseManageView {
 
     public class CourseDeleteRequestView {
 
-        public void show(Staff staff) {
+        public void show() {
             List<CourseDeleteRequest> requests = staffController.getAllDeleteRequests();
 
             if (requests.isEmpty()) {
@@ -213,7 +178,6 @@ public class CourseManageView {
             }
             CourseDeleteRequest selectedRequest = requests.get(index);
             staffController.processDeleteRequests(selectedRequest);
-            //staffController.processDeleteRequests(index);
             System.out.println("강의 수정 요청을 반영하였습니다.");
         }
     }

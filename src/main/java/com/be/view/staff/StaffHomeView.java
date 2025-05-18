@@ -16,7 +16,7 @@ public class StaffHomeView {
         this.em = em;
     }
 
-    public void show(Staff staff) {
+    public void show() {
         String[] menuItems = {
                 "1. 강의 관리",
                 "2. 유저 관리",
@@ -34,9 +34,9 @@ public class StaffHomeView {
             int choice = scanner.nextInt();
 
             if (choice == 1) {
-                courseManageView.show(staff);
+                courseManageView.show();
             } else if (choice == 2) {
-                memberManageView.show(staff);
+                memberManageView.show();
             } else {
                 break;
             }

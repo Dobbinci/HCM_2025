@@ -6,18 +6,9 @@ package com.be.controller;
 
 import com.be.dto.CourseApplicationDTO;
 import com.be.dto.CourseDTO;
-import com.be.model.Course;
-import com.be.model.CourseApplication;
-import com.be.model.CourseDeleteRequest;
-import com.be.model.CourseUpdateRequest;
-import com.be.repository.CourseApplicationRepository;
-import com.be.repository.CourseDeleteRequestRepository;
-import com.be.repository.CourseRepository;
-import com.be.repository.CourseUpdateRequestRepository;
-import com.be.repository.impl.CourseApplicationRepoImpl;
-import com.be.repository.impl.CourseDeleteRequestRepoImpl;
-import com.be.repository.impl.CourseRepoImpl;
-import com.be.repository.impl.CourseUpdateRequestRepoImpl;
+import com.be.model.*;
+import com.be.repository.*;
+import com.be.repository.impl.*;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.EntityManager;
 
@@ -32,6 +23,10 @@ public class ProfessorController {
     public void applyCreateCourse(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
 
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+        GenericRepository<Professor, Long> memberRepo = new GenericRepoImpl<>(em, Professor.class);
+
+        Professor professor = memberRepo.findById(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+
         // 강의 신청 객체 생성
         CourseApplication courseApplication = CourseApplication.builder()
                 .courseName(courseName)
@@ -41,6 +36,7 @@ public class ProfessorController {
                 .capacity(capacity)
                 .classroom(classroom)
                 .content(content)
+                .professor(professor)
                 .build();
 
         // 강의 등록 유효성 검사
@@ -146,13 +142,17 @@ public class ProfessorController {
     }
 
 
-    public void applyDeleteCreatedCourse(String courseName, String professorName, String reason) {
+    public void applyDeleteCreatedCourse(Long courseId, String courseName, String professorName, String reason) {
         CourseDeleteRequestRepository repo = new CourseDeleteRequestRepoImpl(em);
+        GenericRepository<Professor, Long> memberRepo = new GenericRepoImpl<>(em, Professor.class);
+        CourseRepository courseRepo = new CourseRepoImpl(em);
 
         CourseDeleteRequest request = CourseDeleteRequest.builder()
                 .courseName(courseName)
                 .professorName(professorName)
                 .reason(reason)
+                .course(courseRepo.findById(courseId))
+                .professor(memberRepo.findById(1L)) // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
                 .build();
 
         repo.save(request);

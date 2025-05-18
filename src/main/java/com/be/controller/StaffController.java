@@ -1,8 +1,6 @@
 package com.be.controller;
 
 import java.util.List;
-import java.util.Scanner;
-
 import com.be.model.*;
 import com.be.repository.CourseApplicationRepository;
 import com.be.repository.CourseDeleteRequestRepository;
@@ -19,46 +17,29 @@ public class StaffController {
     private final EntityManager em;
 
     //강의 생성 수행 로직
-    public void createCourse(Long id) {
+    public void createCourse(CourseApplication selected) {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
-        CourseApplication courseApplication = courseApplicationRepo.findById(id);
 
         // 강의 신청 객체 생성
         Course course = Course.builder()
-                .courseName(courseApplication.getCourseName())
-                .professorName(courseApplication.getProfessorName())
-                .semester(courseApplication.getSemester())
-                .credit(courseApplication.getCredit())
-                .capacity(courseApplication.getCapacity())
-                .classroom(courseApplication.getClassroom())
-                .content(courseApplication.getContent())
-                .professor(courseApplication.getProfessor())
+                .courseName(selected.getCourseName())
+                .professorName(selected.getProfessorName())
+                .semester(selected.getSemester())
+                .credit(selected.getCredit())
+                .capacity(selected.getCapacity())
+                .classroom(selected.getClassroom())
+                .content(selected.getContent())
+                .professor(selected.getProfessor())
                 .build();
+
+        // 요청 삭제
+        courseApplicationRepo.delete(selected.getId());
 
         // 강의 등록 로직
         CourseRepository courseRepo = new CourseRepoImpl(em);
         courseRepo.save(course);
 
         System.out.println("강의 등록 완료!\n");
-    }
-
-
-    // 강의 수정 수행 로직
-    public void updateCourse(Long id, String newCourseName, String newProfessorName, String newSemester, String newCredit, String newCapacity, String newClassroom, String newContent) {
-        CourseRepository courseRepo = new CourseRepoImpl(em);
-        Course editCourse = courseRepo.findById(id);
-
-        editCourse.setCourseName(newCourseName);
-        editCourse.setProfessorName(newProfessorName);
-        editCourse.setSemester(newSemester);
-        editCourse.setCredit(newCredit);
-        editCourse.setCapacity(newCapacity);
-        editCourse.setClassroom(newClassroom);
-        editCourse.setContent(newContent);
-
-        //강의 업데이트
-        courseRepo.update(editCourse);
-        System.out.println("강의 수정 완료");
     }
 
     // 교수가 작성한 강의 목록 반환 로직
@@ -72,6 +53,7 @@ public class StaffController {
         CourseRepository courseRepo = new CourseRepoImpl(em);
         return courseRepo.findAll();
     }
+
     public List<CourseDeleteRequest> getAllDeleteRequests() {
         CourseDeleteRequestRepoImpl courseDeleteRequestRepo = new CourseDeleteRequestRepoImpl(em);
         return courseDeleteRequestRepo.findAll();
@@ -84,11 +66,11 @@ public class StaffController {
         if (request != null && request.getCourse() != null) {
             Long courseId = request.getCourse().getId();
 
-            // 강의 삭제
-            courseRepo.delete(courseId);
-
             // 요청 삭제
             requestRepo.deleteById(request.getId());
+
+            // 강의 삭제
+            courseRepo.delete(courseId);
 
             System.out.println("강의가 삭제되었습니다.");
         } else {
@@ -133,10 +115,10 @@ public class StaffController {
         }
     }
 
-    public Course getCourse(Long id) {
-        CourseRepository courseRepo = new CourseRepoImpl(em);
-        return courseRepo.findById(id);
-    }
+//    public Course getCourse(Long id) {
+//        CourseRepository courseRepo = new CourseRepoImpl(em);
+//        return courseRepo.findById(id);
+//    }
 
     //-----------------------------!여기부터 맴버 관리 컨트롤러!-----------------------------//
 
