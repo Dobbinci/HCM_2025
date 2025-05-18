@@ -62,7 +62,8 @@ public class ProfessorController {
                         courseApplication.getCredit(),
                         courseApplication.getCapacity(),
                         courseApplication.getClassroom(),
-                        courseApplication.getContent())).toList();
+                        courseApplication.getContent(),
+                        courseApplication.getProfessor())).toList();
     }
 
     public List<CourseDTO> loadCourseList() {

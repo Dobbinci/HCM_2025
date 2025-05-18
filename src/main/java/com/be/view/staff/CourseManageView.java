@@ -1,6 +1,8 @@
 package com.be.view.staff;
 
 import com.be.controller.StaffController;
+import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseDTO;
 import com.be.model.*;
 import jakarta.persistence.EntityManager;
 
@@ -63,14 +65,14 @@ public class CourseManageView {
         public void show() {
 
             //교수가 작성한 신청서 조회
-            List<CourseApplication> courseApplications = staffController.getCourseApplications();
+            List<CourseApplicationDTO> courseApplications = staffController.loadCourseApplicationList();
             if (courseApplications.isEmpty()) {
                 System.out.println("강의 개설 신청이 없습니다.");
                 return;
             }
 
             for (int i = 0; i < courseApplications.size(); i++) {
-                CourseApplication ca = courseApplications.get(i);
+                CourseApplicationDTO ca = courseApplications.get(i);
                 System.out.printf("[%d]. " +
                         "강의명 : %s |" +
                         "교수명 : %s |" +
@@ -86,7 +88,7 @@ public class CourseManageView {
                 System.out.println("생성 요청 반영을 취소합니다.");
                 return;
             }
-            CourseApplication selected = courseApplications.get(index - 1);
+            CourseApplicationDTO selected = courseApplications.get(index - 1);
             staffController.createCourse(selected);
             System.out.println("강의 생성 요청을 반영하였습니다.");
         }
@@ -97,15 +99,15 @@ public class CourseManageView {
         public void show() {
 
             System.out.println(" -- 개설된 강의 목록 -- ");
-            List<Course> courseList = staffController.getCreatedCourse();
+            List<CourseDTO> courseList = staffController.loadCourseList();
 
             for (int i = 0; i < courseList.size(); i++) {
-                Course ca = courseList.get(i);
+                CourseDTO courseDTO = courseList.get(i);
 
                 System.out.printf("[%d]. " +
                         "강의명 : %s |" +
                         "교수명 : %s |" +
-                        "강의실 : %s ", i + 1, ca.getCourseName(), ca.getProfessorName(), ca.getClassroom());
+                        "강의실 : %s ", i + 1, courseDTO.getCourseName(), courseDTO.getProfessorName(), courseDTO.getClassroom());
                 System.out.println();
             }
         }

@@ -1,6 +1,9 @@
 package com.be.controller;
 
 import java.util.List;
+
+import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseDTO;
 import com.be.model.*;
 import com.be.repository.CourseApplicationRepository;
 import com.be.repository.CourseDeleteRequestRepository;
@@ -17,7 +20,7 @@ public class StaffController {
     private final EntityManager em;
 
     //강의 생성 수행 로직
-    public void createCourse(CourseApplication selected) {
+    public void createCourse(CourseApplicationDTO selected) {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
 
         // 강의 신청 객체 생성
@@ -43,15 +46,39 @@ public class StaffController {
     }
 
     // 교수가 작성한 강의 목록 반환 로직
-    public List<CourseApplication> getCourseApplications() {
+    public List<CourseApplicationDTO> loadCourseApplicationList() {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
-        return courseApplicationRepo.findAll();
+        List<CourseApplication> courseApplicationList = courseApplicationRepo.findAll();
+
+        return courseApplicationList.stream()
+                .map(courseApplication -> new CourseApplicationDTO(
+                        courseApplication.getId(),
+                        courseApplication.getCourseName(),
+                        courseApplication.getProfessorName(),
+                        courseApplication.getSemester(),
+                        courseApplication.getCredit(),
+                        courseApplication.getCapacity(),
+                        courseApplication.getClassroom(),
+                        courseApplication.getContent(),
+                        courseApplication.getProfessor())).toList();
     }
 
     // 개설된 강의 목록 반환 로직
-    public List<Course> getCreatedCourse() {
+    public List<CourseDTO> loadCourseList() {
         CourseRepository courseRepo = new CourseRepoImpl(em);
-        return courseRepo.findAll();
+        // 모든 강의 조회
+        List<Course> courseList = courseRepo.findAll();
+        // DTO로 변환
+        return courseList.stream()
+                .map(course -> new CourseDTO(
+                        course.getId(),
+                        course.getCourseName(),
+                        course.getProfessorName(),
+                        course.getSemester(),
+                        course.getCredit(),
+                        course.getCapacity(),
+                        course.getClassroom(),
+                        course.getContent())).toList();
     }
 
     public List<CourseDeleteRequest> getAllDeleteRequests() {
