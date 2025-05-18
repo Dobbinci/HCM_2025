@@ -1,6 +1,7 @@
 package com.be.repository.impl;
 
 import com.be.model.Course;
+import com.be.model.CourseApplication;
 import com.be.repository.CourseRepository;
 import jakarta.persistence.EntityManager;
 
@@ -24,6 +25,12 @@ public class CourseRepoImpl implements CourseRepository {
     @Override
     public Course findById(Long id) {
         return em.find(Course.class, id);
+    }
+
+    public List<Course> findByProfessorId(Long professorId) {
+        return em.createQuery("SELECT c FROM Course c WHERE c.professor.id = :professorId ORDER BY c.id", Course.class)
+                .setParameter("professorId", professorId)
+                .getResultList();
     }
 
     @Override

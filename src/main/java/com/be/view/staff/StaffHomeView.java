@@ -4,7 +4,9 @@ import java.util.Scanner;
 
 import com.be.model.Staff;
 import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class StaffHomeView {
 
     Scanner scanner = new Scanner(System.in);
@@ -30,6 +32,7 @@ public class StaffHomeView {
                 System.out.println(items);
             }
             int choice = scanner.nextInt();
+
             if (choice == 1) {
                 courseManageView.show(staff);
             } else if (choice == 2) {

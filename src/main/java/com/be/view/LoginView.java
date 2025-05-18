@@ -1,10 +1,10 @@
 package com.be.view;
 
 import com.be.control.MemberManager;
-import com.be.service.Professor;
+import com.be.model.Professor;
 import com.be.model.Staff;
-import com.be.service.Student;
 import com.be.model.Member;
+import com.be.model.Student;
 
 public class LoginView extends TemplateLoginView {
     MemberManager manager = MemberManager.getInstance();

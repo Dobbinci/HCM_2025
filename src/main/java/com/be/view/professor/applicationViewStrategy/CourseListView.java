@@ -2,26 +2,22 @@ package com.be.view.professor.applicationViewStrategy;
 
 import com.be.controller.ProfessorController;
 import com.be.dto.CourseApplicationDTO;
-import com.be.model.CourseApplication;
-import com.be.model.Professor;
-import lombok.AllArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.List;
 
+import com.be.dto.CourseDTO;
+import lombok.AllArgsConstructor;
+
 @AllArgsConstructor
-public class CourseApplicationListView implements ApplicationViewStrategy {
-
+public class CourseListView implements ApplicationViewStrategy{
     private final ProfessorController professorController;
-
     @Override
     public void show() {
 
-        List<CourseApplicationDTO> courseApplicationDTOs = professorController.loadCourseApplicationList();
-        System.out.println(" -- 강의 신청서 목록 -- ");
+        List<CourseDTO> courseDTOs = professorController.loadCourseList();
+        System.out.println(" -- 나의 강의 목록 -- ");
 
         //강의 목록 반환 로직
-        if (!courseApplicationDTOs.isEmpty()) {
+        if (!courseDTOs.isEmpty()) {
             int widthNo = 4;
             int widthName = 15;
             int widthProfessor = 10;
@@ -57,7 +53,7 @@ public class CourseApplicationListView implements ApplicationViewStrategy {
 
             // 데이터 출력
             int index = 0;
-            for (CourseApplicationDTO courseApplicationDTO : courseApplicationDTOs) {
+            for (CourseDTO courseDTO : courseDTOs) {
                 System.out.printf("| %" + widthNo + "s | "
                                 + "%-" + widthName + "s | "
                                 + "%-" + widthProfessor + "s | "
@@ -67,18 +63,17 @@ public class CourseApplicationListView implements ApplicationViewStrategy {
                                 + "%-" + widthClassroom + "s | "
                                 + "%-" + widthContent + "s |\n",
                         ++index,
-                        courseApplicationDTO.getCourseName(),
-                        courseApplicationDTO.getProfessorName(),
-                        courseApplicationDTO.getSemester(),
-                        courseApplicationDTO.getCredit(),
-                        courseApplicationDTO.getCapacity(),
-                        courseApplicationDTO.getClassroom(),
-                        courseApplicationDTO.getContent()
+                        courseDTO.getCourseName(),
+                        courseDTO.getProfessorName(),
+                        courseDTO.getSemester(),
+                        courseDTO.getCredit(),
+                        courseDTO.getCapacity(),
+                        courseDTO.getClassroom(),
+                        courseDTO.getContent()
                 );
             }
             System.out.println(line);
-        }
-        else {
+        } else {
             System.out.println("신청 목록이 비었습니다.");
         }
     }

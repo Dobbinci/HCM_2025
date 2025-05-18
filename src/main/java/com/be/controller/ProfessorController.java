@@ -1,17 +1,28 @@
 package com.be.controller;
 
+
 //import com.be.control.CourseManager;
 
+
 import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseDTO;
+import com.be.model.Course;
 import com.be.model.CourseApplication;
+import com.be.model.CourseDeleteRequest;
+import com.be.model.CourseUpdateRequest;
 import com.be.repository.CourseApplicationRepository;
+import com.be.repository.CourseDeleteRequestRepository;
+import com.be.repository.CourseRepository;
+import com.be.repository.CourseUpdateRequestRepository;
 import com.be.repository.impl.CourseApplicationRepoImpl;
+import com.be.repository.impl.CourseDeleteRequestRepoImpl;
+import com.be.repository.impl.CourseRepoImpl;
+import com.be.repository.impl.CourseUpdateRequestRepoImpl;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.EntityManager;
 
+import java.time.LocalDateTime;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @AllArgsConstructor
 public class ProfessorController {
@@ -58,6 +69,24 @@ public class ProfessorController {
                         courseApplication.getContent())).toList();
     }
 
+    public List<CourseDTO> loadCourseList() {
+        CourseRepository courseRepo = new CourseRepoImpl(em);
+        // 나의 강의 목록 조회
+        List<Course> courseList = courseRepo.findByProfessorId(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+
+        // DTO로 변환
+        return courseList.stream()
+                .map(course -> new CourseDTO(
+                        course.getId(),
+                        course.getCourseName(),
+                        course.getProfessorName(),
+                        course.getSemester(),
+                        course.getCredit(),
+                        course.getCapacity(),
+                        course.getClassroom(),
+                        course.getContent())).toList();
+    }
+
     public void applyUpdateCourse(int index, String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
         // 수정할 강의신청 객체 불러오기
@@ -80,7 +109,55 @@ public class ProfessorController {
         }
     }
 
-//    public void applyDeleteCourse(int index) {
-//        CourseManager.getInstance().deleteCourseApplication(index);
-//    }
+
+    public void applyDeleteCourse(int index) {
+        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+        CourseApplication courseApplication = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        if (courseApplication != null) {
+            // 강의신청 삭제 로직
+            courseApplicationRepo.delete(courseApplication.getId());
+            System.out.println("강의 삭제 완료!\n");
+        } else {
+            System.out.println("해당 강의 신청서가 존재하지 않습니다.");
+        }
+    }
+
+    public void requestCourseUpdate(int index, String newCourseName, String semester, String credit,
+                                    String capacity, String classroom, String content, String reason) {
+
+        CourseRepository courseRepo = new CourseRepoImpl(em);
+        Course course= courseRepo.findByProfessorId(1L).get(index);
+        CourseUpdateRequestRepository updateRepo = new CourseUpdateRequestRepoImpl(em);
+
+        CourseUpdateRequest request = CourseUpdateRequest.builder()
+                .course(course)
+                .professor(course.getProfessor()) // 또는 현재 로그인한 교수
+                .courseName(newCourseName)
+                .semester(semester)
+                .credit(credit)
+                .capacity(capacity)
+                .classroom(classroom)
+                .content(content)
+                .reason(reason)
+                .build();
+
+        updateRepo.save(request);
+        System.out.println("강의 수정 요청이 제출되었습니다.");
+    }
+
+
+    public void applyDeleteCreatedCourse(String courseName, String professorName, String reason) {
+        CourseDeleteRequestRepository repo = new CourseDeleteRequestRepoImpl(em);
+
+        CourseDeleteRequest request = CourseDeleteRequest.builder()
+                .courseName(courseName)
+                .professorName(professorName)
+                .reason(reason)
+                .build();
+
+        repo.save(request);
+
+        System.out.println("강의 삭제 요청이 등록되었습니다.");
+    }
+
 }

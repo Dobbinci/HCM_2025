@@ -229,7 +229,7 @@ public class MemberManageView {
         }
 
         public void showStudent() {
-            List<Student> members = staffController.getStudnets();
+            List<Student> members = staffController.getStudents();
 
             if (members.isEmpty()) {
                 System.out.println("등록된 멤버가 없습니다.");

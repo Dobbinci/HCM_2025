@@ -1,6 +1,4 @@
 package com.be.view.professor.applicationViewStrategy;
-
-import com.be.control.CourseManager;
 import com.be.controller.ProfessorController;
 import com.be.model.Professor;
 import lombok.AllArgsConstructor;
@@ -17,8 +15,6 @@ public class CourseApplicationUpdateView implements ApplicationViewStrategy{
         // 강의 수정 로직
         Scanner scanner = new Scanner(System.in);
         int index;
-        CourseManager manager = CourseManager.getInstance();
-        if (!manager.getCourseApplications().isEmpty()) {
             //강의 목록 조회
             ApplicationViewStrategy courseApplicationViewStrategy = new CourseApplicationListView(professorController);
             courseApplicationViewStrategy.show();
@@ -41,9 +37,7 @@ public class CourseApplicationUpdateView implements ApplicationViewStrategy{
             System.out.print("강의계획서 : ");
             String content = scanner.nextLine();
 
-            professorController.applyUpdateCourse(index, courseName, professorName, semester, credit, capacity, classroom, content);
-        } else {
-            System.out.println("신청 목록이 비어있습니다.");
+            professorController.applyUpdateCourse(--index, courseName, professorName, semester, credit, capacity, classroom, content);
         }
-    }
+
 }
