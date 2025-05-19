@@ -1,7 +1,9 @@
 package com.be.controller;
-import java.util.List;
-import java.util.Scanner;
 
+import java.util.List;
+
+import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseDTO;
 import com.be.model.*;
 import com.be.repository.CourseApplicationRepository;
 import com.be.repository.CourseDeleteRequestRepository;
@@ -18,21 +20,23 @@ public class StaffController {
     private final EntityManager em;
 
     //강의 생성 수행 로직
-    public void createCourse(Long id) {
+    public void createCourse(CourseApplicationDTO selected) {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
-        CourseApplication courseApplication = courseApplicationRepo.findById(id);
 
         // 강의 신청 객체 생성
         Course course = Course.builder()
-                .courseName(courseApplication.getCourseName())
-                .professorName(courseApplication.getProfessorName())
-                .semester(courseApplication.getSemester())
-                .credit(courseApplication.getCredit())
-                .capacity(courseApplication.getCapacity())
-                .classroom(courseApplication.getClassroom())
-                .content(courseApplication.getContent())
-                .professor(courseApplication.getProfessor())
+                .courseName(selected.getCourseName())
+                .professorName(selected.getProfessorName())
+                .semester(selected.getSemester())
+                .credit(selected.getCredit())
+                .capacity(selected.getCapacity())
+                .classroom(selected.getClassroom())
+                .content(selected.getContent())
+                .professor(selected.getProfessor())
                 .build();
+
+        // 요청 삭제
+        courseApplicationRepo.delete(selected.getId());
 
         // 강의 등록 로직
         CourseRepository courseRepo = new CourseRepoImpl(em);
@@ -41,66 +45,42 @@ public class StaffController {
         System.out.println("강의 등록 완료!\n");
     }
 
-
-    // 강의 수정 수행 로직
-    public void updateCourse(Long id) {
-        Scanner scanner = new Scanner(System.in);
-        CourseRepoImpl courseRepo = new CourseRepoImpl(em);
-        Course editCourse = courseRepo.findById(id);
-
-        String newCourseName;
-        String newProfessorName;
-        String newSemester;
-        String newCredit;
-        String newCapacity;
-        String newClassroom;
-        String newContent;
-
-        //수정 로직
-        System.out.println("과목명 수정 : ");
-        newCourseName = scanner.nextLine();
-        editCourse.setCourseName(newCourseName);
-
-        System.out.println("교수명 수정 : ");
-        newProfessorName = scanner.nextLine();
-        editCourse.setCourseName(newProfessorName);
-
-        System.out.println("학기 수정 : ");
-        newSemester = scanner.nextLine();
-        editCourse.setCourseName(newSemester);
-
-        System.out.println("학점 수정 : ");
-        newCredit = scanner.nextLine();
-        editCourse.setCourseName(newCredit);
-
-        System.out.println("정원 수정 : ");
-        newCapacity = scanner.nextLine();
-        editCourse.setCourseName(newCapacity);
-
-        System.out.println("강의실 수정 : ");
-        newClassroom = scanner.nextLine();
-        editCourse.setCourseName(newClassroom);
-
-        System.out.println("내용 수정 : ");
-        newContent = scanner.nextLine();
-        editCourse.setCourseName(newContent);
-
-        //강의 업데이트
-        courseRepo.update(editCourse);
-        System.out.println("강의 수정 완료");
-    }
-
     // 교수가 작성한 강의 목록 반환 로직
-    public List<CourseApplication> getCourseApplications() {
+    public List<CourseApplicationDTO> loadCourseApplicationList() {
         CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
-        return courseApplicationRepo.findAll();
+        List<CourseApplication> courseApplicationList = courseApplicationRepo.findAll();
+
+        return courseApplicationList.stream()
+                .map(courseApplication -> new CourseApplicationDTO(
+                        courseApplication.getId(),
+                        courseApplication.getCourseName(),
+                        courseApplication.getProfessorName(),
+                        courseApplication.getSemester(),
+                        courseApplication.getCredit(),
+                        courseApplication.getCapacity(),
+                        courseApplication.getClassroom(),
+                        courseApplication.getContent(),
+                        courseApplication.getProfessor())).toList();
     }
 
     // 개설된 강의 목록 반환 로직
-    public List<Course> getCreatedCourse() {
-        CourseRepoImpl courseRepo = new CourseRepoImpl(em);
-        return courseRepo.findAll();
+    public List<CourseDTO> loadCourseList() {
+        CourseRepository courseRepo = new CourseRepoImpl(em);
+        // 모든 강의 조회
+        List<Course> courseList = courseRepo.findAll();
+        // DTO로 변환
+        return courseList.stream()
+                .map(course -> new CourseDTO(
+                        course.getId(),
+                        course.getCourseName(),
+                        course.getProfessorName(),
+                        course.getSemester(),
+                        course.getCredit(),
+                        course.getCapacity(),
+                        course.getClassroom(),
+                        course.getContent())).toList();
     }
+
     public List<CourseDeleteRequest> getAllDeleteRequests() {
         CourseDeleteRequestRepoImpl courseDeleteRequestRepo = new CourseDeleteRequestRepoImpl(em);
         return courseDeleteRequestRepo.findAll();
@@ -161,6 +141,11 @@ public class StaffController {
             System.out.println("수정 요청이 존재하지 않습니다.");
         }
     }
+
+//    public Course getCourse(Long id) {
+//        CourseRepository courseRepo = new CourseRepoImpl(em);
+//        return courseRepo.findById(id);
+//    }
 
     //-----------------------------!여기부터 맴버 관리 컨트롤러!-----------------------------//
 
