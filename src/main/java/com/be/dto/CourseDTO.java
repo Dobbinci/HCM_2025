@@ -17,6 +17,7 @@ public class CourseDTO {
     private String capacity;
     private String classroom;
     private String content;
+    private Long professorId;
 
     public CourseDTO() {
         // Default constructor

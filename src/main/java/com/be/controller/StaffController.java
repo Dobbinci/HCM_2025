@@ -1,8 +1,7 @@
 package com.be.controller;
 import java.util.List;
-import java.util.Scanner;
 
-import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseCreateRequestDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
 import com.be.repository.CourseCreateRequestRepository;
@@ -20,8 +19,9 @@ public class StaffController {
     private final EntityManager em;
 
     //강의 생성 수행 로직
-    public void createCourse(CourseApplicationDTO selected) {
+    public void createCourse(CourseCreateRequestDTO selected) {
         CourseCreateRequestRepository courseCreateRequestRepo = new CourseCreateRequestRepoImpl(em);
+        GenericRepository<Professor, Long> memberRepo = new GenericRepoImpl<>(em, Professor.class);
 
         // 강의 신청 객체 생성
         Course course = Course.builder()
@@ -32,7 +32,7 @@ public class StaffController {
                 .capacity(selected.getCapacity())
                 .classroom(selected.getClassroom())
                 .content(selected.getContent())
-                .professor(selected.getProfessor())
+                .professor(memberRepo.findById(selected.getProfessorId()))
                 .build();
 
         // 요청 삭제
@@ -46,12 +46,12 @@ public class StaffController {
     }
 
     // 교수가 작성한 강의 목록 반환 로직
-    public List<CourseApplicationDTO> loadCourseApplicationList() {
+    public List<CourseCreateRequestDTO> loadCourseApplicationList() {
         CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         List<CourseCreateRequest> courseCreateRequestList = courseApplicationRepo.findAll();
 
         return courseCreateRequestList.stream()
-                .map(courseCreateRequest -> new CourseApplicationDTO(
+                .map(courseCreateRequest -> new CourseCreateRequestDTO(
                         courseCreateRequest.getId(),
                         courseCreateRequest.getCourseName(),
                         courseCreateRequest.getProfessorName(),
@@ -60,7 +60,7 @@ public class StaffController {
                         courseCreateRequest.getCapacity(),
                         courseCreateRequest.getClassroom(),
                         courseCreateRequest.getContent(),
-                        courseCreateRequest.getProfessor())).toList();
+                        courseCreateRequest.getProfessor().getId())).toList();
     }
 
     // 개설된 강의 목록 반환 로직
@@ -78,7 +78,8 @@ public class StaffController {
                         course.getCredit(),
                         course.getCapacity(),
                         course.getClassroom(),
-                        course.getContent())).toList();
+                        course.getContent(),
+                        course.getProfessor().getId())).toList();
     }
 
     public List<CourseDeleteRequest> getAllDeleteRequests() {

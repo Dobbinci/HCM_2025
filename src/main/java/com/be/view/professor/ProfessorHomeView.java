@@ -1,7 +1,6 @@
 package com.be.view.professor;
 
 import com.be.controller.ProfessorController;
-import com.be.model.Professor;
 import com.be.view.professor.applicationViewStrategy.*;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;

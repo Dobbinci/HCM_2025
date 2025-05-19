@@ -4,7 +4,7 @@ package com.be.controller;
 //import com.be.control.CourseManager;
 
 
-import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseCreateRequestDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
 import com.be.repository.*;
@@ -46,23 +46,23 @@ public class ProfessorController {
         System.out.println("강의 등록 신청 완료!\n");
     }
 
-    public List<CourseApplicationDTO> loadCourseApplicationList() {
+    public List<CourseCreateRequestDTO> loadCourseApplicationList() {
         CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         // 강의 신청 목록 조회
         List<CourseCreateRequest> courseCreateRequestList = courseApplicationRepo.findByProfessorId(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
         // DTO로 변환
         return courseCreateRequestList.stream()
-                .map(courseApplication -> new CourseApplicationDTO(
-                        courseApplication.getId(),
-                        courseApplication.getCourseName(),
-                        courseApplication.getProfessorName(),
-                        courseApplication.getSemester(),
-                        courseApplication.getCredit(),
-                        courseApplication.getCapacity(),
-                        courseApplication.getClassroom(),
-                        courseApplication.getContent(),
-                        courseApplication.getProfessor())).toList();
+                .map(courseCreateRequest-> new CourseCreateRequestDTO(
+                        courseCreateRequest.getId(),
+                        courseCreateRequest.getCourseName(),
+                        courseCreateRequest.getProfessorName(),
+                        courseCreateRequest.getSemester(),
+                        courseCreateRequest.getCredit(),
+                        courseCreateRequest.getCapacity(),
+                        courseCreateRequest.getClassroom(),
+                        courseCreateRequest.getContent(),
+                        courseCreateRequest.getProfessor().getId())).toList();
     }
 
     public List<CourseDTO> loadCourseList() {
@@ -80,7 +80,8 @@ public class ProfessorController {
                         course.getCredit(),
                         course.getCapacity(),
                         course.getClassroom(),
-                        course.getContent())).toList();
+                        course.getContent(),
+                        course.getProfessor().getId())).toList();
     }
 
     public void applyUpdateCourse(int index, String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {

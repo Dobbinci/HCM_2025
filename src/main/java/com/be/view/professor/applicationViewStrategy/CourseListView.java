@@ -1,7 +1,7 @@
 package com.be.view.professor.applicationViewStrategy;
 
 import com.be.controller.ProfessorController;
-import com.be.dto.CourseApplicationDTO;
+
 import java.util.List;
 
 import com.be.dto.CourseDTO;

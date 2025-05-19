@@ -1,7 +1,7 @@
 package com.be.view.professor.applicationViewStrategy;
 
 import com.be.controller.ProfessorController;
-import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseCreateRequestDTO;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -14,11 +14,11 @@ public class CourseApplicationListView implements ApplicationViewStrategy {
     @Override
     public void show() {
 
-        List<CourseApplicationDTO> courseApplicationDTOs = professorController.loadCourseApplicationList();
+        List<CourseCreateRequestDTO> courseCreateRequestDTOS = professorController.loadCourseApplicationList();
         System.out.println(" -- 강의 신청서 목록 -- ");
 
         //강의 목록 반환 로직
-        if (!courseApplicationDTOs.isEmpty()) {
+        if (!courseCreateRequestDTOS.isEmpty()) {
             int widthNo = 4;
             int widthName = 15;
             int widthProfessor = 10;
@@ -54,7 +54,7 @@ public class CourseApplicationListView implements ApplicationViewStrategy {
 
             // 데이터 출력
             int index = 0;
-            for (CourseApplicationDTO courseApplicationDTO : courseApplicationDTOs) {
+            for (CourseCreateRequestDTO courseCreateRequestDTO : courseCreateRequestDTOS) {
                 System.out.printf("| %" + widthNo + "s | "
                                 + "%-" + widthName + "s | "
                                 + "%-" + widthProfessor + "s | "
@@ -64,13 +64,13 @@ public class CourseApplicationListView implements ApplicationViewStrategy {
                                 + "%-" + widthClassroom + "s | "
                                 + "%-" + widthContent + "s |\n",
                         ++index,
-                        courseApplicationDTO.getCourseName(),
-                        courseApplicationDTO.getProfessorName(),
-                        courseApplicationDTO.getSemester(),
-                        courseApplicationDTO.getCredit(),
-                        courseApplicationDTO.getCapacity(),
-                        courseApplicationDTO.getClassroom(),
-                        courseApplicationDTO.getContent()
+                        courseCreateRequestDTO.getCourseName(),
+                        courseCreateRequestDTO.getProfessorName(),
+                        courseCreateRequestDTO.getSemester(),
+                        courseCreateRequestDTO.getCredit(),
+                        courseCreateRequestDTO.getCapacity(),
+                        courseCreateRequestDTO.getClassroom(),
+                        courseCreateRequestDTO.getContent()
                 );
             }
             System.out.println(line);
