@@ -21,7 +21,7 @@ public class StaffController {
 
     //강의 생성 수행 로직
     public void createCourse(CourseApplicationDTO selected) {
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+        CourseCreateRequestRepository courseCreateRequestRepo = new CourseCreateRequestRepoImpl(em);
 
         // 강의 신청 객체 생성
         Course course = Course.builder()
@@ -36,7 +36,7 @@ public class StaffController {
                 .build();
 
         // 요청 삭제
-        courseApplicationRepo.delete(selected.getId());
+        courseCreateRequestRepo.delete(selected.getId());
 
         // 강의 등록 로직
         CourseRepository courseRepo = new CourseRepoImpl(em);
@@ -47,20 +47,20 @@ public class StaffController {
 
     // 교수가 작성한 강의 목록 반환 로직
     public List<CourseApplicationDTO> loadCourseApplicationList() {
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
-        List<CourseApplication> courseApplicationList = courseApplicationRepo.findAll();
+        CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
+        List<CourseCreateRequest> courseCreateRequestList = courseApplicationRepo.findAll();
 
-        return courseApplicationList.stream()
-                .map(courseApplication -> new CourseApplicationDTO(
-                        courseApplication.getId(),
-                        courseApplication.getCourseName(),
-                        courseApplication.getProfessorName(),
-                        courseApplication.getSemester(),
-                        courseApplication.getCredit(),
-                        courseApplication.getCapacity(),
-                        courseApplication.getClassroom(),
-                        courseApplication.getContent(),
-                        courseApplication.getProfessor())).toList();
+        return courseCreateRequestList.stream()
+                .map(courseCreateRequest -> new CourseApplicationDTO(
+                        courseCreateRequest.getId(),
+                        courseCreateRequest.getCourseName(),
+                        courseCreateRequest.getProfessorName(),
+                        courseCreateRequest.getSemester(),
+                        courseCreateRequest.getCredit(),
+                        courseCreateRequest.getCapacity(),
+                        courseCreateRequest.getClassroom(),
+                        courseCreateRequest.getContent(),
+                        courseCreateRequest.getProfessor())).toList();
     }
 
     // 개설된 강의 목록 반환 로직
