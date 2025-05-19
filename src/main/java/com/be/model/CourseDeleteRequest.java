@@ -25,7 +25,7 @@ public class CourseDeleteRequest {
     private String professorName;
 
     private String reason; // 삭제 사유 (선택사항)
-
+    @Builder.Default
     private boolean handled = false;
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)

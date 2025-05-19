@@ -62,7 +62,7 @@ public class CourseListView implements ApplicationViewStrategy{
                                 + "%-" + widthCapacity + "s | "
                                 + "%-" + widthClassroom + "s | "
                                 + "%-" + widthContent + "s |\n",
-                        ++index,
+                        ++index,//목록 번호는 index값으로(아이디 값 아님)
                         courseDTO.getCourseName(),
                         courseDTO.getProfessorName(),
                         courseDTO.getSemester(),

@@ -60,7 +60,7 @@ public class CourseManageView {
             for (Course course : courseList) {
                 System.out.println(course.getId());
                 System.out.println(course.getCourseName());
-                System.out.println(course.getProfessor());
+                System.out.println(course.getProfessor().getName());
                 System.out.println(course.getClassroom());
             }
         }
@@ -79,12 +79,19 @@ public class CourseManageView {
             System.out.println("=== 강의 수정 요청 목록 ===");
             for (int i = 0; i < requests.size(); i++) {
                 CourseUpdateRequest req = requests.get(i);
-                System.out.printf("[%d] 강의명: %s → %s / 학기: %s / 정원: %s / 사유: %s%n",
+                System.out.printf("[%d] 강의명: %s → %s / 학기: %s -> %s / 정원: %s -> %s / 강의실: %s -> %s / 강의 정보: %s -> %s / 사유: %s%n",
                         i,
                         req.getCourse().getCourseName(),
                         req.getCourseName(),
+                        req.getCourse().getSemester(),
                         req.getSemester(),
+                        req.getCourse().getCapacity(),
                         req.getCapacity(),
+                        req.getCourse().getClassroom(),
+                        req.getClassroom(),
+                        req.getCourse().getContent(),
+                        req.getContent(),
+
                         req.getReason());
             }
 
@@ -116,10 +123,9 @@ public class CourseManageView {
             System.out.println("=== 강의 삭제 요청 목록 ===");
             for (int i = 0; i < requests.size(); i++) {
                 CourseDeleteRequest req = requests.get(i);
-                System.out.printf("[%d] 강의명: %s → %s / 사유: %s%n",
+                System.out.printf("[%d] 강의명: %s / 사유: %s%n",
                         i,
                         req.getCourse().getCourseName(),
-                        req.getCourseName(),
                         req.getReason());
             }
 

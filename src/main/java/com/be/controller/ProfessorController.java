@@ -113,11 +113,11 @@ public class ProfessorController {
         }
     }
 
-    public void requestCourseUpdate(int index, String newCourseName, String semester, String credit,
+    public void requestCourseUpdate(Long courseId, String newCourseName, String semester, String credit,
                                     String capacity, String classroom, String content, String reason) {
 
         CourseRepository courseRepo = new CourseRepoImpl(em);
-        Course course= courseRepo.findByProfessorId(1L).get(index);
+        Course course= courseRepo.findById(courseId);
         CourseUpdateRequestRepository updateRepo = new CourseUpdateRequestRepoImpl(em);
 
         CourseUpdateRequest request = CourseUpdateRequest.builder()
