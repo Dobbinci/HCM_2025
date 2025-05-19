@@ -4,6 +4,7 @@ import com.be.model.Course;
 import com.be.model.CourseApplication;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CourseRepository {
 
