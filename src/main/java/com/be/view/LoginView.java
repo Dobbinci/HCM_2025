@@ -18,19 +18,15 @@ public class LoginView extends TemplateLoginView {
     protected Member login() {
         Member loggedInMember = null;
 
-//        while (loggedInMember == null) {
-//            System.out.println("아이디와 비밀번호를 입력하시오!");
-//            System.out.print("ID: ");
-//            String id = scanner.nextLine();
-//            System.out.print("PW: ");
-//            String pw = scanner.nextLine();
-//
-//            loggedInMember = manager.manageLogin(id, pw);
-//
-//            if (loggedInMember == null) {
-//                System.out.println("로그인 실패! 아이디 또는 비밀번호가 올바르지 않습니다.\n다시 입력하세요.");
-//            }
-//        }
+        while (loggedInMember == null) {
+            System.out.println("아이디와 비밀번호를 입력하시오!");
+            System.out.print("ID: ");
+            String id = scanner.nextLine();
+            System.out.print("PW: ");
+            String pw = scanner.nextLine();
+
+            loggedInMember = memberController.login(id, pw);
+        }
 
         if (loggedInMember instanceof Professor professor) {
             System.out.println("로그인 성공! 환영합니다, " + professor.getName() + " 교수님!");

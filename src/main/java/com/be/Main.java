@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
 
         //로그 안보이게
-        //Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+        Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 
         // Persistence Unit "PU"를 기반으로 EntityManagerFactory 생성
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");

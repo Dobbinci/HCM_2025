@@ -2,8 +2,6 @@ package com.be.model;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +12,11 @@ import lombok.Setter;
 public class Student extends Member {
 
 
-    protected Student() {
-        // JPA requires a default constructor
+    public Student(Long id, String name, String systemId, String password, String position) {
+        super(id, name, systemId, password, position);
+    }
+
+    public Student() {
+
     }
 }

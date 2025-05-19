@@ -11,7 +11,11 @@ import lombok.Setter;
 public class Professor extends Member {
 
 
+    public Professor(Long id, String name, String systemId, String password, String position) {
+        super(id, name, systemId, password, position);
+    }
+
     public Professor() {
-        // JPA requires a default constructor
+
     }
 }
