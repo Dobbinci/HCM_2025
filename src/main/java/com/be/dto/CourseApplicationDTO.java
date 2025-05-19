@@ -1,5 +1,7 @@
 package com.be.dto;
 
+import com.be.model.Professor;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +21,13 @@ public class CourseApplicationDTO {
     private String classroom;
     private String content;
 
+    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
+    private Professor professor;
+
     public CourseApplicationDTO() {
         // Default constructor
     }
+
+
+
 }

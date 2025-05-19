@@ -1,5 +1,9 @@
 package com.be.controller;
 
+
+//import com.be.control.CourseManager;
+
+
 import com.be.dto.CourseApplicationDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
@@ -57,7 +61,8 @@ public class ProfessorController {
                         courseApplication.getCredit(),
                         courseApplication.getCapacity(),
                         courseApplication.getClassroom(),
-                        courseApplication.getContent())).toList();
+                        courseApplication.getContent(),
+                        courseApplication.getProfessor())).toList();
     }
 
     public List<CourseDTO> loadCourseList() {
@@ -99,6 +104,7 @@ public class ProfessorController {
             System.out.println("해당 강의 신청서가 존재하지 않습니다.");
         }
     }
+
 
     public void applyDeleteCourse(int index) {
         CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
