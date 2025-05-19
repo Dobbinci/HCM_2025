@@ -3,6 +3,7 @@ package com.be.repository;
 import com.be.model.Course;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CourseRepository {
 
