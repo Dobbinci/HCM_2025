@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class CourseApplication {
+public class CourseCreateRequest {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
@@ -29,11 +29,11 @@ public class CourseApplication {
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
     private Professor professor;
 
-    protected CourseApplication() {
+    protected CourseCreateRequest() {
         // JPA requires a default constructor
     }
 
-    public CourseApplication(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
+    public CourseCreateRequest(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
         this.courseName = courseName;
         this.professorName = professorName;
         this.semester = semester;

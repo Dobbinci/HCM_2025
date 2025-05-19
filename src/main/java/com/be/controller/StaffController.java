@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.be.model.*;
-import com.be.repository.CourseApplicationRepository;
+import com.be.repository.CourseCreateRequestRepository;
 import com.be.repository.CourseDeleteRequestRepository;
 import com.be.repository.CourseUpdateRequestRepository;
 import com.be.repository.CourseRepository;
@@ -19,19 +19,19 @@ public class StaffController {
 
     //강의 생성 수행 로직
     public void createCourse(Long id) {
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
-        CourseApplication courseApplication = courseApplicationRepo.findById(id);
+        CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
+        CourseCreateRequest courseCreateRequest = courseApplicationRepo.findById(id);
 
         // 강의 신청 객체 생성
         Course course = Course.builder()
-                .courseName(courseApplication.getCourseName())
-                .professorName(courseApplication.getProfessorName())
-                .semester(courseApplication.getSemester())
-                .credit(courseApplication.getCredit())
-                .capacity(courseApplication.getCapacity())
-                .classroom(courseApplication.getClassroom())
-                .content(courseApplication.getContent())
-                .professor(courseApplication.getProfessor())
+                .courseName(courseCreateRequest.getCourseName())
+                .professorName(courseCreateRequest.getProfessorName())
+                .semester(courseCreateRequest.getSemester())
+                .credit(courseCreateRequest.getCredit())
+                .capacity(courseCreateRequest.getCapacity())
+                .classroom(courseCreateRequest.getClassroom())
+                .content(courseCreateRequest.getContent())
+                .professor(courseCreateRequest.getProfessor())
                 .build();
 
         // 강의 등록 로직
@@ -91,8 +91,8 @@ public class StaffController {
     }
 
     // 교수가 작성한 강의 목록 반환 로직
-    public List<CourseApplication> getCourseApplications() {
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+    public List<CourseCreateRequest> getCourseApplications() {
+        CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         return courseApplicationRepo.findAll();
     }
 

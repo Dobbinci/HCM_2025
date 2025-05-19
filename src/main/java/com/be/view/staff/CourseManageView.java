@@ -22,12 +22,12 @@ public class CourseManageView {
             long id;
 
             //교수가 작성한 신청서 조회
-            List<CourseApplication> courseApplications = staffController.getCourseApplications();
-            for (CourseApplication courseApplication : courseApplications) {
-                System.out.println(courseApplication.getId());
-                System.out.println(courseApplication.getCourseName());
-                System.out.println(courseApplication.getProfessor().getName());
-                System.out.println(courseApplication.getClassroom());
+            List<CourseCreateRequest> courseCreateRequests = staffController.getCourseApplications();
+            for (CourseCreateRequest courseCreateRequest : courseCreateRequests) {
+                System.out.println(courseCreateRequest.getId());
+                System.out.println(courseCreateRequest.getCourseName());
+                System.out.println(courseCreateRequest.getProfessor().getName());
+                System.out.println(courseCreateRequest.getClassroom());
             }
 
             System.out.println("생성할 강의 번호 선택 : ");

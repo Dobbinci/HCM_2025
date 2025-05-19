@@ -2,11 +2,8 @@ package com.be.view.professor.applicationViewStrategy;
 
 import com.be.controller.ProfessorController;
 import com.be.dto.CourseApplicationDTO;
-import com.be.model.CourseApplication;
-import com.be.model.Professor;
 import lombok.AllArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
