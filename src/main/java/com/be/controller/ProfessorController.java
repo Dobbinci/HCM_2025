@@ -4,7 +4,7 @@ package com.be.controller;
 //import com.be.control.CourseManager;
 
 
-import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseCreateRequestDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
 import com.be.repository.*;
@@ -12,7 +12,6 @@ import com.be.repository.impl.*;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.EntityManager;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,13 +21,13 @@ public class ProfessorController {
 
     public void applyCreateCourse(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
 
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+        CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         GenericRepository<Professor, Long> memberRepo = new GenericRepoImpl<>(em, Professor.class);
 
         Professor professor = memberRepo.findById(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
         // 강의 신청 객체 생성
-        CourseApplication courseApplication = CourseApplication.builder()
+        CourseCreateRequest courseCreateRequest = CourseCreateRequest.builder()
                 .courseName(courseName)
                 .professorName(professorName)
                 .semester(semester)
@@ -42,28 +41,28 @@ public class ProfessorController {
         // 강의 등록 유효성 검사
         //CourseManager.getInstance().validateCourseApplication(courseApplication);
         // 강의 등록 로직
-        courseApplicationRepo.save(courseApplication);
+        courseApplicationRepo.save(courseCreateRequest);
 
         System.out.println("강의 등록 신청 완료!\n");
     }
 
-    public List<CourseApplicationDTO> loadCourseApplicationList() {
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+    public List<CourseCreateRequestDTO> loadCourseApplicationList() {
+        CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         // 강의 신청 목록 조회
-        List<CourseApplication> courseApplicationList = courseApplicationRepo.findByProfessorId(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        List<CourseCreateRequest> courseCreateRequestList = courseApplicationRepo.findByProfessorId(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
         // DTO로 변환
-        return courseApplicationList.stream()
-                .map(courseApplication -> new CourseApplicationDTO(
-                        courseApplication.getId(),
-                        courseApplication.getCourseName(),
-                        courseApplication.getProfessorName(),
-                        courseApplication.getSemester(),
-                        courseApplication.getCredit(),
-                        courseApplication.getCapacity(),
-                        courseApplication.getClassroom(),
-                        courseApplication.getContent(),
-                        courseApplication.getProfessor())).toList();
+        return courseCreateRequestList.stream()
+                .map(courseCreateRequest-> new CourseCreateRequestDTO(
+                        courseCreateRequest.getId(),
+                        courseCreateRequest.getCourseName(),
+                        courseCreateRequest.getProfessorName(),
+                        courseCreateRequest.getSemester(),
+                        courseCreateRequest.getCredit(),
+                        courseCreateRequest.getCapacity(),
+                        courseCreateRequest.getClassroom(),
+                        courseCreateRequest.getContent(),
+                        courseCreateRequest.getProfessor().getId())).toList();
     }
 
     public List<CourseDTO> loadCourseList() {
@@ -81,25 +80,26 @@ public class ProfessorController {
                         course.getCredit(),
                         course.getCapacity(),
                         course.getClassroom(),
-                        course.getContent())).toList();
+                        course.getContent(),
+                        course.getProfessor().getId())).toList();
     }
 
     public void applyUpdateCourse(int index, String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
+        CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         // 수정할 강의신청 객체 불러오기
-        CourseApplication courseApplication = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        CourseCreateRequest courseCreateRequest = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
-        if (courseApplication != null) {
+        if (courseCreateRequest != null) {
             // 강의신청 수정 로직
-            courseApplication.setCourseName(courseName);
-            courseApplication.setProfessorName(professorName);
-            courseApplication.setSemester(semester);
-            courseApplication.setCredit(credit);
-            courseApplication.setCapacity(capacity);
-            courseApplication.setClassroom(classroom);
-            courseApplication.setContent(content);
+            courseCreateRequest.setCourseName(courseName);
+            courseCreateRequest.setProfessorName(professorName);
+            courseCreateRequest.setSemester(semester);
+            courseCreateRequest.setCredit(credit);
+            courseCreateRequest.setCapacity(capacity);
+            courseCreateRequest.setClassroom(classroom);
+            courseCreateRequest.setContent(content);
 
-            courseApplicationRepo.update(courseApplication);
+            courseApplicationRepo.update(courseCreateRequest);
             System.out.println("강의 수정 완료!\n");
         } else {
             System.out.println("해당 강의 신청서가 존재하지 않습니다.");
@@ -108,11 +108,11 @@ public class ProfessorController {
 
 
     public void applyDeleteCourse(int index) {
-        CourseApplicationRepository courseApplicationRepo = new CourseApplicationRepoImpl(em);
-        CourseApplication courseApplication = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
-        if (courseApplication != null) {
+        CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
+        CourseCreateRequest courseCreateRequest = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        if (courseCreateRequest != null) {
             // 강의신청 삭제 로직
-            courseApplicationRepo.delete(courseApplication.getId());
+            courseApplicationRepo.delete(courseCreateRequest.getId());
             System.out.println("강의 삭제 완료!\n");
         } else {
             System.out.println("해당 강의 신청서가 존재하지 않습니다.");

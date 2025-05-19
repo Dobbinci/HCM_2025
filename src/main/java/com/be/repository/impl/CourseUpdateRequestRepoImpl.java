@@ -1,6 +1,5 @@
 package com.be.repository.impl;
 
-import com.be.model.CourseApplication;
 import com.be.model.CourseUpdateRequest;
 import com.be.repository.CourseUpdateRequestRepository;
 import jakarta.persistence.EntityManager;

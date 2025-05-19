@@ -1,7 +1,7 @@
 package com.be.view.staff;
 
 import com.be.controller.StaffController;
-import com.be.dto.CourseApplicationDTO;
+import com.be.dto.CourseCreateRequestDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
 import jakarta.persistence.EntityManager;
@@ -63,16 +63,17 @@ public class CourseManageView {
     //강의 생성 요청 관리
     public class CourseCreateRequestView {
         public void show() {
+            long id;
 
             //교수가 작성한 신청서 조회
-            List<CourseApplicationDTO> courseApplications = staffController.loadCourseApplicationList();
+            List<CourseCreateRequestDTO> courseApplications = staffController.loadCourseApplicationList();
             if (courseApplications.isEmpty()) {
                 System.out.println("강의 개설 신청이 없습니다.");
                 return;
             }
 
             for (int i = 0; i < courseApplications.size(); i++) {
-                CourseApplicationDTO ca = courseApplications.get(i);
+                CourseCreateRequestDTO ca = courseApplications.get(i);
                 System.out.printf("[%d]. " +
                         "강의명 : %s |" +
                         "교수명 : %s |" +
@@ -88,7 +89,7 @@ public class CourseManageView {
                 System.out.println("생성 요청 반영을 취소합니다.");
                 return;
             }
-            CourseApplicationDTO selected = courseApplications.get(index - 1);
+            CourseCreateRequestDTO selected = courseApplications.get(index - 1);
             staffController.createCourse(selected);
             System.out.println("강의 생성 요청을 반영하였습니다.");
         }
