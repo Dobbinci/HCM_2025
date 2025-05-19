@@ -11,7 +11,7 @@ public abstract class TemplateLoginView {
         String checkWork = "";
 
         while (!(checkWork.equals("1") || checkWork.equals("2") || checkWork.equals("3"))) {
-            System.out.print("Welcome to Handong Course Management System!\n" +
+            System.out.print("\nWelcome to Handong Course Management System!\n" +
                     "What would you do?\n1. Login\n2. Sign up\n3. Exit\n");
             checkWork = scanner.nextLine();
 

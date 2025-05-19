@@ -12,10 +12,7 @@ import lombok.Setter;
 @Setter
 @DiscriminatorValue("Staff")
 public class Staff extends Member {
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-    private Long id;
-    private String staffId;
+
 
     protected Staff() {
         // JPA requires a default constructor
