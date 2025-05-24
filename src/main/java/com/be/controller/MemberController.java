@@ -32,19 +32,38 @@ public class MemberController {
 
         Member member = null;
         if (position.equalsIgnoreCase("student")) {
-            member = new Student(id, name, systemId, password, position);
+            member = Student.builder()
+                    .id(id)
+                    .systemId(systemId)
+                    .password(password)
+                    .name(name)
+                    .position(position)
+                    .build();
         } else if (position.equalsIgnoreCase("professor")) {
-            member = new Professor(id, name, systemId, password, position);
+            member = Professor.builder()
+                    .id(id)
+                    .systemId(systemId)
+                    .password(password)
+                    .name(name)
+                    .position(position)
+                    .build();
         } else if (position.equalsIgnoreCase("staff")) {
-            member = new Staff(id, name, systemId, password, position);
+            member = Staff.builder()
+                    .id(id)
+                    .systemId(systemId)
+                    .password(password)
+                    .name(name)
+                    .position(position)
+                    .build();
         } else {
             System.out.println("잘못된 포지션 입력입니다.");
             return;
         }
 
-        // 저장 로직
+// 저장 로직
         memberRepo.saveMember(member);
         System.out.println(name + "님의 가입을 환영합니다.");
+
     }
 
     public Member login(String systemId, String password) {

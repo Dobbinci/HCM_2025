@@ -1,11 +1,21 @@
-package com.be.view;
+package com.be.view.Authentication;
 
 import java.util.Scanner;
 import com.be.model.Member;
+import com.be.view.Authentication.LoginViewStrategy.LoginViewStrategy;
+import com.be.view.Authentication.SignUpViewStrategy.SignUpViewStrategy;
 
 public abstract class TemplateLoginView {
 
     protected Scanner scanner = new Scanner(System.in);
+
+    protected LoginViewStrategy loginStrategy;
+    protected SignUpViewStrategy signupStrategy;
+
+    public TemplateLoginView(LoginViewStrategy loginStrategy, SignUpViewStrategy signupStrategy) {
+        this.loginStrategy = loginStrategy;
+        this.signupStrategy = signupStrategy;
+    }
 
     public final Member loginOrSignupFlow() {
         String checkWork = "";
@@ -17,9 +27,9 @@ public abstract class TemplateLoginView {
 
             switch (checkWork) {
                 case "1": //login
-                    return login();
+                    return loginStrategy.login();
                 case "2": //signup
-                    signup();
+                    signupStrategy.signup();
                     checkWork = "restart"; // 루프 계속
                     break;
                 case "3": //exit
@@ -31,8 +41,4 @@ public abstract class TemplateLoginView {
         }
         return null;
     }
-
-    protected abstract Member login();
-
-    protected abstract void signup();
 }
