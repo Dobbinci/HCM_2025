@@ -3,6 +3,7 @@ package com.be;
 import com.be.model.Professor;
 import com.be.model.Staff;
 //import com.be.view.LoginView;
+import com.be.view.LoginView;
 import com.be.view.professor.ProfessorHomeView;
 import com.be.view.staff.StaffHomeView;
 import com.be.model.Member;
@@ -16,43 +17,44 @@ import java.util.logging.Logger;
 
 public class Main {
     public static void main(String[] args) {
+
         //로그 안보이게
         Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
-        
+
         // Persistence Unit "PU"를 기반으로 EntityManagerFactory 생성
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
 
         // 실제 DB 작업을 수행할 EntityManager 생성 (요청 또는 트랜잭션 단위로 사용)
         EntityManager em = emf.createEntityManager();
 
-//        while(true) {
-//            TemplateLoginView loginView = new LoginView();
-//            Member loggedInMember = loginView.loginOrSignupFlow();
-//
-//            if (loggedInMember instanceof Professor) {
-//                ProfessorHomeView professorHomeView = new ProfessorHomeView(em);
-//                professorHomeView.show();
-//
-////            } else if (loggedInMember instanceof Student) {
-//////                Student student = (Student) loggedInMember;
-//////                // TODO: StudentView studentView = new StudentView(student);
-//////                // TODO: studentView.home();
-//
-//            } else if (loggedInMember instanceof Staff staff) {
-//                StaffHomeView staffHomeView = new StaffHomeView(em);
-//                staffHomeView.show(staff);
-//
-//            } else {
-//                System.out.println("알 수 없는 사용자 타입입니다.");
-//            }
-//        }
+        while(true) {
+            TemplateLoginView loginView = new LoginView(em);
+            Member loggedInMember = loginView.loginOrSignupFlow();
 
-        StaffHomeView staffHomeView = new StaffHomeView(em);
-        staffHomeView.show();
+            if (loggedInMember instanceof Professor) {
+                ProfessorHomeView professorHomeView = new ProfessorHomeView(em);
+                professorHomeView.show();
+
+//            } else if (loggedInMember instanceof Student) {
+////                Student student = (Student) loggedInMember;
+////                // TODO: StudentView studentView = new StudentView(student);
+////                // TODO: studentView.home();
+
+            } else if (loggedInMember instanceof Staff staff) {
+                StaffHomeView staffHomeView = new StaffHomeView(em);
+                staffHomeView.show();
+
+            } else {
+                System.out.println("알 수 없는 사용자 타입입니다.");
+            }
+        }
+    }
+
+//        StaffHomeView staffHomeView = new StaffHomeView(em);
+//        staffHomeView.show();
 
 //        ProfessorHomeView professorHomeView = new ProfessorHomeView(em);
 //       professorHomeView.show();
 
 
-    }
 }
