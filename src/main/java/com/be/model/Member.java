@@ -6,14 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Builder;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @Setter
-//@Builder
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "member_type")
+@SuperBuilder
 public class Member {
 
     @Id
@@ -27,13 +28,4 @@ public class Member {
     private String name;
 
     private String position;
-
-
-    public Member(Long id, String systemId, String password, String name, String position) {
-        this.id = id;
-        this.systemId = systemId;
-        this.password = password;
-        this.name = name;
-        this.position = position;
-    }
 }

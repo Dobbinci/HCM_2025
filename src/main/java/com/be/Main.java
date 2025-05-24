@@ -2,12 +2,12 @@ package com.be;
 
 import com.be.model.Professor;
 import com.be.model.Staff;
-//import com.be.view.LoginView;
-import com.be.view.LoginView;
+//import com.be.view.Authentication.LoginView;
+import com.be.view.Authentication.LoginView;
 import com.be.view.professor.ProfessorHomeView;
 import com.be.view.staff.StaffHomeView;
 import com.be.model.Member;
-import com.be.view.TemplateLoginView;
+import com.be.view.Authentication.TemplateLoginView;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
