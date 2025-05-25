@@ -4,15 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class CourseCreateRequest {
     @Id
@@ -28,19 +26,5 @@ public class CourseCreateRequest {
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
     private Professor professor;
-
-    protected CourseCreateRequest() {
-        // JPA requires a default constructor
-    }
-
-    public CourseCreateRequest(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
-        this.courseName = courseName;
-        this.professorName = professorName;
-        this.semester = semester;
-        this.credit = credit;
-        this.capacity = capacity;
-        this.classroom = classroom;
-        this.content = content;
-    }
 
 }

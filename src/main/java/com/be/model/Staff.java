@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorValue("Staff")
 @SuperBuilder
 @NoArgsConstructor
-
 public class Staff extends Member {
 
 }

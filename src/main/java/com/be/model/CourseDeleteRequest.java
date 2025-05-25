@@ -3,10 +3,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class CourseDeleteRequest {
     @Id
@@ -34,13 +32,4 @@ public class CourseDeleteRequest {
     @ManyToOne
     private Course course;
 
-    public CourseDeleteRequest() {
-
-    }
-    public CourseDeleteRequest(String courseName, String professorName, String reason, boolean handled) {
-        this.courseName= courseName;
-        this.professorName = professorName;
-        this.reason = reason;
-        this.handled = handled;
-    }
 }
