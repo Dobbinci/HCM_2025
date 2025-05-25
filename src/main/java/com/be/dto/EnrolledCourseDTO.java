@@ -1,11 +1,15 @@
 package com.be.dto;
-import lombok.*;
 
-@AllArgsConstructor
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 @Getter
 @Setter
+@AllArgsConstructor
 @Builder
-public class CourseDTO {
+public class EnrolledCourseDTO {
     private Long id;
     private String courseName;
     private String professorName;
@@ -14,5 +18,4 @@ public class CourseDTO {
     private String capacity;
     private String classroom;
     private String content;
-    private Long professorId;
 }

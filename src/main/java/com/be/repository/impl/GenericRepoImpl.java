@@ -26,7 +26,7 @@ public class GenericRepoImpl<T, ID> implements GenericRepository<T, ID> {
     @Override
     public List<T> findAll() {
         //여기서 클래스 객체(Class<T>)가 필요 따라서 Class<T> entityClass 를 저장해서 기억
-        return em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e", entityClass)
+        return em.createQuery("SELECT e FROM " + entityClass.getSimpleName() + " e" + " order by e.id", entityClass)
                 .getResultList();
     }
 
@@ -47,5 +47,21 @@ public class GenericRepoImpl<T, ID> implements GenericRepository<T, ID> {
         em.getTransaction().begin();
         em.remove(entity);
         em.getTransaction().commit();
+    }
+
+    @Override
+    public List<T> findByStudentId(ID id) {
+        return em.createQuery(
+                "SELECT e FROM " + entityClass.getSimpleName() + " e WHERE e.student.id = :id ORDER BY e.id", entityClass)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    @Override
+    public List<T> findByProfessorId(ID id) {
+        return em.createQuery(
+                "SELECT e FROM " + entityClass.getSimpleName() + " e WHERE e.professor.id = :id ORDER BY e.id", entityClass)
+                .setParameter("id", id)
+                .getResultList();
     }
 }

@@ -9,22 +9,18 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CourseCreateRequest {
+public class EnrolledCourse {
+
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
-    private String courseName;
-    private String professorName;
-    private String semester;
-    private String credit;
-    private String capacity;
-    private String classroom;
-    private String content;
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
-    private Professor professor;
+    private Student student;
 
+    @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
+    private Course course;
 }
