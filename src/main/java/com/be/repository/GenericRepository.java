@@ -12,4 +12,8 @@ public interface GenericRepository<T, ID> {
     void update(T entity);
 
     void delete(T entity);
+
+    List<T> findByStudentId(ID id);
+
+    List<T> findByProfessorId(ID id);
 }

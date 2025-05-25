@@ -34,7 +34,7 @@ public class CourseRepoImpl implements CourseRepository {
 
     @Override
     public List<Course> findAll() {
-        return em.createQuery("SELECT c FROM Course c", Course.class).getResultList();
+        return em.createQuery("SELECT c FROM Course c ORDER BY c.id", Course.class).getResultList();
     }
 
     @Override

@@ -4,16 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Course {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
@@ -28,10 +26,6 @@ public class Course {
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
     private Professor professor;
-
-    public Course() {
-
-    }
 
     public Course(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
         this.courseName = courseName;
