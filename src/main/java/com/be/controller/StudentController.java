@@ -1,10 +1,13 @@
 package com.be.controller;
 
+import com.be.dto.CourseDTO;
 import com.be.dto.EnrolledCourseDTO;
 import com.be.model.Course;
 import com.be.model.EnrolledCourse;
 import com.be.model.Student;
+import com.be.repository.CourseRepository;
 import com.be.repository.GenericRepository;
+import com.be.repository.impl.CourseRepoImpl;
 import com.be.repository.impl.GenericRepoImpl;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
@@ -12,7 +15,7 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
-public class StudentController {
+public class StudentController implements BaseController {
 
     private final EntityManager em;
 
@@ -55,5 +58,22 @@ public class StudentController {
         EnrolledCourse enrolledCourse = enrolledCourses.get(index);
         enrolledCourseRepo.delete(enrolledCourse);
         System.out.println("강의 수강 취소 완료!\n");
+    }
+
+    public List<CourseDTO> loadCourseList() {
+        GenericRepository<Course, Long> courseRepo = new GenericRepoImpl<>(em, Course.class);
+        List<Course> courseList = courseRepo.findAll();
+
+        return courseList.stream()
+                .map(course -> new CourseDTO(
+                        course.getId(),
+                        course.getCourseName(),
+                        course.getProfessorName(),
+                        course.getSemester(),
+                        course.getCredit(),
+                        course.getCapacity(),
+                        course.getClassroom(),
+                        course.getContent(),
+                        course.getProfessor().getId())).toList();
     }
 }

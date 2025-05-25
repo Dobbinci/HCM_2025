@@ -5,20 +5,21 @@ import com.be.dto.CourseCreateRequestDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
 import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.Scanner;
 
+@AllArgsConstructor
 public class CourseManageView {
 
     Scanner scanner = new Scanner(System.in);
     private final EntityManager em;
     private final StaffController staffController;
 
-
-    public CourseManageView(EntityManager em) {
+    public CourseManageView(EntityManager em, StaffController staffController) {
         this.em = em;
-        this.staffController = new StaffController(em);
+        this.staffController = staffController;
     }
 
     public void show() {

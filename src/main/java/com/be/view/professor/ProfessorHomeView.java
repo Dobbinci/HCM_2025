@@ -13,9 +13,9 @@ import java.util.Scanner;
 public class ProfessorHomeView {
 
     EntityManager em;
+    ProfessorController professorController;
 
     public void show() {
-        ProfessorController professorController = new ProfessorController(em);
         String[] menuItems = {
                 "1. 강의생성 신청 등록",
                 "2. 강의생성 신청 조회",
