@@ -7,9 +7,8 @@ import com.be.controller.StudentController;
 import com.be.controller.factory.ControllerFactory;
 import com.be.model.Professor;
 import com.be.model.Staff;
-//import com.be.view.Authentication.LoginView;
 import com.be.model.Student;
-import com.be.view.Authentication.LoginView;
+import com.be.view.Authentication.LoginSignupView;
 import com.be.view.professor.ProfessorHomeView;
 import com.be.view.staff.StaffHomeView;
 import com.be.model.Member;
@@ -35,7 +34,7 @@ public class Main {
         EntityManager em = emf.createEntityManager();
 
         while(true) {
-            TemplateLoginView loginView = new LoginView(em);
+            TemplateLoginView loginView = new LoginSignupView(em);
             Member loggedInMember = loginView.loginOrSignupFlow();
             // 컨트롤러 팩토리에 컨트롤러 객체 생성 위임
             BaseController controller = ControllerFactory.getController(loggedInMember, em);
