@@ -1,13 +1,19 @@
 package com.be;
 
+import com.be.controller.BaseController;
+import com.be.controller.ProfessorController;
+import com.be.controller.StaffController;
+import com.be.controller.StudentController;
+import com.be.controller.factory.ControllerFactory;
 import com.be.model.Professor;
 import com.be.model.Staff;
-//import com.be.view.Authentication.LoginView;
+import com.be.model.Student;
 import com.be.view.Authentication.LoginSignupView;
 import com.be.view.professor.ProfessorHomeView;
 import com.be.view.staff.StaffHomeView;
 import com.be.model.Member;
 import com.be.view.Authentication.TemplateLoginView;
+import com.be.view.student.StudentHomeView;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -30,18 +36,19 @@ public class Main {
         while(true) {
             TemplateLoginView loginView = new LoginSignupView(em);
             Member loggedInMember = loginView.loginOrSignupFlow();
+            // 컨트롤러 팩토리에 컨트롤러 객체 생성 위임
+            BaseController controller = ControllerFactory.getController(loggedInMember, em);
 
             if (loggedInMember instanceof Professor) {
-                ProfessorHomeView professorHomeView = new ProfessorHomeView(em);
+                ProfessorHomeView professorHomeView = new ProfessorHomeView(em, (ProfessorController) controller);
                 professorHomeView.show();
 
-//            } else if (loggedInMember instanceof Student) {
-////                Student student = (Student) loggedInMember;
-////                // TODO: StudentView studentView = new StudentView(student);
-////                // TODO: studentView.home();
+            } else if (loggedInMember instanceof Student) {
+                StudentHomeView studentHomeView = new StudentHomeView(em, (StudentController) controller);
+                studentHomeView.show();
 
             } else if (loggedInMember instanceof Staff staff) {
-                StaffHomeView staffHomeView = new StaffHomeView(em);
+                StaffHomeView staffHomeView = new StaffHomeView(em, (StaffController) controller);
                 staffHomeView.show();
 
             } else {

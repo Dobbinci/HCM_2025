@@ -8,7 +8,7 @@ import com.be.repository.MemberRepository;
 import com.be.repository.impl.MemberRepositoryImpl;
 import jakarta.persistence.EntityManager;
 
-public class MemberController {
+public class MemberController implements BaseController{
     private final EntityManager em;
 
     public MemberController(EntityManager em) {

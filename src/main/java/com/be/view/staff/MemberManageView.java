@@ -5,19 +5,16 @@ import com.be.model.Professor;
 import com.be.model.Staff;
 import com.be.model.Student;
 import jakarta.persistence.EntityManager;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.Scanner;
 
+@AllArgsConstructor
 public class MemberManageView {
 
     private final EntityManager em;
     private final StaffController staffController;
-
-    public MemberManageView(EntityManager em){
-        this.em = em;
-        this.staffController = new StaffController(em);
-    }
 
     public void show() {
         MemberInfoView memberInfoView = new MemberInfoView();
