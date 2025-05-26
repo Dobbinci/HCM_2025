@@ -3,11 +3,13 @@ package com.be;
 import com.be.model.Professor;
 import com.be.model.Staff;
 //import com.be.view.Authentication.LoginView;
+import com.be.model.Student;
 import com.be.view.Authentication.LoginView;
 import com.be.view.professor.ProfessorHomeView;
 import com.be.view.staff.StaffHomeView;
 import com.be.model.Member;
 import com.be.view.Authentication.TemplateLoginView;
+import com.be.view.student.StudentHomeView;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -27,7 +29,7 @@ public class Main {
         // 실제 DB 작업을 수행할 EntityManager 생성 (요청 또는 트랜잭션 단위로 사용)
         EntityManager em = emf.createEntityManager();
 
-        while(true) {
+        while (true) {
             TemplateLoginView loginView = new LoginView(em);
             Member loggedInMember = loginView.loginOrSignupFlow();
 
@@ -35,10 +37,9 @@ public class Main {
                 ProfessorHomeView professorHomeView = new ProfessorHomeView(em);
                 professorHomeView.show();
 
-//            } else if (loggedInMember instanceof Student) {
-////                Student student = (Student) loggedInMember;
-////                // TODO: StudentView studentView = new StudentView(student);
-////                // TODO: studentView.home();
+            } else if (loggedInMember instanceof Student) {
+                StudentHomeView studentHomeView = new StudentHomeView(em);
+                studentHomeView.show();
 
             } else if (loggedInMember instanceof Staff staff) {
                 StaffHomeView staffHomeView = new StaffHomeView(em);

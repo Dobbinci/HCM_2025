@@ -53,7 +53,7 @@ public class ProfessorController {
 
         // DTO로 변환
         return courseCreateRequestList.stream()
-                .map(courseCreateRequest-> new CourseCreateRequestDTO(
+                .map(courseCreateRequest -> new CourseCreateRequestDTO(
                         courseCreateRequest.getId(),
                         courseCreateRequest.getCourseName(),
                         courseCreateRequest.getProfessorName(),
@@ -123,7 +123,7 @@ public class ProfessorController {
                                     String capacity, String classroom, String content, String reason) {
 
         CourseRepository courseRepo = new CourseRepoImpl(em);
-        Course course= courseRepo.findById(courseId);
+        Course course = courseRepo.findById(courseId);
         CourseUpdateRequestRepository updateRepo = new CourseUpdateRequestRepoImpl(em);
 
         CourseUpdateRequest request = CourseUpdateRequest.builder()
@@ -159,6 +159,27 @@ public class ProfessorController {
         repo.save(request);
 
         System.out.println("강의 삭제 요청이 등록되었습니다.");
+    }
+
+    public void search(String keyword) {
+        List<CourseDTO> courseList = loadCourseList();
+        boolean found = false;
+
+        for (CourseDTO course : courseList) {
+            if (course.getCourseName().equalsIgnoreCase(keyword)) {
+                System.out.println("강의명 : " + course.getCourseName()
+                        + " | 교수명 : " + course.getProfessorName()
+                        + " | 학기 : " + course.getSemester()
+                        + " | 학점 : " + course.getCredit()
+                        + " | 정원 : " + course.getCapacity()
+                        + " | 강의실 : " + course.getClassroom()
+                        + " | 강의 내용 : " + course.getContent());
+                found = true;
+            }
+        }
+        if(!found){
+            System.out.println("검색 결과가 없습니다.");
+        }
     }
 
 }

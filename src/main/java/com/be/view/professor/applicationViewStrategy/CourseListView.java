@@ -3,13 +3,15 @@ package com.be.view.professor.applicationViewStrategy;
 import com.be.controller.ProfessorController;
 
 import java.util.List;
+import java.util.Scanner;
 
 import com.be.dto.CourseDTO;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CourseListView implements ApplicationViewStrategy{
+public class CourseListView implements ApplicationViewStrategy {
     private final ProfessorController professorController;
+
     @Override
     public void show() {
 
@@ -73,6 +75,21 @@ public class CourseListView implements ApplicationViewStrategy{
                 );
             }
             System.out.println(line);
+
+            System.out.println("검색하기 : 1 / 뒤로가기 : 0");
+            int choice;
+            Scanner scanner = new Scanner(System.in);
+            choice = scanner.nextInt();
+            if (choice == 1) {
+                System.out.print("과목명을 입력하세요 :");
+                String keyword;
+                scanner.nextLine();
+                keyword = scanner.nextLine();
+                professorController.search(keyword);
+            }else{
+                System.out.println("뒤로가기");
+            }
+
         } else {
             System.out.println("신청 목록이 비었습니다.");
         }
