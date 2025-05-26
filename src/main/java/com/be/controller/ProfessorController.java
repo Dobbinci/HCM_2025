@@ -15,7 +15,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 
 @AllArgsConstructor
-public class ProfessorController {
+public class ProfessorController implements BaseController {
 
     private final EntityManager em;
 
@@ -161,25 +161,11 @@ public class ProfessorController {
         System.out.println("강의 삭제 요청이 등록되었습니다.");
     }
 
-    public void search(String keyword) {
+    public List<CourseDTO> search(String keyword) {
         List<CourseDTO> courseList = loadCourseList();
-        boolean found = false;
-
-        for (CourseDTO course : courseList) {
-            if (course.getCourseName().equalsIgnoreCase(keyword)) {
-                System.out.println("강의명 : " + course.getCourseName()
-                        + " | 교수명 : " + course.getProfessorName()
-                        + " | 학기 : " + course.getSemester()
-                        + " | 학점 : " + course.getCredit()
-                        + " | 정원 : " + course.getCapacity()
-                        + " | 강의실 : " + course.getClassroom()
-                        + " | 강의 내용 : " + course.getContent());
-                found = true;
-            }
-        }
-        if(!found){
-            System.out.println("검색 결과가 없습니다.");
-        }
+        return courseList.stream()
+                .filter(course -> course.getCourseName().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
     }
 
 }

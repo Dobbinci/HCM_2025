@@ -9,14 +9,6 @@ public abstract class TemplateLoginView {
 
     protected Scanner scanner = new Scanner(System.in);
 
-    protected LoginViewStrategy loginStrategy;
-    protected SignUpViewStrategy signupStrategy;
-
-    public TemplateLoginView(LoginViewStrategy loginStrategy, SignUpViewStrategy signupStrategy) {
-        this.loginStrategy = loginStrategy;
-        this.signupStrategy = signupStrategy;
-    }
-
     public final Member loginOrSignupFlow() {
         String checkWork = "";
 
@@ -27,9 +19,9 @@ public abstract class TemplateLoginView {
 
             switch (checkWork) {
                 case "1": //login
-                    return loginStrategy.login();
+                    return login();
                 case "2": //signup
-                    signupStrategy.signup();
+                    signup();
                     checkWork = "restart"; // 루프 계속
                     break;
                 case "3": //exit
@@ -41,4 +33,8 @@ public abstract class TemplateLoginView {
         }
         return null;
     }
+
+    protected abstract Member login();
+
+    protected abstract void signup();
 }

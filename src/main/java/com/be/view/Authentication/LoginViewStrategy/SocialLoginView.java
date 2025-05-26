@@ -5,15 +5,14 @@ import com.be.model.Member;
 import com.be.model.Professor;
 import com.be.model.Staff;
 import com.be.model.Student;
-import jakarta.persistence.EntityManager;
 
 import java.util.Scanner;
 
-public class BasicLoginView implements LoginViewStrategy {
+public class SocialLoginView implements LoginViewStrategy{
     private MemberController memberController;
 
 
-    public BasicLoginView(MemberController memberController) {
+    public SocialLoginView(MemberController memberController) {
         this.memberController = memberController;
     }
 
@@ -23,7 +22,7 @@ public class BasicLoginView implements LoginViewStrategy {
         Member loggedInMember = null;
 
         while (loggedInMember == null) {
-            System.out.println("아이디와 비밀번호를 입력하시오!");
+            System.out.println("소셜 아이디와 비밀번호를 입력하시오!");
             System.out.print("ID: ");
             String id = scanner.nextLine();
             System.out.print("PW: ");
