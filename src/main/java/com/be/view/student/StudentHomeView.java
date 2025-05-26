@@ -24,7 +24,8 @@ public class StudentHomeView {
                 "1. 수강 신청",
                 "2. 수강 취소",
                 "3. 수강목록 조회",
-                "4. 로그 아웃"
+                "4. 개설강의 조회",
+                "5. 로그 아웃"
         };
 
         while (true) {
@@ -45,6 +46,9 @@ public class StudentHomeView {
                     EnrolledCourseListView();
                     break;
                 case 4:
+                    openCourseView();
+                    break;
+                case 5:
                     return;
                 default:
                     System.out.println("잘못된 선택입니다. 다시 시도하세요.");
@@ -178,7 +182,7 @@ public class StudentHomeView {
                 System.out.print("복구하시겠습니까? (Y/N): ");
                 yesOrNo = scanner.nextLine();
 
-                if(yesOrNo.equals("Y")){
+                if (yesOrNo.equals("Y")) {
                     remoteControl.pressUndo();
                     EnrolledCourseListView();
                     System.out.println("복구되었습니다.");
@@ -248,4 +252,66 @@ public class StudentHomeView {
         }
 
     }
+
+    public void openCourseView() {
+        List<CourseDTO> courseDTOs = studentController.loadCourseList();
+        if (!courseDTOs.isEmpty()) {
+            int widthNo = 4;
+            int widthName = 20;
+            int widthProfessor = 15;
+            int widthCredit = 8;
+
+            int totalWidth = widthNo + widthName + widthProfessor + widthCredit + 4 * 3 + 2;
+
+            // 구분선 생성
+            String line = String.format("+%s+", "-".repeat(totalWidth - 2));
+
+            // 헤더 출력
+            System.out.println(line);
+            System.out.printf("| %-" + widthNo + "s | "
+                            + "%-" + widthName + "s | "
+                            + "%-" + widthProfessor + "s | "
+                            + "%-" + widthCredit + "s |\n",
+                    "No", "Course Name", "Professor", "Credit"
+            );
+            System.out.println(line);
+
+            // 간략한 데이터 출력
+            int index = 0;
+            for (CourseDTO courseDTO : courseDTOs) {
+                System.out.printf("| %" + widthNo + "d | "
+                                + "%-" + widthName + "s | "
+                                + "%-" + widthProfessor + "s | "
+                                + "%-" + widthCredit + "s |\n",
+                        ++index, courseDTO.getCourseName(),
+                        courseDTO.getProfessorName(),
+                        courseDTO.getCredit()
+                );
+            }
+            System.out.println(line);
+
+            // 사용자 입력
+            System.out.print("자세히 볼 강의를 선택하세요 : ");
+            Scanner scanner = new Scanner(System.in);
+            int selectedIndex = scanner.nextInt();
+
+            // 인덱스 유효성 검사 후 상세 정보 출력
+            if (selectedIndex >= 1 && selectedIndex <= courseDTOs.size()) {
+                CourseDTO selectedCourse = courseDTOs.get(selectedIndex - 1);
+                System.out.println("\n[상세 강의 정보]");
+                System.out.println("강의명 : " + selectedCourse.getCourseName());
+                System.out.println("교수명 : " + selectedCourse.getProfessorName());
+                System.out.println("학기   : " + selectedCourse.getSemester());
+                System.out.println("학점   : " + selectedCourse.getCredit());
+                System.out.println("정원   : " + selectedCourse.getCapacity());
+                System.out.println("강의실 : " + selectedCourse.getClassroom());
+                System.out.println("설명   : " + selectedCourse.getContent());
+            } else {
+                System.out.println("잘못된 번호입니다.");
+            }
+        } else {
+            System.out.println("강의가 없습니다.");
+        }
+    }
+
 }
