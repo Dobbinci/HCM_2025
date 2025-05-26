@@ -111,17 +111,18 @@ public class StudentHomeView {
     }
 
     public void CourseDropView() {
-        EnrolledCourseListView();
-        System.out.println("수강 취소할 강의의 번호를 입력하세요: ");
-        int courseIndex = new java.util.Scanner(System.in).nextInt() - 1;
-        if (courseIndex >= 0) {
-            studentController.dropCourse(courseIndex);
-        } else {
-            System.out.println("잘못된 번호입니다.");
+        if(EnrolledCourseListView()) {
+            System.out.println("수강 취소할 강의의 번호를 입력하세요: ");
+            int courseIndex = new java.util.Scanner(System.in).nextInt() - 1;
+            if (courseIndex >= 0) {
+                studentController.dropCourse(courseIndex);
+            } else {
+                System.out.println("잘못된 번호입니다.");
+            }
         }
     }
 
-    public void EnrolledCourseListView() {
+    public boolean EnrolledCourseListView() {
         List<EnrolledCourseDTO> enrolledCourseDTOs = studentController.loadEnrolledCourseList();
         if (!enrolledCourseDTOs.isEmpty()) {
             int widthNo = 4;
@@ -171,8 +172,11 @@ public class StudentHomeView {
                 );
             }
             System.out.println(line);
+            return true;
         } else {
             System.out.println("수강 신청한 강의가 없습니다.");
+
+            return false;
         }
 
     }
