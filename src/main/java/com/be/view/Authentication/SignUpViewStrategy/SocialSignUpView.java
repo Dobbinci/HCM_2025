@@ -1,17 +1,15 @@
 package com.be.view.Authentication.SignUpViewStrategy;
 
 import com.be.controller.MemberController;
-import jakarta.persistence.EntityManager;
 
 import java.util.Scanner;
 
-public class BasicSignUpView implements SignUpViewStrategy {
+public class SocialSignUpView implements SignUpViewStrategy {
     private MemberController memberController;
 
-    public BasicSignUpView(MemberController memberController) {
+    public SocialSignUpView(MemberController memberController) {
 
         this.memberController = memberController;
-
     }
 
     @Override
@@ -37,9 +35,9 @@ public class BasicSignUpView implements SignUpViewStrategy {
 
         System.out.println("이름을 입력하세요");
         name = scanner.nextLine();
-        System.out.println("ID를 입력하세요: ");
+        System.out.println("소셜 ID(email 형식: example@naver.com)를 입력하세요: ");
         systemId = scanner.nextLine();
-        System.out.println("비밀번호를 입력하세요: ");
+        System.out.println("소셜 비밀번호를 입력하세요: ");
         password = scanner.nextLine();
 
         memberController.saveMember(id, name, systemId, password, position);
