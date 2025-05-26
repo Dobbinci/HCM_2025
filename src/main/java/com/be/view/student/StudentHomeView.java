@@ -1,6 +1,9 @@
 package com.be.view.student;
 
 
+import com.be.controller.Command;
+import com.be.controller.DropCourseCommand;
+import com.be.controller.RemoteControl;
 import com.be.controller.StudentController;
 import com.be.dto.CourseDTO;
 import com.be.dto.EnrolledCourseDTO;
@@ -29,7 +32,7 @@ public class StudentHomeView {
             for (String items : menuItems) {
                 System.out.println(items);
             }
-            int choice = new java.util.Scanner(System.in).nextInt();
+            int choice = new Scanner(System.in).nextInt();
 
             switch (choice) {
                 case 1:
@@ -143,7 +146,7 @@ public class StudentHomeView {
                 }
             } else {
                 System.out.println("수강 신청할 강의의 번호를 입력하세요: ");
-                int courseIndex = new java.util.Scanner(System.in).nextInt() - 1;
+                int courseIndex = new Scanner(System.in).nextInt() - 1;
                 if (courseIndex >= 0 && courseIndex < courseDTOs.size()) {
                     studentController.enrollCourse(courseIndex);
                     System.out.println("강의 수강 신청 완료!\n");
@@ -157,9 +160,30 @@ public class StudentHomeView {
     public void CourseDropView() {
         if (EnrolledCourseListView()) {
             System.out.println("수강 취소할 강의의 번호를 입력하세요: ");
-            int courseIndex = new java.util.Scanner(System.in).nextInt() - 1;
+            int courseIndex = new Scanner(System.in).nextInt() - 1;
             if (courseIndex >= 0) {
-                studentController.dropCourse(courseIndex);
+
+                Command dropCourse = new DropCourseCommand(studentController, courseIndex);
+                RemoteControl remoteControl = new RemoteControl();
+                remoteControl.setCommand(dropCourse);
+                remoteControl.pressButton();
+
+                //                studentController.dropCourse(courseIndex);
+                EnrolledCourseListView();
+                System.out.println("수강 취소되었습니다.");
+
+                String yesOrNo = "";
+                System.out.println("실수로 취소하셨나요? 다시 복구할 수 있어요!");
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("복구하시겠습니까? (Y/N): ");
+                yesOrNo = scanner.nextLine();
+
+                if(yesOrNo.equals("Y")){
+                    remoteControl.pressUndo();
+                    EnrolledCourseListView();
+                    System.out.println("복구되었습니다.");
+                }
+
             } else {
                 System.out.println("잘못된 번호입니다.");
             }

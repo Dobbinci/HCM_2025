@@ -17,6 +17,7 @@ public class StudentController implements BaseController {
 
     private final EntityManager em;
 
+
     public void enrollCourse(int index) {
         GenericRepository<Course, Long> courseRepo = new GenericRepoImpl<>(em, Course.class);
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
@@ -31,6 +32,19 @@ public class StudentController implements BaseController {
 
         enrolledCourseRepo.save(enrolledCourse);
     }
+
+    //Receiver
+    public void enrollCourseForUndo(EnrolledCourse enrolledCourse) {
+        GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
+
+        EnrolledCourse restored = EnrolledCourse.builder()
+                .student(enrolledCourse.getStudent())
+                .course(enrolledCourse.getCourse())
+                .build();
+
+        enrolledCourseRepo.save(restored);
+    }
+
 
     public List<EnrolledCourseDTO> loadEnrolledCourseList() {
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
@@ -50,13 +64,15 @@ public class StudentController implements BaseController {
                 )).toList();
     }
 
-    public void dropCourse(int index) {
+    //Receiver
+    public EnrolledCourse dropCourse(int index) {
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
         List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(3L); // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
 
         EnrolledCourse enrolledCourse = enrolledCourses.get(index);
         enrolledCourseRepo.delete(enrolledCourse);
         System.out.println("강의 수강 취소 완료!\n");
+        return enrolledCourse;
     }
 
     public List<CourseDTO> loadCourseList() {
