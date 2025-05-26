@@ -2,6 +2,7 @@ package com.be.controller.factory;
 
 import com.be.controller.BaseController;
 import com.be.controller.creator.ControllerCreator;
+import com.be.controller.creator.ProfessorControllerCreator;
 import com.be.controller.creator.StaffControllerCreator;
 import com.be.controller.creator.StudentControllerCreator;
 import com.be.model.Member;
@@ -17,7 +18,7 @@ public class ControllerFactory {
     private static final Map<Class<?>, ControllerCreator> creators = new HashMap<>();
 
     static {
-        creators.put(Professor.class, new StudentControllerCreator());
+        creators.put(Professor.class, new ProfessorControllerCreator());
         creators.put(Staff.class, new StaffControllerCreator());
         creators.put(Student.class, new StudentControllerCreator());
     }

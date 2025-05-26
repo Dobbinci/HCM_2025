@@ -26,7 +26,7 @@ public class StudentController implements BaseController {
 
         Course course = courseRepo.findAll().get(index);
         EnrolledCourse enrolledCourse = EnrolledCourse.builder()
-                .student(memberRepo.findById(1L)) // 예시로 1L을 사용, 실제로는 학생 ID를 받아와야 함
+                .student(memberRepo.findById(3L)) // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
                 .course(course)
                 .build();
 
@@ -37,7 +37,7 @@ public class StudentController implements BaseController {
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
 
         // 학생 ID를 받아와야 함, 예시로 1L을 사용
-        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(1L); // 예시로 1L을 사용, 실제로는 학생 ID를 받아와야 함
+        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(3L); // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
         return enrolledCourses.stream()
                 .map(enrolledCourse -> new EnrolledCourseDTO(
                         enrolledCourse.getId(),
@@ -53,7 +53,7 @@ public class StudentController implements BaseController {
 
     public void dropCourse(int index) {
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
-        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(1L); // 예시로 1L을 사용, 실제로는 학생 ID를 받아와야 함
+        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(3L); // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
 
         EnrolledCourse enrolledCourse = enrolledCourses.get(index);
         enrolledCourseRepo.delete(enrolledCourse);
