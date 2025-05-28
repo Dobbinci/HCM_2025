@@ -3,13 +3,15 @@ package com.be.view.professor.applicationViewStrategy;
 import com.be.controller.ProfessorController;
 
 import java.util.List;
+import java.util.Scanner;
 
 import com.be.dto.CourseDTO;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CourseListView implements ApplicationViewStrategy{
+public class CourseListView implements ApplicationViewStrategy {
     private final ProfessorController professorController;
+
     @Override
     public void show() {
 
@@ -73,6 +75,33 @@ public class CourseListView implements ApplicationViewStrategy{
                 );
             }
             System.out.println(line);
+
+            System.out.println("강의를 검색하시겠습니가? (Y/N): ");
+            String choice;
+            Scanner scanner = new Scanner(System.in);
+            choice = scanner.next();
+            scanner.nextLine();
+
+            if (choice.equals("Y")) {
+                System.out.print("과목명을 입력하세요 :");
+                String keyword;
+                keyword = scanner.nextLine();
+
+                List<CourseDTO> filteredCourses = professorController.search(keyword);
+
+                if (filteredCourses.isEmpty()) {
+                    System.out.println("검색 결과가 없습니다.");
+                } else {
+                    for (int i = 0; i < filteredCourses.size(); i++) {
+                        CourseDTO course = filteredCourses.get(i);
+                        System.out.printf("[%d]. 강의명: %s | 교수명: %s | 학기: %s | 학점: %s | 정원: %s | 강의실: %s | 강의내용: %s\n",
+                                i + 1, course.getCourseName(),
+                                course.getProfessorName(), course.getSemester(),
+                                course.getCredit(), course.getCapacity(),
+                                course.getClassroom(), course.getContent());
+                    }
+                }
+            }
         } else {
             System.out.println("신청 목록이 비었습니다.");
         }
