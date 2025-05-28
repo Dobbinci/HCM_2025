@@ -14,5 +14,4 @@ import lombok.experimental.SuperBuilder;
 @DiscriminatorValue("Professor")
 public class Professor extends Member {
 
-
 }
