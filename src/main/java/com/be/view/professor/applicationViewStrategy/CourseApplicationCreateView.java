@@ -1,14 +1,13 @@
 package com.be.view.professor.applicationViewStrategy;
 
-import com.be.controller.ProfessorController;
-import com.be.model.Professor;
+import com.be.controller.ProfessorControllerFacade;
 import lombok.AllArgsConstructor;
 import java.util.Scanner;
 
 @AllArgsConstructor
 public class CourseApplicationCreateView implements ApplicationViewStrategy {
 
-    private final ProfessorController professorController;
+    private final ProfessorControllerFacade professorControllerFacade;
 
     @Override
     public void show() {
@@ -30,6 +29,6 @@ public class CourseApplicationCreateView implements ApplicationViewStrategy {
         System.out.print("강의계획서 : ");
         String content = scanner.nextLine();
 
-        professorController.applyCreateCourse(courseName, professorName, semester, credit, capacity, classroom, content);
+        professorControllerFacade.applyCreateCourse(courseName, professorName, semester, credit, capacity, classroom, content);
     }
 }

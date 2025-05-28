@@ -4,7 +4,7 @@ package com.be.view.student;
 import com.be.controller.Command;
 import com.be.controller.DropCourseCommand;
 import com.be.controller.RemoteControl;
-import com.be.controller.StudentController;
+import com.be.controller.StudentControllerFacade;
 import com.be.dto.CourseDTO;
 import com.be.dto.EnrolledCourseDTO;
 import jakarta.persistence.EntityManager;
@@ -16,7 +16,7 @@ import java.util.Scanner;
 @AllArgsConstructor
 public class StudentHomeView {
     private final EntityManager em;
-    private final StudentController studentController;
+    private final StudentControllerFacade studentControllerFacade;
 
     public void show() {
 
@@ -57,7 +57,7 @@ public class StudentHomeView {
     }
 
     public void CourseEnrollView() {
-        List<CourseDTO> courseDTOs = studentController.loadCourseList();
+        List<CourseDTO> courseDTOs = studentControllerFacade.loadCourseList();
         if (!courseDTOs.isEmpty()) {
             int widthNo = 4;
             int widthName = 15;
@@ -118,7 +118,7 @@ public class StudentHomeView {
                 String keyword;
                 keyword = scanner.nextLine();
 
-                List<CourseDTO> filteredCourses = studentController.search(keyword);
+                List<CourseDTO> filteredCourses = studentControllerFacade.search(keyword);
 
                 if (filteredCourses.isEmpty()) {
                     System.out.println("검색 결과가 없습니다.");
@@ -139,7 +139,7 @@ public class StudentHomeView {
                         CourseDTO selected = filteredCourses.get(idx);
                         int originalIndex = filteredCourses.indexOf(selected);
                         if (originalIndex != -1) {
-                            studentController.enrollCourse(originalIndex);
+                            studentControllerFacade.enrollCourse(originalIndex);
                             System.out.println("수강 신청 완료!");
                         } else {
                             System.out.println("강의를 찾을 수 없습니다.");
@@ -152,7 +152,7 @@ public class StudentHomeView {
                 System.out.println("수강 신청할 강의의 번호를 입력하세요: ");
                 int courseIndex = new Scanner(System.in).nextInt() - 1;
                 if (courseIndex >= 0 && courseIndex < courseDTOs.size()) {
-                    studentController.enrollCourse(courseIndex);
+                    studentControllerFacade.enrollCourse(courseIndex);
                     System.out.println("강의 수강 신청 완료!\n");
                 } else {
                     System.out.println("잘못된 번호입니다.");
@@ -167,7 +167,7 @@ public class StudentHomeView {
             int courseIndex = new Scanner(System.in).nextInt() - 1;
             if (courseIndex >= 0) {
 
-                Command dropCourse = new DropCourseCommand(studentController, courseIndex);
+                Command dropCourse = new DropCourseCommand(studentControllerFacade, courseIndex);
                 RemoteControl remoteControl = new RemoteControl();
                 remoteControl.setCommand(dropCourse);
                 remoteControl.pressButton();
@@ -195,7 +195,7 @@ public class StudentHomeView {
     }
 
     public boolean EnrolledCourseListView() {
-        List<EnrolledCourseDTO> enrolledCourseDTOs = studentController.loadEnrolledCourseList();
+        List<EnrolledCourseDTO> enrolledCourseDTOs = studentControllerFacade.loadEnrolledCourseList();
         if (!enrolledCourseDTOs.isEmpty()) {
             int widthNo = 4;
             int widthName = 15;
@@ -254,7 +254,7 @@ public class StudentHomeView {
     }
 
     public void openCourseView() {
-        List<CourseDTO> courseDTOs = studentController.loadCourseList();
+        List<CourseDTO> courseDTOs = studentControllerFacade.loadCourseList();
         if (!courseDTOs.isEmpty()) {
             int widthNo = 4;
             int widthName = 20;

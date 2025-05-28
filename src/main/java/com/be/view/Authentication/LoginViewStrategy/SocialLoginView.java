@@ -1,6 +1,6 @@
 package com.be.view.Authentication.LoginViewStrategy;
 
-import com.be.controller.MemberController;
+import com.be.controller.MemberControllerFacade;
 import com.be.model.Member;
 import com.be.model.Professor;
 import com.be.model.Staff;
@@ -9,11 +9,11 @@ import com.be.model.Student;
 import java.util.Scanner;
 
 public class SocialLoginView implements LoginViewStrategy{
-    private MemberController memberController;
+    private MemberControllerFacade memberControllerFacade;
 
 
-    public SocialLoginView(MemberController memberController) {
-        this.memberController = memberController;
+    public SocialLoginView(MemberControllerFacade memberControllerFacade) {
+        this.memberControllerFacade = memberControllerFacade;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SocialLoginView implements LoginViewStrategy{
             System.out.print("PW: ");
             String pw = scanner.nextLine();
 
-            loggedInMember = memberController.login(id, pw);
+            loggedInMember = memberControllerFacade.login(id, pw);
         }
 
         if (loggedInMember instanceof Professor professor) {

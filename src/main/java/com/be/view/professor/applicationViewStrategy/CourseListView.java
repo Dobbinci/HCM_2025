@@ -1,6 +1,6 @@
 package com.be.view.professor.applicationViewStrategy;
 
-import com.be.controller.ProfessorController;
+import com.be.controller.ProfessorControllerFacade;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,12 +10,12 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CourseListView implements ApplicationViewStrategy {
-    private final ProfessorController professorController;
+    private final ProfessorControllerFacade professorControllerFacade;
 
     @Override
     public void show() {
 
-        List<CourseDTO> courseDTOs = professorController.loadCourseList();
+        List<CourseDTO> courseDTOs = professorControllerFacade.loadCourseList();
         System.out.println(" -- 나의 강의 목록 -- ");
 
         //강의 목록 반환 로직
@@ -87,7 +87,7 @@ public class CourseListView implements ApplicationViewStrategy {
                 String keyword;
                 keyword = scanner.nextLine();
 
-                List<CourseDTO> filteredCourses = professorController.search(keyword);
+                List<CourseDTO> filteredCourses = professorControllerFacade.search(keyword);
 
                 if (filteredCourses.isEmpty()) {
                     System.out.println("검색 결과가 없습니다.");

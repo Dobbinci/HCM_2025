@@ -1,15 +1,15 @@
 package com.be.view.Authentication.SignUpViewStrategy;
 
-import com.be.controller.MemberController;
+import com.be.controller.MemberControllerFacade;
 
 import java.util.Scanner;
 
 public class SocialSignUpView implements SignUpViewStrategy {
-    private MemberController memberController;
+    private MemberControllerFacade memberControllerFacade;
 
-    public SocialSignUpView(MemberController memberController) {
+    public SocialSignUpView(MemberControllerFacade memberControllerFacade) {
 
-        this.memberController = memberController;
+        this.memberControllerFacade = memberControllerFacade;
     }
 
     @Override
@@ -40,6 +40,6 @@ public class SocialSignUpView implements SignUpViewStrategy {
         System.out.println("소셜 비밀번호를 입력하세요: ");
         password = scanner.nextLine();
 
-        memberController.saveMember(id, name, systemId, password, position);
+        memberControllerFacade.saveMember(id, name, systemId, password, position);
     }
 }

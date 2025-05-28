@@ -1,16 +1,15 @@
 package com.be.view.Authentication.SignUpViewStrategy;
 
-import com.be.controller.MemberController;
-import jakarta.persistence.EntityManager;
+import com.be.controller.MemberControllerFacade;
 
 import java.util.Scanner;
 
 public class BasicSignUpView implements SignUpViewStrategy {
-    private MemberController memberController;
+    private MemberControllerFacade memberControllerFacade;
 
-    public BasicSignUpView(MemberController memberController) {
+    public BasicSignUpView(MemberControllerFacade memberControllerFacade) {
 
-        this.memberController = memberController;
+        this.memberControllerFacade = memberControllerFacade;
 
     }
 
@@ -42,6 +41,6 @@ public class BasicSignUpView implements SignUpViewStrategy {
         System.out.println("비밀번호를 입력하세요: ");
         password = scanner.nextLine();
 
-        memberController.saveMember(id, name, systemId, password, position);
+        memberControllerFacade.saveMember(id, name, systemId, password, position);
     }
 }
