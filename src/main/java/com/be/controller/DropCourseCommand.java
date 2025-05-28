@@ -4,12 +4,12 @@ import com.be.model.EnrolledCourse;
 
 //ConcreteCommand
 public class DropCourseCommand implements Command {
-    private StudentController studentController;
+    private StudentControllerFacade studentController;
     private int index;
     private EnrolledCourse removedCourse;
 
 
-    public DropCourseCommand(StudentController studentController, int index){
+    public DropCourseCommand(StudentControllerFacade studentController, int index){
         this.studentController = studentController;
         this.index = index;
     }

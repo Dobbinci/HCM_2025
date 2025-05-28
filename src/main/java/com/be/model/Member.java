@@ -18,14 +18,23 @@ import lombok.experimental.SuperBuilder;
 public class Member {
 
     @Id
-    private Long id; //학번,교번
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; //시스템이 주는 db id
 
-    @Column(nullable = false, unique = true)
-    private String systemId;
 
     @Column(nullable = false)
-    private String password;
-    private String name;
+    private String name;//이름
+    private String position;//신분(학생,교수,스탭)
 
-    private String position;
+    @Column(unique = true)
+    private String systemId;//id
+    private String socialId;//social login id
+    private String professorId;//교수번호
+    private String staffId;//스탭번호
+    private String studentId;//학번
+
+    private String password;//비밀번호
+    private String socialPassword;//social login 비밀번호
+
+
 }

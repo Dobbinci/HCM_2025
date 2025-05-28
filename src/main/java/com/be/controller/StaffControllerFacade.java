@@ -14,7 +14,7 @@ import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class StaffController implements BaseController{
+public class StaffControllerFacade implements BaseController{
 
     private final EntityManager em;
 
