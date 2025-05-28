@@ -15,7 +15,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 
 @AllArgsConstructor
-public class ProfessorController implements BaseController {
+public class ProfessorControllerFacade implements BaseController {
 
     private final EntityManager em;
 

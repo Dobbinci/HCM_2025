@@ -1,5 +1,5 @@
 package com.be.view.staff;
-import com.be.controller.StaffController;
+import com.be.controller.StaffControllerFacade;
 import com.be.model.Member;
 import com.be.model.Professor;
 import com.be.model.Staff;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class MemberManageView {
 
     private final EntityManager em;
-    private final StaffController staffController;
+    private final StaffControllerFacade staffController;
 
     public void show() {
         MemberInfoView memberInfoView = new MemberInfoView();
