@@ -36,4 +36,32 @@ public class MemberRepositoryImpl implements MemberRepository {
             return null; // systemId 중복 없음
         }
     }
+
+    @Override
+    public Member findBySocialId(String socialId) {
+        try {
+            return em.createQuery(
+                            "SELECT m FROM Member m WHERE m.socialId = :socialId", Member.class)
+                    .setParameter("socialId", socialId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // systemId 중복 없음
+        }
+    }
+
+    @Override
+    public Member findByMemberId(String memberId) {
+        try {
+            return em.createQuery("""
+                SELECT m FROM Member m 
+                WHERE m.professorId = :memberId 
+                   OR m.studentId = :memberId 
+                   OR m.staffId = :memberId
+            """, Member.class)
+                    .setParameter("memberId", memberId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // memberId 중복 없음
+        }
+    }
 }

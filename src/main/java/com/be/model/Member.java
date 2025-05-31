@@ -21,11 +21,17 @@ public class Member {
     private Long id; //학번,교번
 
     @Column(nullable = false, unique = true)
-    private String systemId;
+    private String name;//이름
+    private String position;//신분(학생,교수,스탭)
 
-    @Column(nullable = false)
-    private String password;
-    private String name;
+    @Column(unique = true)
+    private String systemId;//id
+    private String socialId;//social login id
+    private String professorId;//교수번호
+    private String staffId;//스탭번호
+    private String studentId;//학번
 
-    private String position;
+    private String password;//비밀번호
+    private String socialPassword;//social login 비밀번호
+
 }

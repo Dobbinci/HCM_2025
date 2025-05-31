@@ -28,7 +28,7 @@ public class BasicLoginView implements LoginViewStrategy {
             System.out.print("PW: ");
             String pw = scanner.nextLine();
 
-            loggedInMember = memberControllerFacade.login(id, pw);
+            loggedInMember = memberControllerFacade.login(id, pw, false);
         }
 
         if (loggedInMember instanceof Professor professor) {

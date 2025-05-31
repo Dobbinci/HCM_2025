@@ -15,12 +15,12 @@ public class MemberControllerFacade implements BaseController{
         this.em = em;
     }
 
-    // 교수 멤버 저장 로직
-    public void saveMember(Long id, String name, String systemId, String password, String position) {
+    // 멤버 저장 로직
+    public void saveMember(String memberId, String name, String systemId, String password, String position, boolean isSocialSignup) {
 
         MemberRepository memberRepo = new MemberRepositoryImpl(em);
 
-        if (memberRepo.findById(id) != null) {
+        if (memberRepo.findByMemberId(memberId) != null) {
             System.out.println("이미 가입이 되어있습니다.");
             return;
         }
@@ -32,29 +32,43 @@ public class MemberControllerFacade implements BaseController{
 
         Member member = null;
         if (position.equalsIgnoreCase("student")) {
-            member = Student.builder()
-                    .id(id)
-                    .systemId(systemId)
-                    .password(password)
+            Student.StudentBuilder builder;
+            builder = Student.builder()
+                    .studentId(memberId)
                     .name(name)
-                    .position(position)
-                    .build();
+                    .position(position);
+
+            if (isSocialSignup) {
+                builder.socialId(systemId).socialPassword(password);
+            } else {
+                builder.systemId(systemId).password(password);
+            }
+
+            member = builder.build();
         } else if (position.equalsIgnoreCase("professor")) {
-            member = Professor.builder()
-                    .id(id)
-                    .systemId(systemId)
-                    .password(password)
+            Professor.ProfessorBuilder builder = Professor.builder()
+                    .professorId(memberId)
                     .name(name)
-                    .position(position)
-                    .build();
+                    .position(position);
+
+            if (isSocialSignup) {
+                builder.socialId(systemId).socialPassword(password);
+            } else {
+                builder.systemId(systemId).password(password);
+            }
+
+            member = builder.build();
         } else if (position.equalsIgnoreCase("staff")) {
-            member = Staff.builder()
-                    .id(id)
-                    .systemId(systemId)
-                    .password(password)
+            Staff.StaffBuilder builder = Staff.builder()
+                    .professorId(memberId)
                     .name(name)
-                    .position(position)
-                    .build();
+                    .position(position);
+
+            if (isSocialSignup) {
+                builder.socialId(systemId).socialPassword(password);
+            } else {
+                builder.systemId(systemId).password(password);
+            }
         } else {
             System.out.println("잘못된 포지션 입력입니다.");
             return;
@@ -66,20 +80,31 @@ public class MemberControllerFacade implements BaseController{
 
     }
 
-    public Member login(String systemId, String password) {
+    public Member login(String systemId, String password, boolean isSocialLogin) {
         MemberRepository memberRepo = new MemberRepositoryImpl(em);
+        Member member = null;
 
-        Member member = memberRepo.findBySystemId(systemId);
-        if (member == null) {
-            System.out.println("존재하지 않는 ID입니다.");
-            return null;
+        if(isSocialLogin){
+            member = memberRepo.findBySocialId(systemId);
+            if (member == null) {
+                System.out.println("존재하지 않는 ID입니다.");
+                return null;
+            } else if (!member.getSocialPassword().equals(password)) {
+                System.out.println("비밀번호가 일치하지 않습니다.");
+                return null;
+            }
+
         }
-
-        if (!member.getPassword().equals(password)) {
-            System.out.println("비밀번호가 일치하지 않습니다.");
-            return null;
+        else {
+            member = memberRepo.findBySystemId(systemId);
+            if (member == null) {
+                System.out.println("존재하지 않는 ID입니다.");
+                return null;
+            } else if (!member.getPassword().equals(password)) {
+                System.out.println("비밀번호가 일치하지 않습니다.");
+                return null;
+            }
         }
-
         return member;
     }
 }
