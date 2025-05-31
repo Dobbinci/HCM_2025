@@ -24,11 +24,11 @@ public class SocialLoginView implements LoginViewStrategy{
         while (loggedInMember == null) {
             System.out.println("소셜 아이디와 비밀번호를 입력하시오!");
             System.out.print("ID: ");
-            String id = scanner.nextLine();
+            String socialId = scanner.nextLine();
             System.out.print("PW: ");
-            String pw = scanner.nextLine();
+            String socialPw = scanner.nextLine();
 
-            loggedInMember = memberControllerFacade.login(id, pw);
+            loggedInMember = memberControllerFacade.login(socialId, socialPw, true);
         }
 
         if (loggedInMember instanceof Professor professor) {

@@ -2,6 +2,7 @@ package com.be.view.professor;
 
 import com.be.controller.ProfessorControllerFacade;
 import com.be.view.professor.applicationViewStrategy.*;
+import com.be.view.textModeChangeView;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -24,7 +25,8 @@ public class ProfessorHomeView {
                 "5. 나의 강의 조회",
                 "6. 강의수정 신청 등록",
                 "7. 강의삭제 신청 등록",
-                "8. 로그아웃"
+                "8. 출력 모드 변경",
+                "9. 로그 아웃"
         };
         Map<Integer, ApplicationViewStrategy> strategyMap = new HashMap<>();
         strategyMap.put(1, new CourseApplicationCreateView(professorControllerFacade));
@@ -46,7 +48,11 @@ public class ProfessorHomeView {
             }
             int choice = scanner.nextInt();
 
-            if (choice == 8) {
+            if (choice==8){
+                textModeChangeView.show();
+            }
+
+            else if (choice == 9) {
                 System.out.println("로그아웃");
                 break;
             }
