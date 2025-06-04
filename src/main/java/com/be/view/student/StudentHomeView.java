@@ -167,12 +167,13 @@ public class StudentHomeView {
             int courseIndex = new Scanner(System.in).nextInt() - 1;
             if (courseIndex >= 0) {
 
+
                 Command dropCourse = new DropCourseCommand(studentController, courseIndex);
                 RemoteControl remoteControl = new RemoteControl();
                 remoteControl.setCommand(dropCourse);
                 remoteControl.pressButton();
 
-                //                studentController.dropCourse(courseIndex);
+                //studentController.dropCourse(courseIndex);
                 EnrolledCourseListView();
                 System.out.println("수강 취소되었습니다.");
 
