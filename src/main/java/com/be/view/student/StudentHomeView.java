@@ -7,6 +7,7 @@ import com.be.controller.RemoteControl;
 import com.be.controller.StudentControllerFacade;
 import com.be.dto.CourseDTO;
 import com.be.dto.EnrolledCourseDTO;
+import com.be.view.textModeChangeView;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -25,7 +26,8 @@ public class StudentHomeView {
                 "2. 수강 취소",
                 "3. 수강목록 조회",
                 "4. 개설강의 조회",
-                "5. 로그 아웃"
+                "5. 출력 모드 변경",
+                "6. 로그 아웃"
         };
 
         while (true) {
@@ -49,6 +51,8 @@ public class StudentHomeView {
                     openCourseView();
                     break;
                 case 5:
+                    textModeChangeView.show();
+                case 6:
                     return;
                 default:
                     System.out.println("잘못된 선택입니다. 다시 시도하세요.");

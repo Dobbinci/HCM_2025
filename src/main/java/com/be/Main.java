@@ -17,6 +17,7 @@ import com.be.view.student.StudentHomeView;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import com.be.text_mode.Mode;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,8 @@ public class Main {
 
         // 실제 DB 작업을 수행할 EntityManager 생성 (요청 또는 트랜잭션 단위로 사용)
         EntityManager em = emf.createEntityManager();
+
+        Mode mode = new Mode();//초기 상태 컬러모드적용
 
         while(true) {
             TemplateLoginView loginView = new LoginSignupView(em);
