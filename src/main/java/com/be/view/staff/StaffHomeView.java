@@ -7,7 +7,7 @@ import com.be.model.Staff;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+@AllArgsConstructor 
 public class StaffHomeView {
 
 
