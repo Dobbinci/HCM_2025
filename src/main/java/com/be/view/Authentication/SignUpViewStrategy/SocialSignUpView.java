@@ -15,7 +15,7 @@ public class SocialSignUpView implements SignUpViewStrategy {
     @Override
     public void signup() {
         Scanner scanner = new Scanner(System.in);
-        String memberId = "", socialId="", socialPw = "", name = "", position = "";
+        String memberId = "", socialId = "", socialPw = "", name = "", position = "", hanmadi = "";
 
         System.out.println("학번/직번을 입력하세요");
         memberId = scanner.nextLine();
@@ -38,7 +38,13 @@ public class SocialSignUpView implements SignUpViewStrategy {
         socialId = scanner.nextLine();
         System.out.println("소셜 비밀번호를 입력하세요: ");
         socialPw = scanner.nextLine();
+        if(!position.equals("staff")) {
+            System.out.println("각오를 입력하세요: ");
+        }else{
+            System.out.println("연락처를 입력하세요(문의용): ");
+        }
+        hanmadi = scanner.nextLine();
 
-        memberControllerFacade.saveMember(memberId, name, socialId, socialPw, position, true);
+        memberControllerFacade.saveMember(memberId, name, socialId, socialPw, position, hanmadi, true);
     }
 }

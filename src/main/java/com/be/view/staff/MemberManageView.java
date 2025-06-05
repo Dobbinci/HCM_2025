@@ -7,6 +7,7 @@ import com.be.model.Student;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,24 +53,60 @@ public class MemberManageView {
     public class MemberInfoView {
 
         public void showAllMembers() {
+            Scanner scanner = new Scanner(System.in);
             List<Member> members = staffController.getAllMembers();
+            List<Member> hanmadiEligibleList = new ArrayList<>();
 
             if (members.isEmpty()) {
                 System.out.println("등록된 멤버가 없습니다.");
                 return;
             }
 
+            MemberVisitor visitor = new ConcreteVisitor();
+
             System.out.println("\n=========== 전체 회원 정보 목록 ===========");
-            System.out.printf("%-15s %-15s %-15s %-15s%n", "이름", "ID", "신분", "고유번호");
-            System.out.println("--------------------------------------------------------------");
+            System.out.printf("%-15s %-15s %-15s%n", "이름", "ID", "신분");
+            System.out.println("------------------------------------------");
 
             for (Member member : members) {
                 System.out.printf(
                         "%-15s %-15s %-15s%n",
                         member.getName(),
-                        member.getId(),
+                        member.getSystemId(),
                         member.getPosition()
                 );
+                if (member instanceof Student || member instanceof Professor) {
+                    hanmadiEligibleList.add(member);
+                }
+            }
+            if (!hanmadiEligibleList.isEmpty()) {
+                System.out.print("\n학생/교수의 한마디를 몰래 보시겠습니까? (Y/N): ");
+                String input = scanner.nextLine().trim();
+
+                if (input.equalsIgnoreCase("Y")) {
+                    System.out.println("\n===== 대상 목록 =====");
+                    for (int i = 0; i < hanmadiEligibleList.size(); i++) {
+                        Member member = hanmadiEligibleList.get(i);
+                        System.out.printf("%d. %s ( %s )%n", i + 1, member.getName(), member.getPosition());
+                    }
+
+                    System.out.print("확인할 번호 입력: ");
+                    int choice = scanner.nextInt();
+                    scanner.nextLine(); // 개행 처리
+
+                    if (choice >= 1 && choice <= hanmadiEligibleList.size()) {
+                        Member selected = hanmadiEligibleList.get(choice - 1);
+                        if (selected instanceof Student) {
+                            System.out.println("\n[" + selected.getName() + "]의 한마디: " + selected.getHanmadi());
+                        } else if (selected instanceof Professor) {
+                            System.out.println("\n[" + selected.getName() + "]의 한마디: " + selected.getHanmadi());
+                        }
+                    } else {
+                        System.out.println("잘못된 번호입니다.");
+                    }
+                }
+            } else {
+                System.out.println("\n학생 또는 교수 정보가 없어 한마디를 확인할 수 없습니다.");
             }
         }
 
@@ -82,14 +119,14 @@ public class MemberManageView {
             }
 
             System.out.println("\n=========== 교수 회원 정보 목록 ===========");
-            System.out.printf("%-15s %-15s %-15s %-15s%n", "이름", "ID", "신분", "고유번호");
-            System.out.println("--------------------------------------------------------------");
+            System.out.printf("%-15s %-15s %-15s%n", "이름", "ID", "신분");
+            System.out.println("-------------------------------------------");
 
             for (Professor professor : professors) {
                 System.out.printf(
                         "%-15s %-15s %-15s %n",
                         professor.getName(),
-                        professor.getId(),
+                        professor.getSystemId(),
                         professor.getPosition()
                 );
             }
@@ -104,14 +141,14 @@ public class MemberManageView {
             }
 
             System.out.println("\n=========== 직원 회원 정보 목록 ===========");
-            System.out.printf("%-15s %-15s %-15s %-15s%n", "이름", "ID", "신분", "고유번호");
-            System.out.println("--------------------------------------------------------------");
+            System.out.printf("%-15s %-15s %-15s %n", "이름", "ID", "신분");
+            System.out.println("------------------------------------------");
 
             for (Member member : members) {
                 System.out.printf(
                         "%-15s %-15s %-15s %n",
                         member.getName(),
-                        member.getId(),
+                        member.getSystemId(),
                         member.getPosition()
                 );
             }
@@ -126,17 +163,19 @@ public class MemberManageView {
             }
 
             System.out.println("\n=========== 학생 회원 정보 목록 ===========");
-            System.out.printf("%-15s %-15s %-15s %-15s%n", "이름", "ID", "신분", "고유번호");
-            System.out.println("--------------------------------------------------------------");
+            System.out.printf("%-15s %-15s %-15s%n", "이름", "ID", "신분");
+            System.out.println("------------------------------------------");
 
             for (Member member : members) {
                 System.out.printf(
                         "%-15s %-15s %-15s %n",
                         member.getName(),
-                        member.getId(),
+                        member.getSystemId(),
                         member.getPosition()
                 );
             }
         }
     }
+
+
 }
