@@ -1,20 +1,19 @@
 package com.be.view.Authentication.LoginViewStrategy;
 
-import com.be.controller.MemberController;
+import com.be.controller.MemberControllerFacade;
 import com.be.model.Member;
 import com.be.model.Professor;
 import com.be.model.Staff;
 import com.be.model.Student;
-import jakarta.persistence.EntityManager;
 
 import java.util.Scanner;
 
 public class BasicLoginView implements LoginViewStrategy {
-    private MemberController memberController;
+    private MemberControllerFacade memberControllerFacade;
 
 
-    public BasicLoginView(MemberController memberController) {
-        this.memberController = memberController;
+    public BasicLoginView(MemberControllerFacade memberControllerFacade) {
+        this.memberControllerFacade = memberControllerFacade;
     }
 
     @Override
@@ -29,7 +28,7 @@ public class BasicLoginView implements LoginViewStrategy {
             System.out.print("PW: ");
             String pw = scanner.nextLine();
 
-            loggedInMember = memberController.login(id, pw);
+            loggedInMember = memberControllerFacade.login(id, pw, false);
         }
 
         if (loggedInMember instanceof Professor professor) {

@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 
 @AllArgsConstructor
-public class StudentController implements BaseController {
+public class StudentControllerFacade implements BaseController {
 
     private final EntityManager em;
 

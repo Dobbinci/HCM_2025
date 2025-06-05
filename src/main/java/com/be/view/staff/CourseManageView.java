@@ -1,6 +1,6 @@
 package com.be.view.staff;
 
-import com.be.controller.StaffController;
+import com.be.controller.StaffControllerFacade;
 import com.be.dto.CourseCreateRequestDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
@@ -15,11 +15,11 @@ public class CourseManageView {
 
     Scanner scanner = new Scanner(System.in);
     private final EntityManager em;
-    private final StaffController staffController;
+    private final StaffControllerFacade staffControllerFacade;
 
-    public CourseManageView(EntityManager em, StaffController staffController) {
+    public CourseManageView(EntityManager em, StaffControllerFacade staffControllerFacade) {
         this.em = em;
-        this.staffController = staffController;
+        this.staffControllerFacade = staffControllerFacade;
     }
 
     public void show() {
@@ -67,7 +67,7 @@ public class CourseManageView {
             long id;
 
             //교수가 작성한 신청서 조회
-            List<CourseCreateRequestDTO> courseApplications = staffController.loadCourseApplicationList();
+            List<CourseCreateRequestDTO> courseApplications = staffControllerFacade.loadCourseApplicationList();
             if (courseApplications.isEmpty()) {
                 System.out.println("강의 개설 신청이 없습니다.");
                 return;
@@ -91,7 +91,7 @@ public class CourseManageView {
                 return;
             }
             CourseCreateRequestDTO selected = courseApplications.get(index - 1);
-            staffController.createCourse(selected);
+            staffControllerFacade.createCourse(selected);
             System.out.println("강의 생성 요청을 반영하였습니다.");
         }
     }
@@ -102,7 +102,7 @@ public class CourseManageView {
 
             System.out.println(" -- 개설된 강의 목록 -- ");
 
-            List<CourseDTO> courseList = staffController.loadCourseList();
+            List<CourseDTO> courseList = staffControllerFacade.loadCourseList();
 
             for (int i = 0; i < courseList.size(); i++) {
                 CourseDTO courseDTO = courseList.get(i);
@@ -119,7 +119,7 @@ public class CourseManageView {
     public class CourseUpdateRequestView {
 
         public void show() {
-            List<CourseUpdateRequest> requests = staffController.getAllUpdateRequests();
+            List<CourseUpdateRequest> requests = staffControllerFacade.getAllUpdateRequests();
 
             if (requests.isEmpty()) {
                 System.out.println("수정 요청이 없습니다.");
@@ -155,7 +155,7 @@ public class CourseManageView {
             }
 
             CourseUpdateRequest selectedRequest = requests.get(index);
-            staffController.handleUpdateRequests(selectedRequest);
+            staffControllerFacade.handleUpdateRequests(selectedRequest);
             System.out.println("강의 수정 요청을 반영하였습니다.");
         }
     }
@@ -163,7 +163,7 @@ public class CourseManageView {
     public class CourseDeleteRequestView {
 
         public void show() {
-            List<CourseDeleteRequest> requests = staffController.getAllDeleteRequests();
+            List<CourseDeleteRequest> requests = staffControllerFacade.getAllDeleteRequests();
 
             if (requests.isEmpty()) {
                 System.out.println("수정 요청이 없습니다.");
@@ -188,7 +188,7 @@ public class CourseManageView {
                 return;
             }
             CourseDeleteRequest selectedRequest = requests.get(index);
-            staffController.processDeleteRequests(selectedRequest);
+            staffControllerFacade.processDeleteRequests(selectedRequest);
             System.out.println("강의 수정 요청을 반영하였습니다.");
         }
     }

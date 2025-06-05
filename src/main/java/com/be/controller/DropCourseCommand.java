@@ -4,23 +4,23 @@ import com.be.model.EnrolledCourse;
 
 //ConcreteCommand
 public class DropCourseCommand implements Command {
-    private StudentController studentController;
+    private StudentControllerFacade studentControllerFacade;
     private int index;
     private EnrolledCourse removedCourse;
 
 
-    public DropCourseCommand(StudentController studentController, int index){
-        this.studentController = studentController;
+    public DropCourseCommand(StudentControllerFacade studentControllerFacade, int index){
+        this.studentControllerFacade = studentControllerFacade;
         this.index = index;
     }
 
     @Override
     public void execute() {
-        removedCourse = studentController.dropCourse(index);
+        removedCourse = studentControllerFacade.dropCourse(index);
     }
 
     @Override
     public void undo() {
-        studentController.enrollCourseForUndo(removedCourse);
+        studentControllerFacade.enrollCourseForUndo(removedCourse);
     }
 }
