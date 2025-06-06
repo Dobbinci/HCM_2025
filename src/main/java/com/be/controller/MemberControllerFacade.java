@@ -8,7 +8,7 @@ import com.be.repository.MemberRepository;
 import com.be.repository.impl.MemberRepositoryImpl;
 import jakarta.persistence.EntityManager;
 
-public class MemberControllerFacade implements BaseController{
+public class MemberControllerFacade implements BaseController {
     private final EntityManager em;
 
     public MemberControllerFacade(EntityManager em) {
@@ -16,7 +16,7 @@ public class MemberControllerFacade implements BaseController{
     }
 
     // 멤버 저장 로직
-    public void saveMember(String memberId, String name, String systemId, String password, String position, boolean isSocialSignup) {
+    public void saveMember(String memberId, String name, String systemId, String password, String position, String hanmadi, boolean isSocialSignup) {
 
         MemberRepository memberRepo = new MemberRepositoryImpl(em);
 
@@ -36,7 +36,8 @@ public class MemberControllerFacade implements BaseController{
             builder = Student.builder()
                     .studentId(memberId)
                     .name(name)
-                    .position(position);
+                    .position(position)
+                    .hanmadi(hanmadi);
 
             if (isSocialSignup) {
                 builder.socialId(systemId).socialPassword(password);
@@ -49,7 +50,8 @@ public class MemberControllerFacade implements BaseController{
             Professor.ProfessorBuilder builder = Professor.builder()
                     .professorId(memberId)
                     .name(name)
-                    .position(position);
+                    .position(position)
+                    .hanmadi(hanmadi);
 
             if (isSocialSignup) {
                 builder.socialId(systemId).socialPassword(password);
@@ -60,15 +62,18 @@ public class MemberControllerFacade implements BaseController{
             member = builder.build();
         } else if (position.equalsIgnoreCase("staff")) {
             Staff.StaffBuilder builder = Staff.builder()
-                    .professorId(memberId)
+                    .staffId(memberId)
                     .name(name)
-                    .position(position);
+                    .position(position)
+                    .hanmadi(hanmadi);
 
             if (isSocialSignup) {
                 builder.socialId(systemId).socialPassword(password);
             } else {
                 builder.systemId(systemId).password(password);
             }
+
+            member = builder.build();
         } else {
             System.out.println("잘못된 포지션 입력입니다.");
             return;
@@ -84,7 +89,7 @@ public class MemberControllerFacade implements BaseController{
         MemberRepository memberRepo = new MemberRepositoryImpl(em);
         Member member = null;
 
-        if(isSocialLogin){
+        if (isSocialLogin) {
             member = memberRepo.findBySocialId(systemId);
             if (member == null) {
                 System.out.println("존재하지 않는 ID입니다.");
@@ -94,8 +99,7 @@ public class MemberControllerFacade implements BaseController{
                 return null;
             }
 
-        }
-        else {
+        } else {
             member = memberRepo.findBySystemId(systemId);
             if (member == null) {
                 System.out.println("존재하지 않는 ID입니다.");

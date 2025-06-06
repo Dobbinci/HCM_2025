@@ -7,7 +7,7 @@ import com.be.view.textModeChangeView;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
-@AllArgsConstructor
+@AllArgsConstructor 
 public class StaffHomeView {
 
 

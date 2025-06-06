@@ -176,7 +176,7 @@ public class StudentHomeView {
                 remoteControl.setCommand(dropCourse);
                 remoteControl.pressButton();
 
-                //                studentController.dropCourse(courseIndex);
+                //studentController.dropCourse(courseIndex);
                 EnrolledCourseListView();
                 System.out.println("수강 취소되었습니다.");
 
