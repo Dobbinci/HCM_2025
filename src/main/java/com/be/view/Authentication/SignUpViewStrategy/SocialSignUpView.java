@@ -8,7 +8,6 @@ public class SocialSignUpView implements SignUpViewStrategy {
     private MemberControllerFacade memberControllerFacade;
 
     public SocialSignUpView(MemberControllerFacade memberControllerFacade) {
-
         this.memberControllerFacade = memberControllerFacade;
     }
 
