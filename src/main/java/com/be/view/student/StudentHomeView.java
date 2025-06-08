@@ -8,6 +8,10 @@ import com.be.controller.StudentControllerFacade;
 import com.be.dto.CourseDTO;
 import com.be.dto.EnrolledCourseDTO;
 import com.be.view.textModeChangeView;
+import com.be.view.warningMessage.WarningComponent;
+import com.be.view.warningMessage.WarningConcreteComponent;
+import com.be.view.warningMessage.WarningProfessorDecorator;
+import com.be.view.warningMessage.WarningStudentDecorator;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -55,7 +59,9 @@ public class StudentHomeView {
                 case 6:
                     return;
                 default:
-                    System.out.println("잘못된 선택입니다. 다시 시도하세요.");
+                    // 잘못된 메뉴 선택 시 학생용 경고 메시지 출력
+                    WarningComponent studentWarning = new WarningStudentDecorator(new WarningConcreteComponent());
+                    studentWarning.showWarning("잘못된 메뉴입니다.");
             }
         }
     }

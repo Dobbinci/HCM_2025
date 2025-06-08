@@ -50,7 +50,7 @@ public class Main {
                 StudentHomeView studentHomeView = new StudentHomeView(em, (StudentControllerFacade) controller);
                 studentHomeView.show();
 
-            } else if (loggedInMember instanceof Staff staff) {
+            } else if (loggedInMember instanceof Staff) {
                 StaffHomeView staffHomeView = new StaffHomeView(em, (StaffControllerFacade) controller);
                 staffHomeView.show();
 

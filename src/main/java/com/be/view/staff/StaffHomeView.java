@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import com.be.controller.StaffControllerFacade;
 import com.be.view.textModeChangeView;
+import com.be.view.warningMessage.WarningComponent;
+import com.be.view.warningMessage.WarningConcreteComponent;
+import com.be.view.warningMessage.WarningStaffDecorator;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -43,7 +46,9 @@ public class StaffHomeView {
             } else if (choice == 4) {
                 return;
             } else{
-                System.out.println("잘못된 입력입니다.");
+                // 잘못된 메뉴 선택 시 직원용 경고 메시지 출력
+                WarningComponent staffWarning = new WarningStaffDecorator(new WarningConcreteComponent());
+                staffWarning.showWarning("잘못된 메뉴입니다.");
             }
         }
     }
