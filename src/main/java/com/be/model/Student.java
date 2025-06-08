@@ -1,5 +1,6 @@
 package com.be.model;
 
+import com.be.view.staff.MemberVisitor;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -15,4 +16,8 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Student extends Member {
 
+    @Override
+    public void accept(MemberVisitor visitor) {
+        visitor.visit(this);
+    }
 }

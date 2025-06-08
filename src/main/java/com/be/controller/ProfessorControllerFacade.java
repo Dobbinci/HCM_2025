@@ -15,7 +15,7 @@ import jakarta.persistence.EntityManager;
 import java.util.List;
 
 @AllArgsConstructor
-public class ProfessorController implements BaseController {
+public class ProfessorControllerFacade implements BaseController {
 
     private final EntityManager em;
 
@@ -53,7 +53,7 @@ public class ProfessorController implements BaseController {
 
         // DTO로 변환
         return courseCreateRequestList.stream()
-                .map(courseCreateRequest-> new CourseCreateRequestDTO(
+                .map(courseCreateRequest -> new CourseCreateRequestDTO(
                         courseCreateRequest.getId(),
                         courseCreateRequest.getCourseName(),
                         courseCreateRequest.getProfessorName(),
@@ -123,7 +123,7 @@ public class ProfessorController implements BaseController {
                                     String capacity, String classroom, String content, String reason) {
 
         CourseRepository courseRepo = new CourseRepoImpl(em);
-        Course course= courseRepo.findById(courseId);
+        Course course = courseRepo.findById(courseId);
         CourseUpdateRequestRepository updateRepo = new CourseUpdateRequestRepoImpl(em);
 
         CourseUpdateRequest request = CourseUpdateRequest.builder()
@@ -159,6 +159,13 @@ public class ProfessorController implements BaseController {
         repo.save(request);
 
         System.out.println("강의 삭제 요청이 등록되었습니다.");
+    }
+
+    public List<CourseDTO> search(String keyword) {
+        List<CourseDTO> courseList = loadCourseList();
+        return courseList.stream()
+                .filter(course -> course.getCourseName().toLowerCase().contains(keyword.toLowerCase()))
+                .toList();
     }
 
 }

@@ -27,13 +27,4 @@ public class Course {
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
     private Professor professor;
 
-    public Course(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
-        this.courseName = courseName;
-        this.professorName = professorName;
-        this.semester = semester;
-        this.credit = credit;
-        this.capacity = capacity;
-        this.classroom = classroom;
-        this.content = content;
-    }
 }

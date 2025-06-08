@@ -1,6 +1,6 @@
 package com.be.view.Authentication.LoginViewStrategy;
 
-import com.be.controller.MemberController;
+import com.be.controller.MemberControllerFacade;
 import com.be.model.Member;
 import com.be.model.Professor;
 import com.be.model.Staff;
@@ -9,11 +9,11 @@ import com.be.model.Student;
 import java.util.Scanner;
 
 public class SocialLoginView implements LoginViewStrategy{
-    private MemberController memberController;
+    private MemberControllerFacade memberControllerFacade;
 
 
-    public SocialLoginView(MemberController memberController) {
-        this.memberController = memberController;
+    public SocialLoginView(MemberControllerFacade memberControllerFacade) {
+        this.memberControllerFacade = memberControllerFacade;
     }
 
     @Override
@@ -24,11 +24,11 @@ public class SocialLoginView implements LoginViewStrategy{
         while (loggedInMember == null) {
             System.out.println("소셜 아이디와 비밀번호를 입력하시오!");
             System.out.print("ID: ");
-            String id = scanner.nextLine();
+            String socialId = scanner.nextLine();
             System.out.print("PW: ");
-            String pw = scanner.nextLine();
+            String socialPw = scanner.nextLine();
 
-            loggedInMember = memberController.login(id, pw);
+            loggedInMember = memberControllerFacade.login(socialId, socialPw, true);
         }
 
         if (loggedInMember instanceof Professor professor) {
