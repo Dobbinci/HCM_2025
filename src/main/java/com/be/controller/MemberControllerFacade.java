@@ -6,6 +6,8 @@ import com.be.model.Staff;
 import com.be.model.Student;
 import com.be.repository.MemberRepository;
 import com.be.repository.impl.MemberRepositoryImpl;
+import com.be.view.Authentication.Observer.SignupCelebrationObserver;
+import com.be.view.Authentication.Observer.SignupSubject;
 import jakarta.persistence.EntityManager;
 
 public class MemberControllerFacade implements BaseController {
@@ -83,6 +85,9 @@ public class MemberControllerFacade implements BaseController {
         memberRepo.saveMember(member);
         System.out.println(name + "님의 가입을 환영합니다.");
 
+        SignupSubject subject = new SignupSubject();
+        subject.addObserver(new SignupCelebrationObserver());
+        subject.notifyObservers(member);
     }
 
     public Member login(String systemId, String password, boolean isSocialLogin) {

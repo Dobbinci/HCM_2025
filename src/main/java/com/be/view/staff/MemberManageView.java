@@ -18,7 +18,7 @@ public class MemberManageView {
     private final StaffControllerFacade staffController;
 
     public void show() {
-        MemberInfoView memberInfoView = new MemberInfoView();
+        MemberInfoInterface memberInfoView = new ProxyMemberInfoView(new MemberInfoView());
 
         while (true) {
             System.out.println("메뉴");
@@ -50,7 +50,7 @@ public class MemberManageView {
         }
     }
 
-    public class MemberInfoView {
+    public class MemberInfoView implements MemberInfoInterface{
 
         public void showAllMembers() {
             Scanner scanner = new Scanner(System.in);
@@ -177,5 +177,44 @@ public class MemberManageView {
         }
     }
 
+    public class ProxyMemberInfoView implements MemberInfoInterface {
+        private final MemberInfoView realView;
+        private final Scanner scanner;
+
+        public ProxyMemberInfoView(MemberInfoView realView) {
+            this.realView = realView;
+            this.scanner = new Scanner(System.in);
+        }
+
+        private boolean authenticate() {
+            System.out.print("인증 번호를 입력하세요: ");
+            String input = scanner.nextLine();
+            return "staff1234".equals(input);  // 인증 번호 = staff1234
+        }
+
+        @Override
+        public void showAllMembers() {
+            if (authenticate()) realView.showAllMembers();
+            else System.out.println("인증 실패: 접근이 거부되었습니다.");
+        }
+
+        @Override
+        public void showProfessor() {
+            if (authenticate()) realView.showProfessor();
+            else System.out.println("인증 실패: 접근이 거부되었습니다.");
+        }
+
+        @Override
+        public void showStudent() {
+            if (authenticate()) realView.showStudent();
+            else System.out.println("인증 실패: 접근이 거부되었습니다.");
+        }
+
+        @Override
+        public void showStaff() {
+            if (authenticate()) realView.showStaff();
+            else System.out.println("인증 실패: 접근이 거부되었습니다.");
+        }
+    }
 
 }
