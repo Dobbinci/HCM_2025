@@ -1,6 +1,6 @@
 package com.be.view.professor.applicationViewStrategy;
 
-import com.be.controller.ProfessorController;
+import com.be.controller.ProfessorControllerFacade;
 import com.be.dto.CourseDTO;
 import lombok.AllArgsConstructor;
 
@@ -10,16 +10,16 @@ import java.util.Scanner;
 @AllArgsConstructor
 public class CourseUpdateRequestView implements ApplicationViewStrategy {
 
-    private final ProfessorController professorController;
+    private final ProfessorControllerFacade professorControllerFacade;
 
     @Override
     public void show() {
-        List<CourseDTO> courseDTOs = professorController.loadCourseList();
+        List<CourseDTO> courseDTOs = professorControllerFacade.loadCourseList();
 
         Scanner scanner = new Scanner(System.in);
 
         if (!courseDTOs.isEmpty()) {
-            ApplicationViewStrategy courseViewStrategy = new CourseListView(professorController);
+            ApplicationViewStrategy courseViewStrategy = new CourseListView(professorControllerFacade);
             courseViewStrategy.show();
 
             System.out.print("수정 요청할 강의의 번호 입력 (1부터 시작): ");
@@ -47,7 +47,7 @@ public class CourseUpdateRequestView implements ApplicationViewStrategy {
             String reason = scanner.nextLine();
 
             // 실제 수정 요청 전달 (예: courseId를 전달할 수도 있음)
-            professorController.requestCourseUpdate(
+            professorControllerFacade.requestCourseUpdate(
                     course.getId(), courseName, semester, credit, capacity, classroom, content, reason
             );
         } else {

@@ -1,6 +1,6 @@
 package com.be.view.professor.applicationViewStrategy;
 
-import com.be.controller.ProfessorController;
+import com.be.controller.ProfessorControllerFacade;
 import com.be.dto.CourseDTO;
 import lombok.AllArgsConstructor;
 
@@ -10,16 +10,16 @@ import java.util.Scanner;
 @AllArgsConstructor
 public class CourseDeleteRequestView implements ApplicationViewStrategy{
 
-    private final ProfessorController professorController;
+    private final ProfessorControllerFacade professorControllerFacade;
 
     @Override
     public void show() {
-        List<CourseDTO> courseDTOs = professorController.loadCourseList();
+        List<CourseDTO> courseDTOs = professorControllerFacade.loadCourseList();
         Scanner scanner = new Scanner(System.in);
         int index;
 
         if (!courseDTOs.isEmpty()) {
-            ApplicationViewStrategy courseViewStrategy = new CourseListView(professorController);
+            ApplicationViewStrategy courseViewStrategy = new CourseListView(professorControllerFacade);
             courseViewStrategy.show();
 
             System.out.print("삭제 요청할 신청서의 번호 입력 : ");
@@ -38,7 +38,7 @@ public class CourseDeleteRequestView implements ApplicationViewStrategy{
             String reason = scanner.nextLine();
 
             // 삭제 요청 등록
-            professorController.applyDeleteCreatedCourse(
+            professorControllerFacade.applyDeleteCreatedCourse(
                     selectedCourse.getId(),
                     selectedCourse.getCourseName(),
                     selectedCourse.getProfessorName(),
