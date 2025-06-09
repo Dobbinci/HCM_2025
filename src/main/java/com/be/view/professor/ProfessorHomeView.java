@@ -2,7 +2,7 @@ package com.be.view.professor;
 
 import com.be.controller.ProfessorControllerFacade;
 import com.be.view.professor.applicationViewStrategy.*;
-import com.be.view.textModeChangeView;
+import com.be.view.TextModeChangeView;
 import com.be.view.warningMessage.WarningComponent;
 import com.be.view.warningMessage.WarningConcreteComponent;
 import com.be.view.warningMessage.WarningProfessorDecorator;
@@ -52,7 +52,7 @@ public class ProfessorHomeView {
             int choice = scanner.nextInt();
 
             if (choice==8){
-                textModeChangeView.show();
+                TextModeChangeView.show();
             }
 
             else if (choice == 9) {

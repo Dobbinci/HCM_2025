@@ -3,7 +3,7 @@ package com.be.view.staff;
 import java.util.Scanner;
 
 import com.be.controller.StaffControllerFacade;
-import com.be.view.textModeChangeView;
+import com.be.view.TextModeChangeView;
 import com.be.view.warningMessage.WarningComponent;
 import com.be.view.warningMessage.WarningConcreteComponent;
 import com.be.view.warningMessage.WarningStaffDecorator;
@@ -42,7 +42,7 @@ public class StaffHomeView {
             } else if (choice == 2) {
                 memberManageView.show();
             } else if (choice == 3) {
-                textModeChangeView.show();
+                TextModeChangeView.show();
             } else if (choice == 4) {
                 return;
             } else{

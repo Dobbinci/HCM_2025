@@ -1,4 +1,5 @@
 package com.be.controller;
+import java.lang.reflect.Array;
 import java.util.List;
 
 import com.be.dto.CourseCreateRequestDTO;
@@ -156,6 +157,66 @@ public class StaffControllerFacade implements BaseController{
         }
     }
 
+    public void createCourseFacade(String semester){
+        createChapel(semester);
+        createChapelEN(semester);
+        createCLT(semester); //Community &Leadership Training
+
+        System.out.println("강의 등록 완료!\n");
+    }
+
+    private void createChapel(String semester){
+        for (int i=1; i<9; i++) {
+            Course course = Course.builder()
+                    .courseName("채플" + i)
+                    .professorName("한동대")
+                    .semester(semester)
+                    .credit("0")
+                    .capacity("999")
+                    .classroom("HCA")
+                    .content("채플")
+                    .build();
+
+            // 강의 등록 로직
+            CourseRepository courseRepo = new CourseRepoImpl(em);
+            courseRepo.save(course);
+        }
+    }
+
+    private void createChapelEN(String semester){
+        for (int i=1; i<9; i++) {
+            Course course = Course.builder()
+                    .courseName("English Chapel" + i)
+                    .professorName("HGU")
+                    .semester(semester)
+                    .credit("0")
+                    .capacity("999")
+                    .classroom("HCA")
+                    .content("English Chapel")
+                    .build();
+
+            // 강의 등록 로직
+            CourseRepository courseRepo = new CourseRepoImpl(em);
+            courseRepo.save(course);
+        }
+    }
+
+    private void createCLT(String semester){
+        for (int i=1; i<9; i++) {
+            Course course = Course.builder()
+                    .courseName("공동체리더십훈련" + i)
+                    .professorName("Unconfirmed")
+                    .semester(semester)
+                    .credit(".5")
+                    .capacity("999")
+                    .content("팀모임")
+                    .build();
+
+            // 강의 등록 로직
+            CourseRepository courseRepo = new CourseRepoImpl(em);
+            courseRepo.save(course);
+        }
+    }
     //-----------------------------!여기부터 맴버 관리 컨트롤러!-----------------------------//
 
     //제네릭 사용

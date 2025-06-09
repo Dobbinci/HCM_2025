@@ -10,10 +10,9 @@ import com.be.dto.EnrolledCourseDTO;
 import com.be.view.courseDisplayDeco.ConcreteCourseDisplay;
 import com.be.view.courseDisplayDeco.CourseDisplayComponent;
 import com.be.view.courseDisplayDeco.CourseDisplayNormalDeco;
-import com.be.view.textModeChangeView;
+import com.be.view.TextModeChangeView;
 import com.be.view.warningMessage.WarningComponent;
 import com.be.view.warningMessage.WarningConcreteComponent;
-import com.be.view.warningMessage.WarningProfessorDecorator;
 import com.be.view.warningMessage.WarningStudentDecorator;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
@@ -58,7 +57,7 @@ public class StudentHomeView {
                     openCourseView();
                     break;
                 case 5:
-                    textModeChangeView.show();
+                    TextModeChangeView.show();
                 case 6:
                     return;
                 default:
