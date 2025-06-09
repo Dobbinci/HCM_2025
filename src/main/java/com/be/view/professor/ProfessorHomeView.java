@@ -3,6 +3,9 @@ package com.be.view.professor;
 import com.be.controller.ProfessorControllerFacade;
 import com.be.view.professor.applicationViewStrategy.*;
 import com.be.view.textModeChangeView;
+import com.be.view.warningMessage.WarningComponent;
+import com.be.view.warningMessage.WarningConcreteComponent;
+import com.be.view.warningMessage.WarningProfessorDecorator;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -62,7 +65,9 @@ public class ProfessorHomeView {
                 context.setStrategy(strategy);           // 전략을 설정하고
                 context.show();      // 전략을 실행
             } else {
-                System.out.println("잘못된 메뉴입니다.");
+                // 잘못된 메뉴 선택 시 교수용 경고 메시지 출력
+                WarningComponent professorWarning = new WarningProfessorDecorator(new WarningConcreteComponent());
+                professorWarning.showWarning("잘못된 메뉴입니다.");
             }
         }
     }
