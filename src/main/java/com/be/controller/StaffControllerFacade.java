@@ -23,6 +23,15 @@ public class StaffControllerFacade implements BaseController{
         CourseCreateRequestRepository courseCreateRequestRepo = new CourseCreateRequestRepoImpl(em);
         GenericRepository<Professor, Long> memberRepo = new GenericRepoImpl<>(em, Professor.class);
 
+        // 1-5까지 평가 랜덤저장
+        int evaluationScore = (int) (Math.random() * 5) + 1; // 1부터 5까지의 랜덤 숫자
+
+
+        // 재미도 랜덤저장
+        String[] funnyRates = {"노잼", "그럭저럭", "재밌음", "꿀잼", "최고"};
+        String funnyRate = funnyRates[(int) (Math.random() * funnyRates.length)];
+
+
         // 강의 신청 객체 생성
         Course course = Course.builder()
                 .courseName(selected.getCourseName())
@@ -32,6 +41,8 @@ public class StaffControllerFacade implements BaseController{
                 .capacity(selected.getCapacity())
                 .classroom(selected.getClassroom())
                 .content(selected.getContent())
+                .evaluation(String.valueOf(evaluationScore))
+                .funnyRate(funnyRate)
                 .professor(memberRepo.findById(selected.getProfessorId()))
                 .build();
 
@@ -79,6 +90,8 @@ public class StaffControllerFacade implements BaseController{
                         course.getCapacity(),
                         course.getClassroom(),
                         course.getContent(),
+                        course.getEvaluation(),
+                        course.getFunnyRate(),
                         course.getProfessor().getId())).toList();
     }
 
