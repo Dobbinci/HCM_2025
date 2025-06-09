@@ -30,8 +30,9 @@ public class CourseManageView {
                 "1. 강의 생성 요청 관리",
                 "2. 강의 수정 요청 관리",
                 "3. 강의 삭제 요청 관리",
-                "4. 개설된 강의 조회",
-                "5. 뒤로가기"
+                "4. 채플, 영어채플, 팀모임 생성",
+                "5. 개설된 강의 조회",
+                "6. 뒤로가기"
         };
 
         while (true) {
@@ -54,11 +55,16 @@ public class CourseManageView {
                     courseDeleteRequestView.show();
                     break;
                 case 4:
+                    System.out.println("몇 학기 째를 생성하시겠습니까?");
+                    String semester = scanner.next();
+                    staffControllerFacade.createCourseFacade(semester);
+                    break;
+                case 5:
                     CreatedCourseView createdCourseView = new CreatedCourseView();
                     createdCourseView.show();
                     break;
             }
-            if (choice == 5) {
+            if (choice == 6) {
                 break;
             }
         }
