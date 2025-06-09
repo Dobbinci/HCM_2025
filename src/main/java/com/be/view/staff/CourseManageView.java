@@ -4,6 +4,9 @@ import com.be.controller.StaffControllerFacade;
 import com.be.dto.CourseCreateRequestDTO;
 import com.be.dto.CourseDTO;
 import com.be.model.*;
+import com.be.view.courseDisplayDeco.ConcreteCourseDisplay;
+import com.be.view.courseDisplayDeco.CourseDisplayAdminDeco;
+import com.be.view.courseDisplayDeco.CourseDisplayComponent;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
@@ -99,19 +102,15 @@ public class CourseManageView {
     //개설된 강의 목록 확인
     public class CreatedCourseView {
         public void show() {
-
-            System.out.println(" -- 개설된 강의 목록 -- ");
-
             List<CourseDTO> courseList = staffControllerFacade.loadCourseList();
 
-            for (int i = 0; i < courseList.size(); i++) {
-                CourseDTO courseDTO = courseList.get(i);
-
-                System.out.printf("[%d]. " +
-                        "강의명 : %s |" +
-                        "교수명 : %s |" +
-                        "강의실 : %s ", i + 1, courseDTO.getCourseName(), courseDTO.getProfessorName(), courseDTO.getClassroom());
-                System.out.println();
+            if (!courseList.isEmpty()) {
+                // 관리자 전용 강의 목록 출력
+                CourseDisplayComponent courseDisplayAdminDeco = new CourseDisplayAdminDeco(new ConcreteCourseDisplay());
+                courseDisplayAdminDeco.displayCourse(courseList);
+            }
+            else {
+                System.out.println("개설된 강의가 없습니다.");
             }
         }
     }

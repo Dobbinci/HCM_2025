@@ -23,6 +23,8 @@ public class Course {
     private String capacity;
     private String classroom;
     private String content;
+    private String evaluation;
+    private String funnyRate;
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
     private Professor professor;

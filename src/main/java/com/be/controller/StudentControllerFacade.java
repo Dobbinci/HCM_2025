@@ -89,6 +89,8 @@ public class StudentControllerFacade implements BaseController {
                         course.getCapacity(),
                         course.getClassroom(),
                         course.getContent(),
+                        course.getEvaluation(),
+                        course.getFunnyRate(),
                         course.getProfessor().getId())).toList();
     }
 

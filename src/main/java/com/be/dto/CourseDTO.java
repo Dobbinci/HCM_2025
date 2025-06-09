@@ -14,5 +14,7 @@ public class CourseDTO {
     private String capacity;
     private String classroom;
     private String content;
+    private String evaluation;
+    private String funnyRate;
     private Long professorId;
 }
