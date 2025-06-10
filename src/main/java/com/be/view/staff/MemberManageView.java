@@ -1,4 +1,5 @@
 package com.be.view.staff;
+
 import com.be.controller.StaffControllerFacade;
 import com.be.model.Member;
 import com.be.model.Professor;
@@ -50,7 +51,7 @@ public class MemberManageView {
         }
     }
 
-    public class MemberInfoView implements MemberInfoInterface{
+    public class MemberInfoView implements MemberInfoInterface {
 
         public void showAllMembers() {
             Scanner scanner = new Scanner(System.in);
@@ -97,9 +98,9 @@ public class MemberManageView {
                     if (choice >= 1 && choice <= hanmadiEligibleList.size()) {
                         Member selected = hanmadiEligibleList.get(choice - 1);
                         if (selected instanceof Student) {
-                            System.out.println("\n[" + selected.getName() + "]의 한마디: " + selected.getHanmadi());
+                            selected.accept(visitor);
                         } else if (selected instanceof Professor) {
-                            System.out.println("\n[" + selected.getName() + "]의 한마디: " + selected.getHanmadi());
+                            selected.accept(visitor);
                         }
                     } else {
                         System.out.println("잘못된 번호입니다.");
