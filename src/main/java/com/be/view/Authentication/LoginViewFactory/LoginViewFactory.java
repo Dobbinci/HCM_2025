@@ -5,10 +5,9 @@ import com.be.view.Authentication.LoginViewStrategy.LoginViewStrategy;
 
 //Creator
 public abstract class LoginViewFactory {
-    protected abstract LoginViewProduct getCreator();
-
     public LoginViewStrategy pullLoginView(MemberControllerFacade memberControllerFacade) {
         LoginViewProduct loginViewProduct = getCreator();
         return loginViewProduct.returnInstance(memberControllerFacade);
     }
+    protected abstract LoginViewProduct getCreator();
 }

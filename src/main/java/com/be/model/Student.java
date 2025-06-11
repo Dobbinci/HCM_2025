@@ -15,7 +15,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class Student extends Member {
-
     @Override
     public void accept(MemberVisitor visitor) {
         visitor.visit(this);
