@@ -13,6 +13,11 @@ public class CourseDisplayAdminDeco extends CourseDisplayDecorator {
     @Override
     public void displayCourse(List<CourseDTO> courseDTOs) {
         super.displayCourse(courseDTOs);
+        displayCourseAdmin(courseDTOs);
+
+    }
+
+    public void displayCourseAdmin(List<CourseDTO> courseDTOs) {
         if (!courseDTOs.isEmpty()) {
             int widthNo = 4;
             int widthName = 20;
@@ -56,6 +61,9 @@ public class CourseDisplayAdminDeco extends CourseDisplayDecorator {
             }
 
             System.out.println(line);
+        }
+        else {
+            System.out.println("개설된 강의가 없습니다.");
         }
     }
 }
