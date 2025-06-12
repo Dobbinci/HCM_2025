@@ -60,6 +60,7 @@ public class StudentHomeView {
                     break;
                 case 5:
                     TextModeChangeView.show();
+                    break;
                 case 6:
                     return;
                 default:

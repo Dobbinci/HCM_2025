@@ -55,7 +55,7 @@ public class StudentControllerFacade implements BaseController {
                 .map(enrolledCourse -> new EnrolledCourseDTO(
                         enrolledCourse.getId(),
                         enrolledCourse.getCourse().getCourseName(),
-                        enrolledCourse.getCourse().getProfessor().getName(),
+                        enrolledCourse.getCourse().getProfessorName(),
                         enrolledCourse.getCourse().getSemester(),
                         enrolledCourse.getCourse().getCredit(),
                         enrolledCourse.getCourse().getCapacity(),
