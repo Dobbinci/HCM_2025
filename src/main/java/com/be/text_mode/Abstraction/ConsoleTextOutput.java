@@ -1,5 +1,6 @@
 package com.be.text_mode.Abstraction;
 
+
 import com.be.text_mode.Implementor.TextModeImplementor;
 
 public class ConsoleTextOutput implements TextOutput {
@@ -8,6 +9,7 @@ public class ConsoleTextOutput implements TextOutput {
     public ConsoleTextOutput(TextModeImplementor implementor) {
         this.implementor = implementor;
     }
+
 
     @Override
     public void display() {

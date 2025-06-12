@@ -11,11 +11,14 @@ public class Mode {
     private TextModeState state;
     private TextOutput output;
 
-    public Mode() {
+
+    private Mode() {
         this.state = ColorMode.getInstance();
         this.output = new ConsoleTextOutput(new ConsoleColorMode());
         output.display();
     }
+
+
 
     public static Mode getInstance() {
         return instance;}

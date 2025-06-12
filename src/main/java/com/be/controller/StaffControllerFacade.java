@@ -178,6 +178,7 @@ public class StaffControllerFacade implements BaseController{
                     .evaluation("3")
                     .funnyRate("필수")
                     .build();
+
             // 강의 등록 로직
             CourseRepository courseRepo = new CourseRepoImpl(em);
             courseRepo.save(course);

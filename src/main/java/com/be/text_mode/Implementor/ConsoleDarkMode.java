@@ -1,5 +1,6 @@
 package com.be.text_mode.Implementor;
 
+
 public class ConsoleDarkMode implements TextModeImplementor {
     @Override
     public void applyColor() {
