@@ -19,12 +19,13 @@ public class ProfessorControllerFacade implements BaseController {
 
     private final EntityManager em;
 
-    public void applyCreateCourse(String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
+
+    public void applyCreateCourse(Professor professor, String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
 
         CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         GenericRepository<Professor, Long> memberRepo = new GenericRepoImpl<>(em, Professor.class);
 
-        Professor professor = memberRepo.findById(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        //Professor professor = memberRepo.findById(Id); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
         // 강의 신청 객체 생성
         CourseCreateRequest courseCreateRequest = CourseCreateRequest.builder()
@@ -46,10 +47,10 @@ public class ProfessorControllerFacade implements BaseController {
         System.out.println("강의 등록 신청 완료!\n");
     }
 
-    public List<CourseCreateRequestDTO> loadCourseApplicationList() {
+    public List<CourseCreateRequestDTO> loadCourseApplicationList(Professor professor) {
         CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         // 강의 신청 목록 조회
-        List<CourseCreateRequest> courseCreateRequestList = courseApplicationRepo.findByProfessorId(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        List<CourseCreateRequest> courseCreateRequestList = courseApplicationRepo.findByProfessorId(professor.getId()); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
         // DTO로 변환
         return courseCreateRequestList.stream()
@@ -65,10 +66,10 @@ public class ProfessorControllerFacade implements BaseController {
                         courseCreateRequest.getProfessor().getId())).toList();
     }
 
-    public List<CourseDTO> loadCourseList() {
+    public List<CourseDTO> loadCourseList(Professor professor) {
         CourseRepository courseRepo = new CourseRepoImpl(em);
         // 나의 강의 목록 조회
-        List<Course> courseList = courseRepo.findByProfessorId(1L); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        List<Course> courseList = courseRepo.findByProfessorId(professor.getId()); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
         // DTO로 변환
         return courseList.stream()
@@ -86,10 +87,10 @@ public class ProfessorControllerFacade implements BaseController {
                         course.getProfessor().getId())).toList();
     }
 
-    public void applyUpdateCourse(int index, String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
+    public void applyUpdateCourse(Professor professor,int index, String courseName, String professorName, String semester, String credit, String capacity, String classroom, String content) {
         CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
         // 수정할 강의신청 객체 불러오기
-        CourseCreateRequest courseCreateRequest = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        CourseCreateRequest courseCreateRequest = courseApplicationRepo.findByProfessorId(professor.getId()).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
 
         if (courseCreateRequest != null) {
             // 강의신청 수정 로직
@@ -109,9 +110,9 @@ public class ProfessorControllerFacade implements BaseController {
     }
 
 
-    public void applyDeleteCourse(int index) {
+    public void applyDeleteCourse(Professor professor, int index) {
         CourseCreateRequestRepository courseApplicationRepo = new CourseCreateRequestRepoImpl(em);
-        CourseCreateRequest courseCreateRequest = courseApplicationRepo.findByProfessorId(1L).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
+        CourseCreateRequest courseCreateRequest = courseApplicationRepo.findByProfessorId(professor.getId()).get(index); // 예시로 1L을 사용, 실제로는 교수 ID를 받아와야 함
         if (courseCreateRequest != null) {
             // 강의신청 삭제 로직
             courseApplicationRepo.delete(courseCreateRequest.getId());
@@ -163,8 +164,8 @@ public class ProfessorControllerFacade implements BaseController {
         System.out.println("강의 삭제 요청이 등록되었습니다.");
     }
 
-    public List<CourseDTO> search(String keyword) {
-        List<CourseDTO> courseList = loadCourseList();
+    public List<CourseDTO> search(String keyword, Professor professor) {
+        List<CourseDTO> courseList = loadCourseList(professor);
         return courseList.stream()
                 .filter(course -> course.getCourseName().toLowerCase().contains(keyword.toLowerCase()))
                 .toList();

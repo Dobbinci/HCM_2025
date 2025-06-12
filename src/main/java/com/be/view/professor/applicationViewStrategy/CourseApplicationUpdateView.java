@@ -1,5 +1,6 @@
 package com.be.view.professor.applicationViewStrategy;
 import com.be.controller.ProfessorControllerFacade;
+import com.be.model.Professor;
 import lombok.AllArgsConstructor;
 
 import java.util.Scanner;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 public class CourseApplicationUpdateView implements ApplicationViewStrategy{
 
     private final ProfessorControllerFacade professorControllerFacade;
+    private final Professor professor;
 
     @Override
     public void show() {
@@ -15,7 +17,7 @@ public class CourseApplicationUpdateView implements ApplicationViewStrategy{
         Scanner scanner = new Scanner(System.in);
         int index;
             //강의 목록 조회
-            ApplicationViewStrategy courseApplicationViewStrategy = new CourseApplicationListView(professorControllerFacade);
+            ApplicationViewStrategy courseApplicationViewStrategy = new CourseApplicationListView(professorControllerFacade, professor);
             courseApplicationViewStrategy.show();
 
             System.out.print("수정할 신청서의 번호 입력 : ");
@@ -37,7 +39,7 @@ public class CourseApplicationUpdateView implements ApplicationViewStrategy{
             System.out.print("강의계획서 : ");
             String content = scanner.nextLine();
 
-            professorControllerFacade.applyUpdateCourse(--index, courseName, professorName, semester, credit, capacity, classroom, content);
+            professorControllerFacade.applyUpdateCourse(professor, --index, courseName, professorName, semester, credit, capacity, classroom, content);
         }
 
 }

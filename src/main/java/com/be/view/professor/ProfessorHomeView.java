@@ -1,8 +1,9 @@
 package com.be.view.professor;
 
 import com.be.controller.ProfessorControllerFacade;
+import com.be.model.Professor;
 import com.be.view.professor.applicationViewStrategy.*;
-import com.be.view.textModeChangeView;
+import com.be.view.TextModeChangeView;
 import com.be.view.warningMessage.WarningComponent;
 import com.be.view.warningMessage.WarningConcreteComponent;
 import com.be.view.warningMessage.WarningProfessorDecorator;
@@ -18,6 +19,7 @@ public class ProfessorHomeView {
 
     EntityManager em;
     ProfessorControllerFacade professorControllerFacade;
+    Professor professor;
 
     public void show() {
         String[] menuItems = {
@@ -32,13 +34,13 @@ public class ProfessorHomeView {
                 "9. 로그 아웃"
         };
         Map<Integer, ApplicationViewStrategy> strategyMap = new HashMap<>();
-        strategyMap.put(1, new CourseApplicationCreateView(professorControllerFacade));
-        strategyMap.put(2, new CourseApplicationListView(professorControllerFacade));
-        strategyMap.put(3, new CourseApplicationUpdateView(professorControllerFacade));
-        strategyMap.put(4, new CourseApplicationDeleteView(professorControllerFacade));
-        strategyMap.put(5, new CourseListView(professorControllerFacade));
-        strategyMap.put(6, new CourseUpdateRequestView(professorControllerFacade));
-        strategyMap.put(7, new CourseDeleteRequestView(professorControllerFacade));
+        strategyMap.put(1, new CourseApplicationCreateView(professorControllerFacade,professor));
+        strategyMap.put(2, new CourseApplicationListView(professorControllerFacade, professor));
+        strategyMap.put(3, new CourseApplicationUpdateView(professorControllerFacade, professor));
+        strategyMap.put(4, new CourseApplicationDeleteView(professorControllerFacade, professor));
+        strategyMap.put(5, new CourseListView(professorControllerFacade, professor));
+        strategyMap.put(6, new CourseUpdateRequestView(professorControllerFacade, professor));
+        strategyMap.put(7, new CourseDeleteRequestView(professorControllerFacade, professor));
 
         ProfessorMenuContext context = new ProfessorMenuContext();
         Scanner scanner = new Scanner(System.in);
@@ -52,7 +54,7 @@ public class ProfessorHomeView {
             int choice = scanner.nextInt();
 
             if (choice==8){
-                textModeChangeView.show();
+                TextModeChangeView.show();
             }
 
             else if (choice == 9) {

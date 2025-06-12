@@ -6,16 +6,18 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.be.dto.CourseDTO;
+import com.be.model.Professor;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class CourseListView implements ApplicationViewStrategy {
     private final ProfessorControllerFacade professorControllerFacade;
+    private final Professor professor;
 
     @Override
     public void show() {
 
-        List<CourseDTO> courseDTOs = professorControllerFacade.loadCourseList();
+        List<CourseDTO> courseDTOs = professorControllerFacade.loadCourseList(professor);
         System.out.println(" -- 나의 강의 목록 -- ");
 
         //강의 목록 반환 로직
@@ -87,7 +89,7 @@ public class CourseListView implements ApplicationViewStrategy {
                 String keyword;
                 keyword = scanner.nextLine();
 
-                List<CourseDTO> filteredCourses = professorControllerFacade.search(keyword);
+                List<CourseDTO> filteredCourses = professorControllerFacade.search(keyword, professor);
 
                 if (filteredCourses.isEmpty()) {
                     System.out.println("검색 결과가 없습니다.");

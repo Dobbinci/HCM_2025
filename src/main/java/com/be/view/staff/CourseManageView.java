@@ -30,8 +30,9 @@ public class CourseManageView {
                 "1. 강의 생성 요청 관리",
                 "2. 강의 수정 요청 관리",
                 "3. 강의 삭제 요청 관리",
-                "4. 개설된 강의 조회",
-                "5. 뒤로가기"
+                "4. 채플, 영어채플, 팀모임 생성",
+                "5. 개설된 강의 조회",
+                "6. 뒤로가기"
         };
 
         while (true) {
@@ -54,11 +55,16 @@ public class CourseManageView {
                     courseDeleteRequestView.show();
                     break;
                 case 4:
+                    System.out.println("몇 학기 째를 생성하시겠습니까?");
+                    String semester = scanner.next();
+                    staffControllerFacade.createCourseFacade(semester);
+                    break;
+                case 5:
                     CreatedCourseView createdCourseView = new CreatedCourseView();
                     createdCourseView.show();
                     break;
             }
-            if (choice == 5) {
+            if (choice == 6) {
                 break;
             }
         }
@@ -129,7 +135,7 @@ public class CourseManageView {
             for (int i = 0; i < requests.size(); i++) {
                 CourseUpdateRequest req = requests.get(i);
                 System.out.printf("[%d] 강의명: %s → %s / 학기: %s -> %s / 정원: %s -> %s / 강의실: %s -> %s / 강의 정보: %s -> %s / 사유: %s%n",
-                        i,
+                        i+1,
                         req.getCourse().getCourseName(),
                         req.getCourseName(),
                         req.getCourse().getSemester(),
@@ -153,7 +159,7 @@ public class CourseManageView {
                 return;
             }
 
-            CourseUpdateRequest selectedRequest = requests.get(index);
+            CourseUpdateRequest selectedRequest = requests.get(index - 1);
             staffControllerFacade.handleUpdateRequests(selectedRequest);
             System.out.println("강의 수정 요청을 반영하였습니다.");
         }
@@ -173,7 +179,7 @@ public class CourseManageView {
             for (int i = 0; i < requests.size(); i++) {
                 CourseDeleteRequest req = requests.get(i);
                 System.out.printf("[%d] 강의명: %s / 사유: %s%n",
-                        i,
+                        i+1,
                         req.getCourse().getCourseName(),
                         req.getReason());
             }
@@ -182,11 +188,11 @@ public class CourseManageView {
             int index = scanner.nextInt();
             scanner.nextLine(); // 개행 제거
 
-            if (index == -1 || index >= requests.size()) {
+            if (index == -1|| index >= requests.size()) {
                 System.out.println("수정 요청 반영을 취소합니다.");
                 return;
             }
-            CourseDeleteRequest selectedRequest = requests.get(index);
+            CourseDeleteRequest selectedRequest = requests.get(index - 1);
             staffControllerFacade.processDeleteRequests(selectedRequest);
             System.out.println("강의 수정 요청을 반영하였습니다.");
         }

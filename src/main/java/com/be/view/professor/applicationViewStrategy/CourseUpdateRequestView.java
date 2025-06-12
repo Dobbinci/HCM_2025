@@ -2,6 +2,7 @@ package com.be.view.professor.applicationViewStrategy;
 
 import com.be.controller.ProfessorControllerFacade;
 import com.be.dto.CourseDTO;
+import com.be.model.Professor;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -11,15 +12,16 @@ import java.util.Scanner;
 public class CourseUpdateRequestView implements ApplicationViewStrategy {
 
     private final ProfessorControllerFacade professorControllerFacade;
+    private final Professor professor;
 
     @Override
     public void show() {
-        List<CourseDTO> courseDTOs = professorControllerFacade.loadCourseList();
+        List<CourseDTO> courseDTOs = professorControllerFacade.loadCourseList(professor);
 
         Scanner scanner = new Scanner(System.in);
 
         if (!courseDTOs.isEmpty()) {
-            ApplicationViewStrategy courseViewStrategy = new CourseListView(professorControllerFacade);
+            ApplicationViewStrategy courseViewStrategy = new CourseListView(professorControllerFacade, professor);
             courseViewStrategy.show();
 
             System.out.print("수정 요청할 강의의 번호 입력 (1부터 시작): ");

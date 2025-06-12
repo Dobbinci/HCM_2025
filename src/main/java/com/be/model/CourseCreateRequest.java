@@ -1,9 +1,6 @@
 package com.be.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -25,6 +22,7 @@ public class CourseCreateRequest {
     private String content;
 
     @ManyToOne(fetch = jakarta.persistence.FetchType.LAZY)
+    @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
 }

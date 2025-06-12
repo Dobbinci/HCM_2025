@@ -1,24 +1,35 @@
 package com.be.text_mode;
 
 
-public class DarkMode implements TextModeState{
+import com.be.text_mode.Abstraction.ConsoleTextOutput;
+import com.be.text_mode.Implementor.ConsoleDarkMode;
+import com.be.text_mode.Implementor.ConsoleColorMode;
 
-    private static DarkMode instance = new DarkMode();
-    private DarkMode() { }
+public class DarkMode implements TextModeState {
+    private static final DarkMode instance = new DarkMode();
+
+    private DarkMode() {}
 
     public static DarkMode getInstance() {
         return instance;
-    } //싱글톤
-
-    @Override
-    public void changeColorMode(Mode state) {
-        System.out.println("\u001B[94m" + "컬러모드로 변경합니다.");
-        state.setState(ColorMode.getInstance());
-
     }
 
     @Override
-    public void changeDarkMode(Mode state) {
-        System.out.println("\u001B[97m" + "이미 다크모드입니다.");
+    public void changeColorMode(Mode mode) {
+        mode.setState(ColorMode.getInstance());
+        mode.setOutput(new ConsoleTextOutput(new ConsoleColorMode()));
+        mode.getOutput().display();
+    }
+
+    @Override
+    public void changeDarkMode(Mode mode) {
+        if (mode.getCurrentMode().equals("Dark Mode")) {
+            mode.printSameModeMessage();
+            return;
+        }
+        mode.setState(DarkMode.getInstance());
+        mode.setOutput(new ConsoleTextOutput(new ConsoleDarkMode()));
+        mode.getOutput().display();
     }
 }
+
