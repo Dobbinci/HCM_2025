@@ -43,14 +43,20 @@ public class Main {
             BaseController controller = ControllerFactory.getController(loggedInMember, em);
 
             if (loggedInMember instanceof Professor) {
-                ProfessorHomeView professorHomeView = new ProfessorHomeView(em, (ProfessorControllerFacade) controller);
+                Professor professor = (Professor) loggedInMember;
+
+                ProfessorHomeView professorHomeView = new ProfessorHomeView(em, (ProfessorControllerFacade) controller, professor);
                 professorHomeView.show();
 
             } else if (loggedInMember instanceof Student) {
-                StudentHomeView studentHomeView = new StudentHomeView(em, (StudentControllerFacade) controller);
+                Student student = (Student) loggedInMember;
+
+                StudentHomeView studentHomeView = new StudentHomeView(em, (StudentControllerFacade) controller, student);
                 studentHomeView.show();
 
             } else if (loggedInMember instanceof Staff) {
+                Staff staff = (Staff) loggedInMember;
+
                 StaffHomeView staffHomeView = new StaffHomeView(em, (StaffControllerFacade) controller);
                 staffHomeView.show();
 

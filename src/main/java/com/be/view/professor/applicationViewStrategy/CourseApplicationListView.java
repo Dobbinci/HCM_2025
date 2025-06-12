@@ -2,6 +2,7 @@ package com.be.view.professor.applicationViewStrategy;
 
 import com.be.controller.ProfessorControllerFacade;
 import com.be.dto.CourseCreateRequestDTO;
+import com.be.model.Professor;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -10,11 +11,12 @@ import java.util.List;
 public class CourseApplicationListView implements ApplicationViewStrategy {
 
     private final ProfessorControllerFacade professorControllerFacade;
+    private final Professor professor;
 
     @Override
     public void show() {
 
-        List<CourseCreateRequestDTO> courseCreateRequestDTOS = professorControllerFacade.loadCourseApplicationList();
+        List<CourseCreateRequestDTO> courseCreateRequestDTOS = professorControllerFacade.loadCourseApplicationList(professor);
         System.out.println(" -- 강의 신청서 목록 -- ");
 
         //강의 목록 반환 로직

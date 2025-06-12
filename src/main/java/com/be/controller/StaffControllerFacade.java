@@ -93,7 +93,7 @@ public class StaffControllerFacade implements BaseController{
                         course.getContent(),
                         course.getEvaluation(),
                         course.getFunnyRate(),
-                        course.getProfessor().getId())).toList();
+                        course.getProfessor() != null ? course.getProfessor().getId() : null)).toList();
     }
 
     public List<CourseDeleteRequest> getAllDeleteRequests() {
@@ -175,8 +175,9 @@ public class StaffControllerFacade implements BaseController{
                     .capacity("999")
                     .classroom("HCA")
                     .content("채플")
+                    .evaluation("3")
+                    .funnyRate("필수")
                     .build();
-
             // 강의 등록 로직
             CourseRepository courseRepo = new CourseRepoImpl(em);
             courseRepo.save(course);
@@ -193,6 +194,8 @@ public class StaffControllerFacade implements BaseController{
                     .capacity("999")
                     .classroom("HCA")
                     .content("English Chapel")
+                    .evaluation("3")
+                    .funnyRate("필수")
                     .build();
 
             // 강의 등록 로직
@@ -210,6 +213,8 @@ public class StaffControllerFacade implements BaseController{
                     .credit(".5")
                     .capacity("999")
                     .content("팀모임")
+                    .evaluation("3")
+                    .funnyRate("필수")
                     .build();
 
             // 강의 등록 로직

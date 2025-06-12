@@ -18,7 +18,7 @@ public class StudentControllerFacade implements BaseController {
     private final EntityManager em;
 
 
-    public void enrollCourse(int index) {
+    public void enrollCourse(Student student, int index) {
         GenericRepository<Course, Long> courseRepo = new GenericRepoImpl<>(em, Course.class);
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
         GenericRepository<Student, Long> memberRepo = new GenericRepoImpl<>(em, Student.class);
@@ -26,7 +26,7 @@ public class StudentControllerFacade implements BaseController {
         Course course = courseRepo.findAll().get(index);
         EnrolledCourse enrolledCourse = EnrolledCourse.builder()
 
-                .student(memberRepo.findById(3L)) // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
+                .student(student) // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
                 .course(course)
                 .build();
 
@@ -46,11 +46,11 @@ public class StudentControllerFacade implements BaseController {
     }
 
 
-    public List<EnrolledCourseDTO> loadEnrolledCourseList() {
+    public List<EnrolledCourseDTO> loadEnrolledCourseList(Student student) {
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
 
         // 학생 ID를 받아와야 함, 예시로 1L을 사용
-        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(3L); // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
+        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(student.getId()); // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
         return enrolledCourses.stream()
                 .map(enrolledCourse -> new EnrolledCourseDTO(
                         enrolledCourse.getId(),
@@ -65,9 +65,9 @@ public class StudentControllerFacade implements BaseController {
     }
 
     //Receiver
-    public EnrolledCourse dropCourse(int index) {
+    public EnrolledCourse dropCourse(Student student, int index) {
         GenericRepository<EnrolledCourse, Long> enrolledCourseRepo = new GenericRepoImpl<>(em, EnrolledCourse.class);
-        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(3L); // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
+        List<EnrolledCourse> enrolledCourses = enrolledCourseRepo.findByStudentId(student.getId()); // 예시로 3L을 사용, 실제로는 학생 ID를 받아와야 함
 
         EnrolledCourse enrolledCourse = enrolledCourses.get(index);
         enrolledCourseRepo.delete(enrolledCourse);
@@ -91,7 +91,7 @@ public class StudentControllerFacade implements BaseController {
                         course.getContent(),
                         course.getEvaluation(),
                         course.getFunnyRate(),
-                        course.getProfessor().getId())).toList();
+                        course.getProfessor() != null ? course.getProfessor().getId() : null)).toList();
     }
 
     public List<CourseDTO> search(String keyword) {
